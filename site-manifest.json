@@ -172,13 +172,13 @@
     },
     {
       "path": "404.html",
-      "sha256": "aa33788261a5a5cf62937747ebfcbce6e7d6e24145da1a26a5787102125e87a0",
-      "bytes": 5630
+      "sha256": "81795a99ad025eae2be98f40d28924c1a94a6d97134c3f161805d23cc0a73c88",
+      "bytes": 5625
     },
     {
       "path": "README.md",
-      "sha256": "892a2e898f930de31093e5f48d1442d4b234608b2f1daba4c33c342c55c5145f",
-      "bytes": 766
+      "sha256": "9d4d1649f74145bf5ba46e7bb4328a885a3dfdc0b5699aac6116e974a2c37dbb",
+      "bytes": 811
     },
     {
       "path": "assets/matrix-pinout.svg",
@@ -237,8 +237,8 @@
     },
     {
       "path": "docs/publication.html",
-      "sha256": "ff0794278f9f6003dd8c95f1dcf5a6bba3769377e51b2cb8626e60abb2ac285d",
-      "bytes": 8752
+      "sha256": "c75fbad64d5ec4a7fc5b077b0e4f5ddb35be37f9a3e12f6ed5e95cc8408fe8fc",
+      "bytes": 10103
     },
     {
       "path": "docs/reconstruction.html",
@@ -702,7 +702,7 @@
     },
     {
       "path": "release.json",
-      "sha256": "f9d84921ef70718f29741fd4ff6559e905c92444a1aa7033d758d775f236ab83",
+      "sha256": "d5ebb69287b415eeb626ec0a31ba3263af5a5082a42861a072bf5626d7970d23",
       "bytes": 166
     },
     {
