@@ -161,6 +161,11 @@
   "export_policy": "Authored reports, synthetic UI references and explicitly allowlisted static assets only. Raw evidence/vendor executables/secret resources excluded.",
   "files": [
     {
+      "path": ".github/workflows/pages.yml",
+      "sha256": "73f8d785d59fef8729ad57e5dff0a38434f6ecb2b12220d4b0e9200e5ecd7d40",
+      "bytes": 606
+    },
+    {
       "path": ".nojekyll",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "bytes": 0
@@ -232,8 +237,8 @@
     },
     {
       "path": "docs/publication.html",
-      "sha256": "985b0caf14122f4309ba3e59c27779cc7e1fdd9694f199faa0cca79a89443611",
-      "bytes": 8595
+      "sha256": "ff0794278f9f6003dd8c95f1dcf5a6bba3769377e51b2cb8626e60abb2ac285d",
+      "bytes": 8752
     },
     {
       "path": "docs/reconstruction.html",
@@ -694,6 +699,11 @@
       "path": "references/am-osd/osd-reference/tak-sa.js",
       "sha256": "1788c804ca55138740b1900162ca9659b9cabf7b12644d6a94ddf50f27f5be9b",
       "bytes": 15619
+    },
+    {
+      "path": "release.json",
+      "sha256": "f9d84921ef70718f29741fd4ff6559e905c92444a1aa7033d758d775f236ab83",
+      "bytes": 166
     },
     {
       "path": "source-register.html",
