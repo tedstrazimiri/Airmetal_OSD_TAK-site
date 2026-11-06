@@ -1,0 +1,259 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Offline reconstruction: Ghost transport and controls · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/reconstruction/ghost-controls-analysis.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="offline-reconstruction-ghost-transport-and-controls">Offline reconstruction: Ghost transport and controls</h1>
+<p>This pass implements the static, deterministic behaviors listed below in <code>tac_reconstruction/controls.py</code> and <code>tac_reconstruction/ghost.py</code>. It does not execute the vendor image or communicate with hardware. Validation uses synthetic frames and saved decompilation/instruction evidence. The implementation is a behavioral model, not replacement firmware.</p>
+<p>Image: <code>evidence/firmware/nordic/Tac_Ctrl.bin</code>, SHA-256 <code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>, Cortex-M load base <code>0x27000</code>. A literal at virtual address <code>A</code> is read from file offset <code>A - 0x27000</code>. Unless stated otherwise, function evidence below is <code>evidence/firmware/ghidra-export/&lt;8-digit-address&gt;.c</code>. The focused receive callback also has a full saved instruction listing at <code>evidence/firmware/ghidra-focused/0004be5c.asm</code>.</p>
+<h2 id="public-interface">Public interface</h2>
+<pre><code class="language-python">from tac_reconstruction.controls import InputState, ChannelRoute, routes_from_profile
+from tac_reconstruction.ghost import GhostModel
+
+model = GhostModel()
+inputs = InputState(stick_raw=(345, 3622, 1000, 2000), buttons_word=0,
+                    wheel_raw=(1024, 2047))
+routes = tuple(ChannelRoute(source) for source in range(1, 17))
+model.set_inputs(inputs, routes)  # explicit example routing, not an asserted default
+frame = model.tick()             # bytes only; no transport
+model.stage_home_e7(123456789, -765432100)
+home = model.tick()
+</code></pre>
+<ul>
+<li><code>controls.affine_int</code>, <code>resolve_channel</code>, <code>resolve_channels</code>, <code>routes_from_profile</code> expose the input resolver.</li>
+<li><code>ghost.pack_frame</code> and <code>pack_control_frame</code> expose framing and control packing.</li>
+<li><code>GhostModel.set_channels(values)</code> accepts sixteen unsigned 16-bit channel values. <code>set_inputs(inputs, routes)</code> applies the recovered resolver first.</li>
+<li><code>stage_home_e7(latitude_e7, longitude_e7)</code>, <code>stage_home_degrees(latitude, longitude)</code>, <code>stage_bind(identity, hash_value)</code> and <code>stage_special(type, ten_payload_bytes)</code> stage an outgoing packet. The pending flag is a single slot: the last staged operation takes priority.</li>
+<li><code>queue_frame(frame)</code> adds a validated logical frame to the higher-priority queue; returns <code>False</code> when its 100 slots are occupied. CRC is replaced at send time, as in the firmware.</li>
+<li><code>tick()</code> performs one scheduler invocation and returns one frame or <code>None</code>. It does not claim any elapsed time.</li>
+<li><code>receive_frame(frame)</code> models a complete 14/27-byte receive callback. <code>receive_uart_chunk(chunk)</code> models the original fragment behavior, including its limitations. These differ intentionally from the more general analysis decoder in <code>scripts/ghost_protocol.py</code>.</li>
+<li><code>state</code> is a public 75-byte <code>bytearray</code>, mirroring RAM at <code>0x200056a8</code>. <code>state_bytes</code> returns an immutable copy. <code>firmware_display()</code> produces the traced numeric UI interpretations; <code>snapshot()</code> includes <code>raw_state_hex</code>, counters, flags, queues and events.</li>
+</ul>
+<p>The default input values, packet templates and telemetry state are zero, an explicit abstract initial condition. They are not a measurement of a booted, centered or calibrated TAC. Settings profile defaults are owned by the separate settings model; <code>routes_from_profile()</code> parses their logical 74-byte records without importing settings.</p>
+<h2 id="input-sources-and-inversion">Input sources and inversion</h2>
+<p><code>0x521e4</code> selects the source byte at profile offset <code>2 + 3*(channel-1)</code> and uses the next byte as a nonzero inversion flag. The third byte is preserved by <code>ChannelRoute.metadata_raw</code> but does not participate in this numeric resolver. The six profile records and template were independently recovered by the settings pass; <code>0x5273c</code> loads file <code>0x5002</code>, keys <code>0x4003..0x4008</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Stored input</th>
+<th>Mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1, 2, 3, 4</td>
+<td>Four-u16 RAM array <code>0x200145e4</code>, indices 2, 3, 0, 1 respectively</td>
+<td>Direct, or integer inversion <code>345..3622 → 3622..345</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Buttons u16 <code>0x2001415c</code>, bits 8..9</td>
+<td>1→24, 2→224, 3→224, other unchanged</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Same word, bits 10..11</td>
+<td>1→24, 2→224, 3→124, other unchanged</td>
+</tr>
+<tr>
+<td>7, 8</td>
+<td>Bits 14, 15</td>
+<td>0→24, 1→224</td>
+</tr>
+<tr>
+<td>9, 10, 11, 12</td>
+<td>Bits 0..1, 2..3, 4..5, 6..7</td>
+<td>Same three-state mapping as source 6</td>
+</tr>
+<tr>
+<td>13, 14</td>
+<td>Bits 12, 13</td>
+<td>0→24, 1→224</td>
+</tr>
+<tr>
+<td>15, 16</td>
+<td>Two-u16 wheel RAM <code>0x200141a8</code></td>
+<td>Integer affine <code>0..2047 → 24..224</code>; inversion flag ignored</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>—</td>
+<td>Zero</td>
+</tr>
+</tbody>
+</table>
+<p>The three-state inversion first maps <code>1..3 → 3..1</code>, converts to a byte, then calls the mapping helper. An invalid raw state zero consequently becomes <code>4</code>, rather than being clipped. Binary inversion maps <code>0..1 → 1..0</code> before the helper. These are observed code quirks, retained by default.</p>
+<p><code>0x520b8</code> uses signed integer multiply/divide with truncation toward zero, not Python floor division. The resolver returns a u16: out-of-range inverted stick values wrap and are not clipped. Supported u16 resolver inputs fit the traced signed multiplication intermediate. The generic Python affine helper does not pretend to reproduce arbitrary overflowing C expressions outside that domain.</p>
+<p>The decompiled <code>char</code> return types of <code>0x52158</code>, <code>0x5218a</code>, <code>0x521bc</code> misleadingly render byte <code>0xe0</code> as <code>-0x20</code>. Raw Thumb instructions load bytes, use <code>MOVS #0xe0</code>, and return without sign extension: the correct numeric resolver result is <strong>224</strong>, not 65504. Both button references at literal addresses <code>0x52558</code> and <code>0x52734</code> resolve to the same <code>0x2001415c</code>, so no second button state is invented.</p>
+<p>This starts after ADC/input sampling and calibration. Physical axes, switch labels, debounce, calibration sampling and center-validation algorithms are not reconstructed here.</p>
+<h2 id="control-framing-and-scheduler">Control framing and scheduler</h2>
+<p><code>0x4c4a0</code> emits <code>81 0c &lt;type&gt; &lt;10-byte payload&gt; &lt;CRC&gt;</code>. <code>0x4c428</code> computes CRC-8 polynomial <code>0xd5</code>, initial zero, most-significant bit first, no final XOR, over type and payload only. Header address/length are not protected.</p>
+<p>Types <code>0x10</code>, <code>0x11</code>, <code>0x12</code> each contain channels 1–4 as four consecutive 12-bit values, least-significant bit first, occupying payload bytes 0..5. Payload bytes 6..9 contain the low byte of channels 5–8, 9–12 or 13–16 respectively. The first group is masked to 12 bits, the selected bank to 8 bits. There is no universal byte-channel multiplication by sixteen.</p>
+<p>The scheduler at <code>0x4c124</code> starts its response timer, then chooses:</p>
+<ol>
+<li>A queued raw frame, recomputing its CRC and using <code>frame[1]+2</code> bytes.</li>
+<li>A special pending flag: 1→type13, 3→type23, 4→type21, 5→the type in the shared special buffer.</li>
+<li>With flag zero, cyclic types10→11→12→10.</li>
+</ol>
+<p>A special or queued packet does not advance the control phase. Unrecognized flag2 sends nothing and remains set. The model exposes this behavior rather than implicitly recovering to control output.</p>
+<p>The separate templates are at <code>0x2000a230</code> (13), <code>0x2000a244</code> (23), <code>0x2000a258</code> (21). Types50..56 share <code>0x2000a268</code>. Type23 forces payload byte0 to1 at transmit; other template payload bytes survive until overwritten. <code>0x4d760</code> writes bind fields as little-endian u32 at frame offsets4 and8, leaving payload byte9 intact. The model therefore preserves that reserved byte across <code>stage_bind</code>.</p>
+<p>Queue descriptors in the image give stronger bounds than the earlier packet-only analysis:</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>RAM state</th>
+<th>RAM storage</th>
+<th style="text-align: right;">Capacity</th>
+<th style="text-align: right;">Item bytes</th>
+<th style="text-align: right;">Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x66210</code></td>
+<td><code>0x200083fc</code></td>
+<td><code>0x200056f8</code></td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>0x66224</code></td>
+<td><code>0x2000a204</code></td>
+<td><code>0x20008408</code></td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p><code>0x31990</code>, <code>0x31a04</code> and <code>0x31a4c</code> show a capacity+1 circular buffer with one reserved slot; mode1 rejects a push with return code4 when full. Existing contents survive. The RX type24 handler ignores that status. The model returns an explicit queue-full diagnostic while preserving the same queue contents. For outgoing frames, malformed lengths are rejected in the model instead of reproducing unbounded memory reads/writes.</p>
+<p>The timer/reconfiguration portion of <code>0x4c124</code>, <code>0x4d7cc</code>, and downstream radio timing at <code>0x4db50</code> is not emulated in physical time. <code>timeout_running</code> indicates start/stop events only. Clock drift, radio timing synchronization, UART electrical timing and disconnect expiry remain gaps.</p>
+<h2 id="home-staging">Home staging</h2>
+<p>The call path <code>0x5ab18 → 0x5a550 → 0x4d888</code> receives floating point coordinates, scales by10,000,000, converts to signed integers and stores latitude first, longitude second, as little-endian 32-bit words in type50. Frame bytes11..12 are set to zero. <code>stage_home_e7</code> starts after that numeric conversion; the USB model can therefore supply the exact converted words. <code>stage_home_degrees</code> reproduces binary32 inputs/product and truncation toward zero. Non-finite/out-of-range casts are explicit unsupported inputs, not invented ARM cast results.</p>
+<p>Independent signed fixture:</p>
+<pre><code>81 0c 50 15 cd 5b 07 dc 6e 60 d2 00 00 cc
+latitude_e7 = 123456789
+longitude_e7 = -765432100
+</code></pre>
+<p>Staging and constructing this frame does not imply radio delivery or aircraft acceptance.</p>
+<h2 id="receive-callback-and-state-stores">Receive callback and state stores</h2>
+<p>The instruction listing at <code>0x4be5c</code> establishes several intentional quirks:</p>
+<ul>
+<li>Event0 stops the response timer and sets the link flag <strong>before</strong> checking payload, address or CRC, even for zero-length data.</li>
+<li>Whole14 and27-byte chunks are checked by fixed size, ignoring the header length byte. A valid CRC calls <code>0x4cbf8</code>; only address80 reaches its handlers.</li>
+<li>A direct bad14-byte frame increments a 32-bit error counter. The direct bad27-byte branch omits this increment. Both fragmented lengths increment it on failure.</li>
+<li>For other nonzero lengths, a first byte80/90 stores a prefix and its length. Otherwise the chunk is copied after that prefix. Dispatch is attempted only if prefix length plus current chunk length equals14 or27.</li>
+<li>The append branch does <strong>not</strong> update the remembered prefix length. Thus arbitrary three-part fragmentation is not supported by the traced code; each later chunk overwrites after the original prefix. Concatenated-frame recovery is also absent.</li>
+</ul>
+<p>The model reproduces these branches. Its 100-byte assembly limit is a guard at the inferred next-RAM-object boundary, not a claim that the original checks that bound. The general offline capture decoder intentionally uses a different, more capable resynchronization algorithm.</p>
+<p>The dispatcher routes types20/21/22/23/24/25/26/32/33. State bytes are held at RAM <code>0x200056a8</code>. BE→LE below means the handler constructs an unsigned big-endian integer from payload bytes and stores it in the little-endian MCU's RAM.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Payload → state offsets</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>p0..3 →43, p4..7 →47, BE→LE32; set timing flag1</td>
+<td><code>0x4d444</code>, dispatcher <code>0x4cbf8</code></td>
+</tr>
+<tr>
+<td>21</td>
+<td>p0..2 →0..2; BE→LE16 p3→3, p5→5, p7→7; p9→9</td>
+<td><code>0x4ccc4</code></td>
+</tr>
+<tr>
+<td>22</td>
+<td>p0→0a; BE→LE16 p1→0b, p3→0d; p5..9→0f..13</td>
+<td><code>0x4cdbc</code></td>
+</tr>
+<tr>
+<td>23</td>
+<td>BE→LE16 p0→28, p2→2a, p4→2c; p6→2e</td>
+<td><code>0x4d1dc</code></td>
+</tr>
+<tr>
+<td>24</td>
+<td>Queue 23 bytes beginning at p0</td>
+<td><code>0x4d248</code></td>
+</tr>
+<tr>
+<td>25</td>
+<td>BE→LE32 p0→2f, p4→33; BE→LE16 p8→37</td>
+<td><code>0x4d328</code></td>
+</tr>
+<tr>
+<td>26</td>
+<td>BE→LE16 p0→39, p2→3b; p4→3d; BE→LE16 p5→3e, p7→40; p9→42</td>
+<td><code>0x4d3ac</code></td>
+</tr>
+<tr>
+<td>32</td>
+<td>p0..5→1e..23, direct bytes</td>
+<td><code>0x4d268</code></td>
+</tr>
+<tr>
+<td>33</td>
+<td>p0..3→14..17, direct bytes, including an LE16 first field</td>
+<td><code>0x4d2c0</code></td>
+</tr>
+</tbody>
+</table>
+<p>Type24 arriving in a valid short14-byte frame would make the firmware's fixed23-byte queue copy read beyond the logical payload. The model records an unmodeled-read diagnostic, rather than manufacturing adjacent firmware memory. Unknown types and non80 addresses leave state intact.</p>
+<h2 id="ui-values-and-audio-markers">UI values and audio markers</h2>
+<p><code>0x620e8</code>, swap helpers <code>0x63288</code>/<code>0x632c2</code>, integer converters <code>0x63c48</code>/<code>0x63c70</code>, and raw string/divisor literals establish the UI numeric behavior. The byte-order helper instruction listings are preserved under <code>evidence/ghost-decoder/byte-order-helpers/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Display field</th>
+<th>Exact computation on raw state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drone Volts</td>
+<td>bswap16(state u16+28) /100</td>
+</tr>
+<tr>
+<td>Drone Amps</td>
+<td>bswap16(state u16+2a) /100</td>
+</tr>
+<tr>
+<td>Drone mAh</td>
+<td>bswap16(state u16+2c)</td>
+</tr>
+<tr>
+<td>GPS Lat / GPS Long</td>
+<td>bswap32(state u32+2f/+33), <strong>unsigned</strong>, /10,000,000</td>
+</tr>
+<tr>
+<td>Altitude, m</td>
+<td>bswap16(state u16+37), zero-extended</td>
+</tr>
+<tr>
+<td>Heading, degrees</td>
+<td>bswap16(state u16+3b) /10</td>
+</tr>
+<tr>
+<td>Satellites</td>
+<td>state byte+3d</td>
+</tr>
+<tr>
+<td>Drone Dist, km label</td>
+<td>state u16+3e, <strong>no swap or divisor in this UI path</strong></td>
+</tr>
+<tr>
+<td>VTX temperature, C</td>
+<td>state byte+12</td>
+</tr>
+</tbody>
+</table>
+<p>The voltage/current divisor literal <code>0x62418=0x40590000</code> is the high word of double100; heading <code>0x6245c=0x40240000</code> is the high word of double10. The GPS double divisor is low word0 at0x623f8/high word0x416312d0 at0x623fc. Distance label pointers <code>0x62438→0x6d520</code> and <code>0x6243c→0x6d52c</code> resolve to <code>Drone Dist</code> and <code>km</code>. These values mirror code, not a assertion that an arbitrary on-wire value is physically valid. In particular, unsigned GPS UI can show impossible geography. Raw state is always retained; receipt tracking provides type presence only, not age/fix validity.</p>
+<p>Type21 radio-power changes and type22 VTX-power changes emit audio markers after the previous nonzero value differs. The first nonzero value establishes a baseline without an announcement. Literal tokens are <code>RadPU</code>/<code>RadPD</code> at0x6aa18/0x6aa20 and <code>VTXPwrU</code>/<code>VTXPwrD</code> at0x6aa28/0x6aa30. Numeric token selection is directly recovered from <code>0x4ced4</code>: recognized values1,10,25,100,350,1000,1500,2000,2500,3000,5000,10000; values below1000 append <code>miliW</code>, others append <code>W</code>, even when the numeric value has no recognized number token. The model preserves that behavior through <code>power_audio_tokens</code>.</p>
+<p>Frequency changes in types22 and33 call <code>0x4d8c8</code>: <code>Beep</code> followed by at most five decimal digit tokens. The two previous-frequency variables are distinct (<code>0x4cec4→0x2000fc72</code>, <code>0x4d324→0x2000fc76</code>). Events expose these recovered tokens; PCM assets, playback, voice-pack lookup and audio queue scheduling belong to other reconstruction scopes.</p>
+<h2 id="verification-and-limits">Verification and limits</h2>
+<p><code>python3 -m unittest discover -s tests -p test_tac_ghost_controls.py -v</code> passed <strong>20 tests</strong>. Expectations include literal independently computed CRC frames from <code>evidence/ghost-decoder/fixtures-review.json</code>, signed home field order, all source IDs and inversion cases, integer truncation, mask widths, scheduler priority, reserved byte retention, both queue capacities, raw state/UI endian traps, audio vocabulary, unsigned GPS boundaries, pre-validation link status and fragment/error-counter quirks. CRC fixtures were originally produced using polynomial long division, independently of the production CRC routine.</p>
+<p>The pass does not recover the whole firmware. Open gaps include ADC acquisition and calibration, physical control identities, radio/aircraft responses, exact scheduling durations and timeout expiry, all meanings of special types13/21/51..56, field semantics beyond traced UI consumers, effects of malformed firmware memory accesses, and all board/pin electrical behavior. No new physical RJ45 mapping is inferred from this model. Initial state and events are simulation inputs/outputs, not evidence that a live device entered the represented state.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

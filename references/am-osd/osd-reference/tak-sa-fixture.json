@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "scope": "Offline firefighting situational-awareness concept. Synthetic local coordinates; no TAK connection, real people or operational tracking.",
+  "heading_deg": 45,
+  "god_eye_range_m": 1000,
+  "radar_range_m": 3000,
+  "radar_half_angle_deg": 50,
+  "range_divisions": 4,
+  "max_contacts": 8,
+  "cell_voltage": "3.78",
+  "aux_preview": {
+    "low": "normal",
+    "middle": "god-eye",
+    "high": "radar",
+    "channel": null
+  },
+  "contacts": [
+    {
+      "id": "F1",
+      "label": "Fire location 1",
+      "shape": "square",
+      "north_m": 480,
+      "east_m": 240,
+      "age_s": 8,
+      "stale_after_s": 60
+    },
+    {
+      "id": "C1",
+      "label": "Crew 1",
+      "shape": "circle",
+      "north_m": 160,
+      "east_m": -260,
+      "age_s": 3,
+      "stale_after_s": 30
+    },
+    {
+      "id": "W1",
+      "label": "Water point 1",
+      "shape": "triangle",
+      "north_m": -400,
+      "east_m": 170,
+      "age_s": 12,
+      "stale_after_s": 120
+    },
+    {
+      "id": "S1",
+      "label": "Staging point 1",
+      "shape": "box-cross",
+      "north_m": 60,
+      "east_m": 690,
+      "age_s": 10,
+      "stale_after_s": 120
+    },
+    {
+      "id": "F2",
+      "label": "Distant fire location 2",
+      "shape": "square",
+      "north_m": 2200,
+      "east_m": 650,
+      "age_s": 5,
+      "stale_after_s": 60
+    }
+  ]
+}

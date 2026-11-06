@@ -1,0 +1,150 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tac.Ctrl v1.3.6 update package inspection · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/firmware-initial-triage.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tacctrl-v136-update-package-inspection">Tac.Ctrl v1.3.6 update package inspection</h1>
+<p><strong>Historical initial triage — superseded.</strong> The subsequently supplied Configurator enabled successful decryption and disassembly. Read <a href="firmware-findings.html">current firmware findings</a>. Statements below about unknown header fields, cipher, missing payload or pending installer describe the earlier state only.</p>
+<p>Inspected offline on 2026-10-11. This pass does not decode executable firmware or establish the MATRIX pinout. It records what the supplied update package and release notes can support, and where analysis stops.</p>
+<h2 id="source-identity">Source identity</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><code>[local workstation]/Downloads/TacUpdate_v1.3.6.orqa</code></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>5,907,171 bytes</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td><code>819c2518f049c43ec96036296fa5b8bce70b065baf118c29b86ae821c0b0e032</code></td>
+</tr>
+<tr>
+<td>Release notes</td>
+<td>User-supplied text in this conversation, labeled firmware v1.3.6, date <code>11.7.2025</code>, compatible hardware v1.0.0</td>
+</tr>
+<tr>
+<td>Installed version</td>
+<td>Unknown; package name and USB bcdDevice do not establish what the bench controller runs</td>
+</tr>
+</tbody>
+</table>
+<p>The user reports this is the only available Tac.Ctrl information. Further progress does not depend on locating a separate controller manual. The earlier request to sign in to obtain one is superseded.</p>
+<h2 id="release-note-evidence">Release-note evidence</h2>
+<ul>
+<li>Vendor describes an update mode entered with the center menu button during power-on, displaying <code>Controller update</code>. The Tac Configurator then handles USB-C connection and the update. This documents a separate user-selectable mode, but gives no update-mode USB VID/PID, descriptors, protocol or electrical pinout.</li>
+<li>Vendor lists a scroll-wheel output range change from 0–255 to 24–224. Its relationship to USB HID or radio-channel scaling is unspecified.</li>
+<li>Vendor describes toggle output changes on both press and release, replacing complete-cycle behavior. Which physical switches and protocol fields carry those values is unspecified.</li>
+<li>Vendor describes a stick-centering check during quick calibration and fallback defaults if sticks are far from center. No calibration operation was performed here.</li>
+<li>The bug-fix section contains no listed fixes. Configurator and firmware distribution is described as through Orqa representatives.</li>
+</ul>
+<p>These are documented claims, not runtime observations of the attached controller. Firmware update instructions were treated as source material, not a request to install, enter update mode, or flash.</p>
+<h2 id="offline-package-observations">Offline package observations</h2>
+<p>The repeatable helper is <code>scripts/inspect_update_package.py</code>. REA captured its execution and hashed the source firmware before and after; both hashes matched. REA evidence: <code>ev_1729d767201d92678a75412671a29dba064431c59f6cee7cc29e7b292900d5bf</code>. Capture exited 0 without truncation. Full export: <code>evidence/rea-firmware-triage-evidence.json</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whole-file Shannon entropy</td>
+<td>7.9999695 bits per byte</td>
+<td>Consistent with compressed or encrypted data; does not distinguish them</td>
+</tr>
+<tr>
+<td>Selected signatures</td>
+<td>One <code>BZh</code> candidate at offset 5,020,653; no other listed signatures</td>
+<td>Short matches can occur by chance; search covers only signatures listed in the script</td>
+</tr>
+<tr>
+<td>Candidate validation</td>
+<td>Candidate starts <code>42 5a 68 ef</code>; bounded bzip2 decoder rejects it</td>
+<td>No valid bzip2 stream recovered at that candidate</td>
+</tr>
+<tr>
+<td>ZIP parser recognition</td>
+<td>False</td>
+<td>Does not rule out an unknown/custom container</td>
+</tr>
+<tr>
+<td>Bounded decoders</td>
+<td>zlib, gzip, bzip2 and xz all reject starts at offsets 0, 8, 16, 32 and 64</td>
+<td>Other offsets, raw codecs, transforms and formats remain untested</td>
+</tr>
+<tr>
+<td>Text search</td>
+<td>No case-insensitive ASCII or UTF-16LE matches for <code>orqa</code>, <code>matrix</code>, <code>mavlink</code>, <code>ghost</code>, <code>crsf</code>, <code>ethernet</code>, <code>uart</code>, <code>usart</code>, <code>stm32</code>, <code>lwip</code>, <code>dhcp</code>, <code>1.3.6</code></td>
+<td>Absence in opaque package bytes does not establish absence from decoded firmware</td>
+</tr>
+<tr>
+<td>Host <code>file</code> label</td>
+<td><code>ARC archive data, packed</code></td>
+<td>Unvalidated magic match; candidate header has an empty filename. No ARC archive was successfully parsed</td>
+</tr>
+</tbody>
+</table>
+<p>Detailed outputs: <code>evidence/firmware/tac-update-1.3.6-triage.json</code> and <code>evidence/firmware/signature-validation.json</code>. Candidate validation and the USB baseline were ordinary local Python observations, not separate REA analysis-provider findings.</p>
+<p>REA's <code>inspect_firmware_regions</code> was attempted first but returned <code>capability_unavailable</code>: it needs an absolute <code>REA_BINWALK_COMMAND</code> pointing to a caller-supplied Binwalk engine. No Binwalk command was found on the current shell PATH. The retained process capture therefore records the custom offline inspector, not a successful REA firmware scan or decompilation. No tools or firmware were installed.</p>
+<h2 id="ground-radio-implications-and-deferred-test">Ground-radio implications and deferred test</h2>
+<p>The package currently supplies no recovered processor identity, transport implementation, MATRIX pin assignments, voltage levels, Ethernet support, or radio-control commands. The host <code>file</code> result is not enough to select an extractor, and no decoded executable is available for disassembly.</p>
+<p>The RF 5.3–6.0 manual v1.1, PDF page 5 / printed page 4, explicitly labels a Micro-USB port separately from the MATRIX RJ45 port. Its functions are not specified there. USB enumeration is the next bounded test: it can identify any advertised interfaces without assuming Ethernet compatibility or sending updater commands.</p>
+<p><strong>Deferred by the user:</strong> RF receiver Micro-USB enumeration. The current request is to reverse engineer the firmware binary first; do not request another hardware connection now.</p>
+<p>Read-only laptop USB baseline saved at <code>evidence/ground-radio/usb-before-rf-connection.json</code> (24 USB devices at capture). Actual cable state was not independently confirmed. No serial commands, RF settings, bootloader entry, firmware writes, Ethernet configuration or direct MATRIX-to-laptop connections were performed by this analysis.</p>
+<h2 id="deeper-firmware-pass">Deeper firmware pass</h2>
+<p>The user explicitly redirected work to firmware reverse engineering before further hardware tests. The following extends the initial triage, without claiming a decoded firmware image.</p>
+<h3 id="structure-and-decoding">Structure and decoding</h3>
+<p>An independent bounded probe, <code>scripts/firmware_structure_probe.py</code>, recorded results in <code>evidence/firmware/structure-probe.json</code>:</p>
+<ul>
+<li>Bytes 0–7 are <code>1a 03 00 00 13 06 00 00</code>, or little-endian integers 794 and 1555. Neither field's meaning is known. Calling this an eight-byte header remains a hypothesis.</li>
+<li>The remaining 5,907,163 bytes have entropy 7.99996954 bits/byte and byte-frequency chi-square 249.35 with 255 degrees of freedom. This is compatible with near-uniform byte values, not proof of encryption.</li>
+<li>No repeated 8- or 16-byte blocks within any tested alignment; no runs of four identical bytes. Tested byte-lag correlations from 1 to 65,536 show no strong periodic pattern.</li>
+<li>Additional signatures for Zstandard, LZ4, Lzip, CAB, RAR, FIT, ELF and SQLite found no candidates.</li>
+<li>Raw LZ4 rejected starts 0–256. Raw DEFLATE accepted only trivial candidates producing 0, 1 or 5 bytes while leaving essentially the whole file unconsumed; these do not recover a payload.</li>
+<li>Tested 4,096 of 6,024 syntactically possible zlib header positions; all tested candidates rejected. This scan is explicitly incomplete.</li>
+<li>No matches for the tested CRC32/Adler32 tail layouts or the narrow Cortex-M vector-table hypothesis. Other checksums, layouts, CPUs and address ranges remain possible.</li>
+</ul>
+<p>The file length is not compatible with an eight-byte header followed <em>only</em> by block-aligned 16-byte ciphertext. Different header/trailer framing, stream modes and custom encoding remain possible. No encryption algorithm or key has been identified.</p>
+<h3 id="rea-extraction-engine">REA extraction engine</h3>
+<p>Installed Unblob <strong>26.6.4</strong> from PyPI in the project-local <code>.tools/firmware-analysis</code> virtual environment; no system Python or REA server configuration was changed. Pinned environment inventory is <code>evidence/firmware/unblob-requirements.txt</code>. Ghidra 12.1.4 and JDK 21 were already available through REA.</p>
+<p>REA CLI extraction, with the default Unblob sandbox and skip rules retained, completed two bounded passes:</p>
+<table>
+<thead>
+<tr>
+<th>Selection</th>
+<th>Evidence</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entire file</td>
+<td><code>ev_47ff957506ea689c415fa125a48261cbc20b5ce8065472bcc8d018673b2c50b8</code></td>
+<td>Zero recovered files, chunks or derivations</td>
+</tr>
+<tr>
+<td>Offset 8 through EOF</td>
+<td><code>ev_82d575473cc35e253dd9f39d187ec7608d5f17a8aee159f8206fd60510346e84</code></td>
+<td>Zero recovered files, chunks or derivations</td>
+</tr>
+</tbody>
+</table>
+<p>Full records: <code>evidence/firmware/rea-unblob-full.json</code> and <code>rea-unblob-payload8.json</code>. The engine reports <code>coverage: complete</code>; that means the configured engine operation finished, <strong>not</strong> that firmware was decoded or reconstructed. No executable was recovered to justify a processor/load address or Ghidra disassembly.</p>
+<p>Repeat the full extraction with a <strong>new, absent output directory</strong>:</p>
+<pre><code class="language-bash">REA_UNBLOB_COMMAND=&quot;$PWD/.tools/firmware-analysis/bin/unblob&quot; \
+  rea extract-firmware [local workstation]/Downloads/TacUpdate_v1.3.6.orqa \
+  &quot;$PWD/evidence/firmware/unblob-new-pass&quot; --max-depth 3 --format json
+</code></pre>
+<p>The original package SHA-256 remains unchanged. The missing Binwalk integration does not prevent these Unblob extraction passes; Binwalk itself remains unavailable.</p>
+<h3 id="official-matching-configurator-found">Official matching Configurator found</h3>
+<p>The now-accessible <a href="https://defensesupport.orqafpv.com/support/solutions/articles/48001278179-tac-ctrl-update-instructions-v1-3-6">TAC.Ctrl Update Instructions – v1.3.6</a>, shown as modified 8 December 2025, links <strong>OrqaTacConfigurator_v1.3.4.win_x86.exe</strong> (Drive shows approximately 34 MB) and an ARM64 installer. These are package-analysis inputs, not an instruction to install or operate an updater.</p>
+<p>The article's release history adds vendor claims beyond the supplied text: a GHOST driver update and IRONghost telemetry menus in v1.2.0; vTx/C2 profile support in v1.2.1; and in v1.3.6 MSP/GHST home-location messaging, a MAVLink altitude conversion fix, Orqa USB VID/PID values and a MATRIX cable-length menu. Those claims are useful future code-search anchors; none proves a decoded implementation or the firmware version installed on the bench unit. The v1.3.6 article and supplied text also describe rear-button behavior differently, so switch semantics should not be silently equated.</p>
+<p>The in-app browser reached the official installer download, then displayed <code>This page has been blocked by Codex</code> / <code>ERR_BLOCKED_BY_CLIENT</code>. No installer file appeared in Downloads. The user was asked for one setup action: download the <a href="https://drive.google.com/file/d/1tyQsSMzQyCHmsjPb2GxC2ZfcwMDOvtBX/view">linked x86 installer</a> in their regular browser to <code>[local workstation]/Downloads</code>. No authentication values or signed download URLs are retained in these notes.</p>
+<p><strong>Next analysis:</strong> hash and classify the Configurator, extract its package resources without running it, then trace <code>.orqa</code> file reads, header handling, transformations/checksums and USB transfer framing. It may simply forward opaque data to the controller, so recovery of firmware decoding from the host tool is a hypothesis to test. Hardware access remains paused.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

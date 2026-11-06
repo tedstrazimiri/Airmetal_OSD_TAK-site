@@ -1,0 +1,196 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAC 1.3.6 firmware: Ghost serial, STM32 link and cable-length control · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/ghost-interface-analysis.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tac-136-firmware-ghost-serial-stm32-link-and-cable-length-control">TAC 1.3.6 firmware: Ghost serial, STM32 link and cable-length control</h1>
+<p><strong>Later correlation, 2026-10-11:</strong> the <a href="../../docs/matrix-pinout.html">user-supplied MATRIX pinout</a> documents C2 contacts 1/2, telemetry 3/6, +50 V/GND 4/5 and CVBS 7/8. Its differential UART 115k note agrees with the firmware's nominal 115200 setting. The <a href="../../docs/ghost-decoder.html">offline decoder</a> uses the framing below. These additions do not turn static MCU pin assignments into measured board routing or establish installed firmware identity.</p>
+<p>Offline static analysis, 2026-10-11. Input <code>evidence/firmware/nordic/Tac_Ctrl.bin</code>, 291,756 bytes, SHA-256 <code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>. Firmware addresses below assume the parent analysis's Cortex-M load base <code>0x27000</code>; a file offset is VA minus <code>0x27000</code>. No code executed on the controller, no hardware accessed, and no live electrical measurements made.</p>
+<h2 id="result">Result</h2>
+<p>The firmware contains <strong>two distinct hardware UART paths</strong>: the Ghost module uses UARTE0 and the STM32-associated internal module uses UARTE1. Both initialize for nominal 115200 baud. Ghost sends framed control/configuration packets; STM32 receives a different framed protocol for audio/control functions. The controller's <strong>Cable length</strong> setting is sent over the STM32 UART as command <code>0x04</code>; it does not change the Ghost baud in the traced path.</p>
+<p>These are logical MCU interfaces. They do not establish RJ45 pin assignments, line-driver voltage, polarity, isolation, Ethernet compatibility, or which traces reach a physical connector. In particular, the listed GPIO identities are not a wiring instruction.</p>
+<h2 id="uart-identity-and-configuration-high-confidence">UART identity and configuration, high confidence</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th style="text-align: right;">Init function</th>
+<th style="text-align: right;">Async instance</th>
+<th style="text-align: right;">Driver instance</th>
+<th>MMIO peripheral</th>
+<th>MCU TX logical pin</th>
+<th>MCU RX logical pin</th>
+<th>Baud register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ghost</td>
+<td style="text-align: right;"><code>0x4c0c0</code></td>
+<td style="text-align: right;"><code>0x6aac8</code></td>
+<td style="text-align: right;"><code>0x6aab0</code></td>
+<td>UARTE0 <code>0x40002000</code></td>
+<td><code>40 = P1.08</code></td>
+<td><code>11 = P0.11</code></td>
+<td><code>0x01d60000</code>, nominal 115200</td>
+</tr>
+<tr>
+<td>STM32-associated</td>
+<td style="text-align: right;"><code>0x5388c</code></td>
+<td style="text-align: right;"><code>0x6ac7c</code></td>
+<td style="text-align: right;"><code>0x6ac68</code></td>
+<td>UARTE1 <code>0x40028000</code></td>
+<td><code>8 = P0.08</code></td>
+<td><code>27 = P0.27</code></td>
+<td><code>0x01d60000</code>, nominal 115200</td>
+</tr>
+</tbody>
+</table>
+<p>Reproducible derivation:</p>
+<ol>
+<li><code>ghidra-export/0004c0c0.c</code> builds a zeroed 32-byte config, writes its first words <code>11,40</code>, baud at offset <code>0x18 = 0x01d60000</code>, byte at offset <code>0x1d = 2</code>, and calls <code>0x3c230</code>. Literal at <code>0x4c118</code> is <code>0x6aac8</code>; callback literal <code>0x4c11c</code> is Thumb <code>0x4be5d</code>.</li>
+<li><code>ghidra-export/0005388c.c</code> uses the same layout with words <code>27,8</code>; literal <code>0x538e8 = 0x6ac7c</code>, callback <code>0x538ec = 0x53819</code>.</li>
+<li>Async descriptor word 6 points to the driver descriptor: <code>[0x6aac8+0x18]=0x6aab0</code>, <code>[0x6ac7c+0x18]=0x6ac68</code>. Driver descriptor word 3 is its hardware register base: <code>[0x6aab0+0x0c]=0x40002000</code>, <code>[0x6ac68+0x0c]=0x40028000</code>.</li>
+<li><code>0x3c230</code> swaps the config's first two words into the lower driver's first two words. <code>0x3d334</code> passes those to <code>0x3c9d0</code>, which writes first argument to MMIO <code>+0x50c</code> (TXD PSEL) and second to <code>+0x514</code> (RXD PSEL). Thus TX/RX assignment is traced to hardware register writes, not guessed from config field order.</li>
+<li><code>0x3ca4c</code> writes the configured baud to MMIO <code>+0x524</code>. <code>0x3ca22</code> writes zero parity/flow-control configuration to <code>+0x56c</code> for these zero-initialized callers. The receive timeout/config field differs: Ghost 100; STM32 10000. Its exact units are not required for the pin/baud conclusion.</li>
+</ol>
+<p>Register meanings checked against Nordic's primary <a href="https://raw.githubusercontent.com/NordicSemiconductor/nrfx/v2.0.0/mdk/nrf52840.h">nRF52840 register header</a> and <a href="https://raw.githubusercontent.com/NordicSemiconductor/nrfx/v2.0.0/mdk/nrf52840_bitfields.h">bitfield definitions</a>, retained with hashes under <code>reference/nordic-nrfx-v2.0.0/</code>. TXD/RXD PSEL encode pin in bits 0–4 and port in bit 5. The bitfield header names <code>0x01D60000</code> as 115200; exact physical rate depends on clock conditions. This register-map match supports the MCU-family interpretation; this report does not determine package/PCB pad numbering.</p>
+<p>Both init functions are connected to application startup: <code>0x5bea4</code> directly calls Ghost init; <code>0x570c8</code>, also called from startup, invokes STM init. These are active code paths in the image, not merely unused driver constants.</p>
+<h2 id="ghost-transmit-frames-high-confidence">Ghost transmit frames, high confidence</h2>
+<p><code>ghidra-export/0004c4a0.c</code> builds packets in RAM buffer <code>0x2000566c</code> and transmits via <code>0x3c75c(instance=0x6aac8, buffer, length=14)</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Byte offset</th>
+<th>Meaning in the implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td><code>0x81</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>0x0c</code>, counting type + payload + CRC</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Packet type</td>
+</tr>
+<tr>
+<td style="text-align: right;">3–12</td>
+<td>Ten payload bytes</td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td>CRC-8 over bytes 2–12</td>
+</tr>
+</tbody>
+</table>
+<p>The main repeated types are <code>0x10</code>, <code>0x11</code>, <code>0x12</code>. All pack logical control channels 1–4 into four consecutive 12-bit values in bytes 3–8. Types then pack channels 5–8, 9–12, or 13–16 respectively as one byte each in bytes 9–12. Values come through channel resolver <code>0x521e4</code>; this report does not assign physical stick/button names or aircraft mixer meaning to those channel numbers.</p>
+<p>The same function handles types <code>0x13</code>, <code>0x21</code>, <code>0x23</code> and <code>0x50..0x56</code>. Type <code>0x23</code> forces payload byte 3 to 1. Other packet payload semantics are only established where a producer was independently traced.</p>
+<p><code>0x4c428</code> is CRC-8 with initial accumulator 0 and polynomial <code>0xd5</code>, MSB first, no final XOR. Ghidra renders the high-bit step as <code>~((crc &lt;&lt; 1) ^ 0x2a)</code>; reduced to eight bits, this is <code>(crc &lt;&lt; 1) ^ 0xd5</code>. The known offline check for ASCII <code>123456789</code> is <code>0xbc</code>.</p>
+<p><code>0x4c124</code> chooses one of the repeated types in rotation when its outgoing queue is empty, handles pending special requests, or sends a queued packet. The queue path uses length byte + 2 for total UART bytes and CRC over type/payload for length byte - 1. It therefore supports variable total frame size, not just the 14-byte RC packets.</p>
+<p>Useful literal resolutions: <code>0x4c7e0→0x2000566c</code> (normal frame), <code>0x4cb08→0x2000566c</code>, <code>0x4cb0c→0x2000566e</code> (CRC starts at type), <code>0x4cb10→0x6aac8</code> (Ghost UART). Queue frame: <code>0x4c39c→0x2000fc24</code>, <code>0x4c3a0→0x2000fc26</code> (CRC input), <code>0x4c3a4→0x6aac8</code>.</p>
+<p>An example higher-level producer is <code>0x4d888</code>: it sets packet type <code>0x50</code>, stores two 32-bit arguments in payload bytes 3–6 and 7–10, clears bytes 11–12, and raises pending flag 5. The parent analysis independently traced this producer from a USB MAVLink SET_HOME command. This proves a particular adapter path, not generic MAVLink tunneling over Ghost.</p>
+<h2 id="ghost-receive-frames-and-dispatch-high-confidence">Ghost receive frames and dispatch, high confidence</h2>
+<p>Callback address comes from the UART init literal: Thumb pointer <code>0x4be5d</code>, function <code>0x4be5c</code>. Its focused decompilation and instruction listing are in <code>ghidra-focused/0004be5c.{c,asm}</code>.</p>
+<p>On receive event type 0, the callback marks a connection flag, stops an associated timer through <code>0x4d860</code>, and processes the received buffer. It has explicit whole-frame branches for <strong>14 bytes</strong> and <strong>27 bytes</strong>. It validates the last byte against CRC-8 over bytes beginning at offset 2: 11 bytes for the short frame, 24 for the long frame. It also has a limited fragment-assembly path: a chunk starting with <code>0x80</code> or <code>0x90</code> starts/replaces the temporary assembly; a later chunk is appended and processed if the accumulated total matches 14 or 27.</p>
+<p>This is not a demonstrated general stream parser: arbitrary multi-frame concatenation, longer framing and every possible fragmentation pattern have not been proven. The callback even releases the RX buffer before copying/processing in the shown order; no runtime fault claim is made from that alone.</p>
+<p>Dispatcher <code>0x4cbf8</code> requires first byte <code>0x80</code>, then switches type byte 2:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th style="text-align: right;">Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x20</code></td>
+<td style="text-align: right;"><code>0x4d444</code></td>
+</tr>
+<tr>
+<td><code>0x21</code></td>
+<td style="text-align: right;"><code>0x4ccc4</code></td>
+</tr>
+<tr>
+<td><code>0x22</code></td>
+<td style="text-align: right;"><code>0x4cdbc</code></td>
+</tr>
+<tr>
+<td><code>0x23</code></td>
+<td style="text-align: right;"><code>0x4d1dc</code></td>
+</tr>
+<tr>
+<td><code>0x24</code></td>
+<td style="text-align: right;"><code>0x4d248</code></td>
+</tr>
+<tr>
+<td><code>0x25</code></td>
+<td style="text-align: right;"><code>0x4d328</code></td>
+</tr>
+<tr>
+<td><code>0x26</code></td>
+<td style="text-align: right;"><code>0x4d3ac</code></td>
+</tr>
+<tr>
+<td><code>0x32</code></td>
+<td style="text-align: right;"><code>0x4d268</code></td>
+</tr>
+<tr>
+<td><code>0x33</code></td>
+<td style="text-align: right;"><code>0x4d2c0</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>0x4ccc4</code>/<code>0x4cdbc</code> store radio/VTX-associated state and trigger <code>RadPU</code>/<code>RadPD</code> or <code>VTXPwrU</code>/<code>VTXPwrD</code> audio tokens on field changes. <code>0x4d444</code> parses two big-endian 32-bit values into state offsets <code>0x43</code> and <code>0x47</code>; those feed the transmission scheduling adjustments in <code>0x4c124</code>. Detailed units and the full telemetry field map remain open. Recognizing <code>0x90</code> as a fragment start does not establish a separate accepted dispatch route; the shown dispatcher only consumes <code>0x80</code>.</p>
+<p><code>0x4d7cc</code> starts a timer using a state value from <code>0x200032e2</code>, converted using the expression <code>(value * 32768 + 1000) / 2000</code>. The corresponding receive callback stops it. This is not the UART baud rate and should not be interpreted as cable length. Exact runtime timing depends on the timer API/state; do not infer a live RF packet rate from that expression alone.</p>
+<h2 id="stm32internal-serial-frames-high-confidence">STM32/internal serial frames, high confidence</h2>
+<p><code>0x538f4</code> passes bytes directly to <code>0x3c75c</code> with literal instance <code>0x6ac7c</code>; wrapper <code>0x5825c</code> forwards to it. <code>0x583ac</code> constructs a 16-byte command frame in RAM <code>0x20014cdc</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Byte offset</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td><code>0xcc</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>0x0e</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Command/type argument</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Value argument</td>
+</tr>
+<tr>
+<td style="text-align: right;">4–14</td>
+<td>Remaining shared payload bytes; not all explicitly cleared by this helper</td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td>CRC-8 over bytes 2–14</td>
+</tr>
+</tbody>
+</table>
+<p>CRC routine <code>0x5840c</code> implements the same polynomial <code>0xd5</code>, initialized to zero. <code>0x57124</code> also builds type <code>0x02</code> frames with additional fields/data and sends them through the same UART. Those producers are part of the voice/control subsystem; exact meanings of all payload fields remain unassigned here.</p>
+<p>RX callback <code>0x53818</code> queues received buffers via <code>0x5822c</code>; <code>0x57124</code> takes the queue, checks CRC and recognizes types <code>1,3,4,5</code>. A particular type-1 payload beginning <code>01 01 02 04</code> sets an additional readiness flag. This code supports communication with an internal STM32-associated device; it does not establish any direct physical connection from this UART to the external ground radio.</p>
+<h2 id="cable-length-goes-to-the-stm32-path-high-confidence">Cable length goes to the STM32 path, high confidence</h2>
+<p>This trace required mapping initialized RAM data as well as code:</p>
+<ol>
+<li>Reset function <code>0x27378</code> calls byte-copy helper <code>0x272b6</code> using literal triple at <code>0x272e8</code>: flash <code>0x6daa8</code> → RAM <code>0x20003074</code> through end <code>0x20003978</code>.</li>
+<li>The menu record table at flash <code>0x6e01c</code> therefore becomes RAM <code>0x200035e8</code>. Its 33-byte records contain label text, item ID at offset <code>0x1e</code>, value at <code>0x1f</code>, and another UI state byte at <code>0x20</code>. The fourth record begins at flash <code>0x6e07f</code> and says <code>Cable length</code>; its item ID is <strong>8</strong>.</li>
+<li>Menu handler <code>ghidra-export/0005ee1c.c</code> follows item ID 8. A press increases the stored byte by 10 until 160, then wraps to 10. The display multiplies that byte by 10 and formats <code>%d m</code> (string <code>0x6d250</code>, literal at <code>0x5f864</code>). The UI's range is consequently 100–1600 m in 100 m increments; this is a setting range, not a tested cable capability.</li>
+<li>It stores the value at RAM <code>0x2000fe54+2</code>, invokes <code>0x58370(value)</code>, and saves six config bytes through <code>0x51f34(0x5000,0x4009,0x2000fe54,6)</code>.</li>
+<li><code>0x58370</code> queues a command record whose first two bytes are <code>04 &lt;value&gt;</code> into queue <code>0x6629c</code>. <code>0x57124</code> consumes that same queue (<code>0x573c0=0x6629c</code>) and calls <code>0x583ac(command,value)</code>.</li>
+<li><code>0x583ac</code> wraps the command in <code>CC 0E 04 &lt;value&gt; ... CRC</code>, sending through <code>0x5825c</code> → <code>0x538f4</code> → UARTE1. Startup <code>0x570c8</code> also sends the saved value after STM UART init.</li>
+</ol>
+<p><strong>Observed:</strong> cable-length selection is conveyed to the STM32-associated module as command 4, and persisted locally. <strong>Inference:</strong> a second controller subsystem participates in cable-related conditioning/configuration. <strong>Unresolved:</strong> whether it sets an analog video equalizer, another line-conditioning part, or something else. The STM image/board circuit is needed to resolve its physical effect. No baud-register change, Ghost UART reinitialization or Ethernet/IP configuration appears in this cable-setting path.</p>
+<h2 id="scope-limits">Scope limits</h2>
+<p>The image provides much stronger evidence than product-name strings alone: module source-path strings anchor code, descriptors resolve to actual peripheral MMIO, and packet producers/consumers connect to the UART driver. Nevertheless, function names remain analyst/Ghidra names, not recovered vendor symbols. The analysis assumes the image's established load address and saved decompiler output and distinguishes logical pins from physical connector pins. Current installed firmware/version, signal voltage/polarity, external line transceivers, RJ45 pinout and direct laptop compatibility remain untested.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

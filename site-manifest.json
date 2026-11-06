@@ -1,0 +1,714 @@
+{
+  "date": "2026-11-06",
+  "source_repository": "https://github.com/tedstrazimiri/Airmetal_OSD_TAK",
+  "documents": [
+    {
+      "title": "Development and reproduction",
+      "path": "docs/development.html",
+      "source": "docs/development.md"
+    },
+    {
+      "title": "Tac.Ctrl firmware v1.3.6: recovered package and interfaces",
+      "path": "docs/firmware-findings.html",
+      "source": "docs/firmware-findings.md"
+    },
+    {
+      "title": "Tac.Ctrl v1.3.6 update package inspection",
+      "path": "docs/firmware-initial-triage.html",
+      "source": "docs/firmware-initial-triage.md"
+    },
+    {
+      "title": "Orqa GCS-1 interface investigation",
+      "path": "docs/gcs-investigation.html",
+      "source": "docs/gcs-investigation.md"
+    },
+    {
+      "title": "Offline Ghost traffic decoder",
+      "path": "docs/ghost-decoder.html",
+      "source": "docs/ghost-decoder.md"
+    },
+    {
+      "title": "Ground-side AM_osd in ORQA GCS: implementation investigation",
+      "path": "docs/ground-side-am-osd-plan.html",
+      "source": "docs/ground-side-am-osd-plan.md"
+    },
+    {
+      "title": "Orqa GCS-1 / IRONghost interface map from supplied manuals",
+      "path": "docs/manual-interface-findings.html",
+      "source": "docs/manual-interface-findings.md"
+    },
+    {
+      "title": "MATRIX port: user-supplied pinout",
+      "path": "docs/matrix-pinout.html",
+      "source": "docs/matrix-pinout.md"
+    },
+    {
+      "title": "Powered TAC USB bench: results",
+      "path": "docs/powered-usb-bench.html",
+      "source": "docs/powered-usb-bench.md"
+    },
+    {
+      "title": "Publication and evidence policy",
+      "path": "docs/publication.html",
+      "source": "docs/publication.md"
+    },
+    {
+      "title": "Runnable TAC.Ctrl reconstruction",
+      "path": "docs/reconstruction.html",
+      "source": "docs/reconstruction.md"
+    },
+    {
+      "title": "Status, chronology and next steps",
+      "path": "docs/status-and-roadmap.html",
+      "source": "docs/status-and-roadmap.md"
+    },
+    {
+      "title": "Tac.Ctrl USB findings",
+      "path": "docs/usb-findings.html",
+      "source": "docs/usb-findings.md"
+    },
+    {
+      "title": "Tac Configurator v1.3.4: static USB/update transport trace",
+      "path": "evidence/configurator/transport-analysis.html",
+      "source": "evidence/configurator/transport-analysis.md"
+    },
+    {
+      "title": "TAC 1.3.6 firmware: Ghost serial, STM32 link and cable-length control",
+      "path": "evidence/firmware/ghost-interface-analysis.html",
+      "source": "evidence/firmware/ghost-interface-analysis.md"
+    },
+    {
+      "title": "Nordic DFU metadata and controller identity",
+      "path": "evidence/firmware/nordic-metadata-analysis.html",
+      "source": "evidence/firmware/nordic-metadata-analysis.md"
+    },
+    {
+      "title": "Independent Ghost payload review for the offline decoder",
+      "path": "evidence/ghost-decoder/protocol-review.html",
+      "source": "evidence/ghost-decoder/protocol-review.md"
+    },
+    {
+      "title": "TAC v1.3.6 static reconstruction catalog",
+      "path": "evidence/reconstruction/catalog-analysis.html",
+      "source": "evidence/reconstruction/catalog-analysis.md"
+    },
+    {
+      "title": "Offline reconstruction: Ghost transport and controls",
+      "path": "evidence/reconstruction/ghost-controls-analysis.html",
+      "source": "evidence/reconstruction/ghost-controls-analysis.md"
+    },
+    {
+      "title": "TAC 1.3.6 offline reconstruction: settings, calibration, input filtering, and STM link",
+      "path": "evidence/reconstruction/settings-stm-analysis.html",
+      "source": "evidence/reconstruction/settings-stm-analysis.md"
+    },
+    {
+      "title": "USB and HID behavioral reconstruction",
+      "path": "evidence/reconstruction/usb-hid-analysis.html",
+      "source": "evidence/reconstruction/usb-hid-analysis.md"
+    },
+    {
+      "title": "Independent USB/HID reconstruction review",
+      "path": "evidence/reconstruction/usb-hid-review.html",
+      "source": "evidence/reconstruction/usb-hid-review.md"
+    },
+    {
+      "title": "Ground AM_osd topology \u2014 Raspberry Pi 4B prototype",
+      "path": "outputs/ground-osd-topology-20261105/wiring-and-hardware.html",
+      "source": "outputs/ground-osd-topology-20261105/wiring-and-hardware.md"
+    },
+    {
+      "title": "Compact HUD, stationary-drop world-down reference and AUX-selectable TAK views",
+      "path": "references/am-osd/feature-requests/2026-11-04-osd-hud-tak.html",
+      "source": "references/am-osd/feature-requests/2026-11-04-osd-hud-tak.md"
+    },
+    {
+      "title": "OSD flight-guidance roadmap \u2014 2026-11-04",
+      "path": "references/am-osd/osd-development-roadmap.html",
+      "source": "references/am-osd/osd-development-roadmap.md"
+    },
+    {
+      "title": "Canonical OSD display references \u2014 2026-11-04",
+      "path": "references/am-osd/osd-reference/README.html",
+      "source": "references/am-osd/osd-reference/README.md"
+    },
+    {
+      "title": "World-down reference and GPS-height circle \u2014 2026-11-04",
+      "path": "references/am-osd/osd-reference/flat-model.html",
+      "source": "references/am-osd/osd-reference/flat-model.md"
+    },
+    {
+      "title": "Compact flight HUD \u2014 2026-11-04",
+      "path": "references/am-osd/osd-reference/flight-layout.html",
+      "source": "references/am-osd/osd-reference/flight-layout.md"
+    },
+    {
+      "title": "Thinner bitmap font candidates \u2014 2026-11-03",
+      "path": "references/am-osd/osd-reference/font-candidate/README.html",
+      "source": "references/am-osd/osd-reference/font-candidate/README.md"
+    },
+    {
+      "title": "MGRS coordinate card \u2014 2026-11-03",
+      "path": "references/am-osd/osd-reference/mgrs.html",
+      "source": "references/am-osd/osd-reference/mgrs.md"
+    },
+    {
+      "title": "TAK situational-awareness pages \u2014 2026-11-03",
+      "path": "references/am-osd/osd-reference/tak-sa.html",
+      "source": "references/am-osd/osd-reference/tak-sa.md"
+    }
+  ],
+  "export_policy": "Authored reports, synthetic UI references and explicitly allowlisted static assets only. Raw evidence/vendor executables/secret resources excluded.",
+  "files": [
+    {
+      "path": ".nojekyll",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "404.html",
+      "sha256": "aa33788261a5a5cf62937747ebfcbce6e7d6e24145da1a26a5787102125e87a0",
+      "bytes": 5630
+    },
+    {
+      "path": "README.md",
+      "sha256": "892a2e898f930de31093e5f48d1442d4b234608b2f1daba4c33c342c55c5145f",
+      "bytes": 766
+    },
+    {
+      "path": "assets/matrix-pinout.svg",
+      "sha256": "094143b91c5f5ec38d0fa39ea75eb055ca71ab21db15fe778e41177be59abe0e",
+      "bytes": 1115
+    },
+    {
+      "path": "assets/reference-only.svg",
+      "sha256": "f17b30e2fd0982637b8924321ab01f1accba884d7170d752bf7734cb34c960a0",
+      "bytes": 370
+    },
+    {
+      "path": "docs/development.html",
+      "sha256": "220bd1b91cd53d4470e10c2bbc1cb16d34b8f85a2a22fed50da49bcded0bda8b",
+      "bytes": 7610
+    },
+    {
+      "path": "docs/firmware-findings.html",
+      "sha256": "b5db7204b49b58158ca144fde64183f4b88940fc42fea8a73d54976c45354a95",
+      "bytes": 27044
+    },
+    {
+      "path": "docs/firmware-initial-triage.html",
+      "sha256": "ca70a6608b03eae10fb60ba6596ce794f1335f68de3deadcc945545814803890",
+      "bytes": 18533
+    },
+    {
+      "path": "docs/gcs-investigation.html",
+      "sha256": "d9fcd7885803893acdb98398577080076f0e98a7fd8f2fc1ff8810708d291b85",
+      "bytes": 24668
+    },
+    {
+      "path": "docs/ghost-decoder.html",
+      "sha256": "ee7fe0af264c227754e9ef6906846ababd777171d3472da8428fa9f2c90337b7",
+      "bytes": 14884
+    },
+    {
+      "path": "docs/ground-side-am-osd-plan.html",
+      "sha256": "c8230d1ded90ecb7e11bb19d2349b2042a40366d366cdb21465f9cb06ebd2bc8",
+      "bytes": 26594
+    },
+    {
+      "path": "docs/manual-interface-findings.html",
+      "sha256": "d615768c780d702a66201377caff8b72dbcdceff4413dbd7b897968a2265af15",
+      "bytes": 23430
+    },
+    {
+      "path": "docs/matrix-pinout.html",
+      "sha256": "e8b775fb4b2a38a94af453f01b0247da9bb807e3c04dbd34a04851ed67b042a8",
+      "bytes": 9077
+    },
+    {
+      "path": "docs/powered-usb-bench.html",
+      "sha256": "a8d4b30128da794471695dc40eadd6bca25e4c57907f5a70f79321a259cdbcef",
+      "bytes": 15293
+    },
+    {
+      "path": "docs/publication.html",
+      "sha256": "985b0caf14122f4309ba3e59c27779cc7e1fdd9694f199faa0cca79a89443611",
+      "bytes": 8595
+    },
+    {
+      "path": "docs/reconstruction.html",
+      "sha256": "78b9024ebf4794de245e8f1c163b8f31e88e719e2d9fb8632609a92378f657db",
+      "bytes": 17385
+    },
+    {
+      "path": "docs/status-and-roadmap.html",
+      "sha256": "01db90bd353b9bff891b02866801f41e2c26f49a706419be06eeb1c113c31c85",
+      "bytes": 9733
+    },
+    {
+      "path": "docs/usb-findings.html",
+      "sha256": "b6930b09b63fc0cf853fff096ffb424978404965cb7bcf3d96f71aad0fc9783b",
+      "bytes": 27144
+    },
+    {
+      "path": "documents.html",
+      "sha256": "bdd7a7f998410c8387c89eb22b7cbdfcf91e3be8c5fa4435ad1494eea7e5de48",
+      "bytes": 11346
+    },
+    {
+      "path": "evidence/configurator/transport-analysis.html",
+      "sha256": "a335f0abfda8297952df26ac5503211840025c82ef135196bc0386f26c4189ed",
+      "bytes": 24843
+    },
+    {
+      "path": "evidence/firmware/ghost-interface-analysis.html",
+      "sha256": "e0d1ee77ff9ec9c1d0cace5e2eb3ed9cd830718eb2e4832ac85deb6bdbe23e59",
+      "bytes": 22668
+    },
+    {
+      "path": "evidence/firmware/nordic-metadata-analysis.html",
+      "sha256": "8f87e5a115276f6f1476aa69f0529cf14a456b2617b274a5f38b8b3013d53c6d",
+      "bytes": 15463
+    },
+    {
+      "path": "evidence/ghost-decoder/protocol-review.html",
+      "sha256": "dae04a8fdbc01e6089f6237fd4181321b8f7078b3a499031f83f31c9a09f8104",
+      "bytes": 17174
+    },
+    {
+      "path": "evidence/reconstruction/catalog-analysis.html",
+      "sha256": "13fe09b59e16990d9c7de2ae2ac2b8ee31160687581aef13750b36181ed4b372",
+      "bytes": 11646
+    },
+    {
+      "path": "evidence/reconstruction/ghost-controls-analysis.html",
+      "sha256": "cf14ad71de8ddb0aa3c94ef3e3293b734a31c1816aa230b0cdd826111b4c8808",
+      "bytes": 24312
+    },
+    {
+      "path": "evidence/reconstruction/settings-stm-analysis.html",
+      "sha256": "269a0954de528e8b8a9900074f9789bab5831afa288bd15d0ffd2058b58f8f2c",
+      "bytes": 36765
+    },
+    {
+      "path": "evidence/reconstruction/usb-hid-analysis.html",
+      "sha256": "c475570d41d3f984da58e59f0243e077035e6e02b56a9cb1a7af0c46eb95a399",
+      "bytes": 11888
+    },
+    {
+      "path": "evidence/reconstruction/usb-hid-review.html",
+      "sha256": "d15cdcc1b0933e36f2d195874a2a07c935cd41e8c50f7b0c816476be06ab93ae",
+      "bytes": 12393
+    },
+    {
+      "path": "index.html",
+      "sha256": "d8df28770ab02bedcabf9dd2b69f711113d1a0b43cde647d80e5f75a8994b2a1",
+      "bytes": 8009
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/hardware.csv",
+      "sha256": "e8b950063e8bf586377201d27e391a37721b9d06c5ead0fcb94897e5fbe87f36",
+      "bytes": 3441
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/hardware.json",
+      "sha256": "42082d8e7b2a9247bfdf7d02838952824261b8a9a1ace3fac309ef91e82c175d",
+      "bytes": 4384
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/index.html",
+      "sha256": "42324bdc48b75c87e7d63f9b0cafb869843fae0b43ba3f6a3e745d4eaee09067",
+      "bytes": 58496
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/pinouts.png",
+      "sha256": "89e65d5d290aa30f39192446c2bbf6d9a52a4d410b389f440c60529a55e8735a",
+      "bytes": 307334
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/pinouts.svg",
+      "sha256": "2f25449faf694c6032a5d83a01273ef3a84373d5241dcfa679de8bf5b17e702e",
+      "bytes": 11742
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/sources/THVD1450.pdf",
+      "sha256": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897",
+      "bytes": 2012884
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/sources/pi4b-datasheet.pdf",
+      "sha256": "8febd042d004c7a2897a60fe6e1b2c007a941c3c4119f4fb791dc0afb669a860",
+      "bytes": 413147
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/topology.png",
+      "sha256": "74134e3a16a163bad4289185e0d0695293ea9fad970c4e64ab0a010d1b529798",
+      "bytes": 308357
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/topology.svg",
+      "sha256": "c9044fa793fa8c704b1cb45b6c2ce4dfc01be92377566fe95e997a41a3c12110",
+      "bytes": 29185
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/wiring-and-hardware.html",
+      "sha256": "8b97018192c26e926f65ed086f8d1b702b4b11dcd4f9a6be393b2ff0eea9a8e9",
+      "bytes": 19864
+    },
+    {
+      "path": "outputs/ground-osd-topology-20261105/wiring.json",
+      "sha256": "289e94a14557b99001e8de0fd1fa27ec4e3c90b8665a642f4fc4378a4897b3d7",
+      "bytes": 2145
+    },
+    {
+      "path": "references/am-osd/feature-requests/2026-11-04-osd-hud-tak.html",
+      "sha256": "432f1cd51db200c4e838bfbbf2f69334732bc550c497b220a6d6b11c3fac5f22",
+      "bytes": 16597
+    },
+    {
+      "path": "references/am-osd/osd-development-roadmap.html",
+      "sha256": "244e072e1aee569309cf59c52b1346d8010a2f2a9b7380683f91faf51c8cfcaa",
+      "bytes": 18790
+    },
+    {
+      "path": "references/am-osd/osd-reference/README.html",
+      "sha256": "211ce062ccfdce8748222d5c5af8b5d875c3dffb2645c4c21f14afec0e943441",
+      "bytes": 28168
+    },
+    {
+      "path": "references/am-osd/osd-reference/altitude-comparison.png",
+      "sha256": "24f62d03bd0e0580440cbbc7f85683662a90e273618dcd24cd2a14951805584e",
+      "bytes": 535462
+    },
+    {
+      "path": "references/am-osd/osd-reference/contact-sheet.png",
+      "sha256": "b7ab809632db2b557b84d2d998bbcdee569ff2d95ef40c4730b953ebcaaa57fc",
+      "bytes": 3543545
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-default-overlay.png",
+      "sha256": "85dac400a3a3aead67ee3ec24500f9543b45ec5f007261713869d42f950e2d93",
+      "bytes": 9046
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-default-reference.png",
+      "sha256": "3e731f6c61c1dc17f60ab8cbb855f183b6924d77b5c135df355c01fc97db6041",
+      "bytes": 895691
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-default.png",
+      "sha256": "52ef39d654b4b78142c7b57a1013f59a369e83a4e2f4d2de015abdc02d7f2b6a",
+      "bytes": 787126
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-payload-overlay.png",
+      "sha256": "111e4446e394d44274f4382fba5e09d3481ab27d9af0f239fb0fb472c3583f7a",
+      "bytes": 9891
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-payload-reference.png",
+      "sha256": "017eb78bc3536f60359f57cc4986c2146369e2b6f592bc9647dd83a36fc80a76",
+      "bytes": 894850
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-downward-payload.png",
+      "sha256": "868684c58b5e0441bf6358b87c74b1e704d6ee2a4da9cb7ed7422f0cbc0392e2",
+      "bytes": 773394
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-forward-default-overlay.png",
+      "sha256": "85dac400a3a3aead67ee3ec24500f9543b45ec5f007261713869d42f950e2d93",
+      "bytes": 9046
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-forward-default-reference.png",
+      "sha256": "691ec810d63bcb4879f45986004cb3c42049c5e83a339773146a4b92145ff191",
+      "bytes": 732182
+    },
+    {
+      "path": "references/am-osd/osd-reference/current-forward-default.png",
+      "sha256": "af81d12ca380de34aa9f955b72d6683433fe27847a72460775ddfa73ef2fd353",
+      "bytes": 612577
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-height-10m.png",
+      "sha256": "961b3efc78095c287f4fd0009fb51e05b1e09122f02d93f7f3dc8add27165eec",
+      "bytes": 815831
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-height-30m.png",
+      "sha256": "85e2ef76fe73964b5acd3239468f094a1822a3312cde8c657fde9c859e23ff78",
+      "bytes": 815840
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-height-60m.png",
+      "sha256": "b2920b92630cde3582289cb0375b3d5167de272a01604ce03aecf031630e047f",
+      "bytes": 816110
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-model.html",
+      "sha256": "fa8e59ddf46ff7c03736dcb30e8567b97ae6cb89feb76beefae1e0ea3f17b3d1",
+      "bytes": 16049
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-model.json",
+      "sha256": "98961d46aba6d90f1ad1041750d852204cc45eb6c6226b64bb151b63dbd03943",
+      "bytes": 914
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-prototype-base.png",
+      "sha256": "85a5ceefdf53a53679d8395c9b2b9198285c3f606cfd1ccac170f556094f40e4",
+      "bytes": 3908
+    },
+    {
+      "path": "references/am-osd/osd-reference/flat-prototype.js",
+      "sha256": "4672b09a31aad17386178178377304b2ee8d221de6b020f527ce9c82bbc5f907",
+      "bytes": 13449
+    },
+    {
+      "path": "references/am-osd/osd-reference/flight-layout.html",
+      "sha256": "dc7364a578c57d30c92224006895ea9e62c1dfa7fd82a02e9ca8400435452505",
+      "bytes": 11326
+    },
+    {
+      "path": "references/am-osd/osd-reference/flight-layout.json",
+      "sha256": "c288c6d68de4b3b967a6c7126f3c57804312ed72689577f60c0c63bc8ef93b93",
+      "bytes": 1990
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-atlas-compact.png",
+      "sha256": "894cf296f60e92528b0b0b2b5511d453bf73f6a85e927787bc5e1589ac041d38",
+      "bytes": 4728
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-atlas-current.png",
+      "sha256": "97e16d1e74c2168dadc63d777c1b64ac864afec52bc8ecfbdda22c35bd31a080",
+      "bytes": 5064
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-atlas.png",
+      "sha256": "ac9bff4bb363d02d0f00f90c85554890739b97c047d131eb62b7845e152bc404",
+      "bytes": 4868
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-candidate/README.html",
+      "sha256": "df9f865b41ace6146a5d664ef6f495145e2a1fcf207cb624699aada84143e1b7",
+      "bytes": 9478
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-candidate/font_osd_thin.bin",
+      "sha256": "845dede679c95b0505f59a88f0c2c046e6036350749bb341a991faecbbd488db",
+      "bytes": 13824
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-candidate/font_osd_thin.c",
+      "sha256": "4027748beb8fdecd14ba1fe407ce8e6d83cf8a773ed30b39932b02e06c010fe9",
+      "bytes": 84772
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-candidate/sources.json",
+      "sha256": "891930a638a2f66db083d18f915e312d522f6aa25065a57721ea53e693a02d41",
+      "bytes": 1048
+    },
+    {
+      "path": "references/am-osd/osd-reference/font-comparison.png",
+      "sha256": "2fa5dc9ead4d05d35cb31b94f39c43b245d4030ea84a59b769eec05816361348",
+      "bytes": 43586
+    },
+    {
+      "path": "references/am-osd/osd-reference/gallery.html",
+      "sha256": "e33c700fc22270ba821ee6c7a0ab9a845ea3a2b0cf5dce6ea67d870dd42e398c",
+      "bytes": 15943
+    },
+    {
+      "path": "references/am-osd/osd-reference/manifest.json",
+      "sha256": "669d99e4943f0b9fbbad3af0a9bd2d663607d04fbc2bc0bd400f4e6ddb0e3e58",
+      "bytes": 123825
+    },
+    {
+      "path": "references/am-osd/osd-reference/mgrs-fixture.json",
+      "sha256": "6ab60e70cb2405f2a889b731dc50064a32a75e9f8852ee06d391fabfe0d32a9c",
+      "bytes": 1723
+    },
+    {
+      "path": "references/am-osd/osd-reference/mgrs.html",
+      "sha256": "0cdb6175316949219e48283edfa19ab2589d2914fda2b5a93104271bf23ed3ba",
+      "bytes": 10069
+    },
+    {
+      "path": "references/am-osd/osd-reference/pcb-memory-budget.json",
+      "sha256": "c077f1e17e1314fded9752ee66a19f8d046c129f2a335199c2f5d74323021532",
+      "bytes": 1114
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-ccip-overlay.png",
+      "sha256": "9bc84c00939c7f6c895029ef25997de952b38743f388d23bb9e35c8c9caebf6a",
+      "bytes": 9505
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-ccip-reference.png",
+      "sha256": "7085838c8fc621bf4b05cd60a0e5c00ee4e47854de13b021011c39ee4c7ea5c4",
+      "bytes": 948550
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-ccip.png",
+      "sha256": "85e2ef76fe73964b5acd3239468f094a1822a3312cde8c657fde9c859e23ff78",
+      "bytes": 815840
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-diamond-only-overlay.png",
+      "sha256": "4526be01a56eb749a8081eecbf3c55186203f2831d90895e09e5755bd3a64ea7",
+      "bytes": 8551
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-diamond-only-reference.png",
+      "sha256": "54723127f54a3c8a61f5daa9c6bb02f65802db77daf187346306a7ede1298154",
+      "bytes": 945868
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-downward-diamond-only.png",
+      "sha256": "3dcbe725e2a7c432463c803847cb6568014a89236dc13ee92b3ee7ae49468d4e",
+      "bytes": 818951
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-low-speed-overlay.png",
+      "sha256": "225166fbb0ebc9804a478f726b69a49a3012a8724901bc2104a52e1841cea7fc",
+      "bytes": 7084
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-low-speed-reference.png",
+      "sha256": "25413bbd1f3d851a21f17fa7cf24e459b277566e168711711e39460efeed2427",
+      "bytes": 759965
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-low-speed.png",
+      "sha256": "ae89f05a4658c6b398e20cb33cd1750d463e648a8e475b898e909fec1e4eaf03",
+      "bytes": 639243
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-velocity-overlay.png",
+      "sha256": "00b18ad38a06d1799532d9628b592928fb5787b98a94be295ddf65a29627f13f",
+      "bytes": 7306
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-velocity-reference.png",
+      "sha256": "76d37583abeb37cc6092491c5d809594e4840f1cbbc3a130500efa874c486334",
+      "bytes": 775080
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-forward-velocity.png",
+      "sha256": "8379f8529a95eeb97aaffec9bb7e0c559ab3ae41e893bf7ab1120b35128ceb96",
+      "bytes": 638268
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-forward-radar-overlay.png",
+      "sha256": "41de52b9561132452aa52e9f0d44d6d32f1ba94a7f26fe9be4c9f1a68c1fd8d0",
+      "bytes": 9678
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-forward-radar-reference.png",
+      "sha256": "182f0f6ec113bfe36216ff8b9901330356b9a04934e6e470463a3092fb9348f6",
+      "bytes": 761422
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-forward-radar.png",
+      "sha256": "d0f9780dd22b01f3af6d8e89eef55bc8d3d0d8b4520523019d84d0df1b5bc23a",
+      "bytes": 617895
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-gods-eye-overlay.png",
+      "sha256": "2b8386a83f27b9d79de8de89d219b49ea66b018d9e84a6e916264e763e6936bb",
+      "bytes": 9970
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-gods-eye-reference.png",
+      "sha256": "a04b102c56e63185f94f24461aedff920a922954901039389965af029300a8f7",
+      "bytes": 780223
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-gods-eye.png",
+      "sha256": "e8cade92a37b5e01ce00de8c8f7767f72a682288eb8aec17e031b5b159caac47",
+      "bytes": 648810
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-mgrs-overlay.png",
+      "sha256": "fd5216e351090e659949971d6526e8a431f35eae1cbd835bbe6ed30a6bde4555",
+      "bytes": 8461
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-mgrs-reference.png",
+      "sha256": "505b58c37a6a2deb448f6abb55dd096a548169c4d3763764722b46f71ab74b74",
+      "bytes": 661505
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-mgrs.png",
+      "sha256": "b84595046bcb587b303e36edbaae772f20f46018eebc91df831d06bc9bab1680",
+      "bytes": 523759
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-stale-overlay.png",
+      "sha256": "36888ee2df9de8b7fa4b27d2bb4b84187f0385f40f77a7d5812840b70ffc5807",
+      "bytes": 8398
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-stale-reference.png",
+      "sha256": "90b1b12aabe3ee9e6a57b600321da3b5610931c4ade2d4dfeb146594d2d29806",
+      "bytes": 780735
+    },
+    {
+      "path": "references/am-osd/osd-reference/proposed-tak-stale.png",
+      "sha256": "080a10d934aa5b99f000fdafeddaba17e46558b95846a20a69b029b2cc94a3eb",
+      "bytes": 651926
+    },
+    {
+      "path": "references/am-osd/osd-reference/scene-downward.png",
+      "sha256": "af69254f7ad41682274e8b315197969e7c6723d3f08a93e368c7df5e8b6c1714",
+      "bytes": 848499
+    },
+    {
+      "path": "references/am-osd/osd-reference/scene-forward.png",
+      "sha256": "4a84ae04491d355c17ec2320d8227f2e8c0e1e277f5e3b0baf6742914cbf5b03",
+      "bytes": 650350
+    },
+    {
+      "path": "references/am-osd/osd-reference/source-layout.json",
+      "sha256": "2020c1bc875785917c3775045c0cff2131b96310741bd6dd73c323941cdce6e4",
+      "bytes": 1899
+    },
+    {
+      "path": "references/am-osd/osd-reference/tak-sa-comparison.png",
+      "sha256": "754a059f7b6b224fd728d63df059c8e7ff76953f8ac047e0f7310d154302b48d",
+      "bytes": 770691
+    },
+    {
+      "path": "references/am-osd/osd-reference/tak-sa-fixture.json",
+      "sha256": "eac9303aca41b92a15e45ec1c813e8f95bff1478cc5661f4a14ec247795b68b4",
+      "bytes": 1367
+    },
+    {
+      "path": "references/am-osd/osd-reference/tak-sa.html",
+      "sha256": "ea2a42065ba45d2833654828668463730dec375e6e830b19687c1e1c3ffa8dbd",
+      "bytes": 18675
+    },
+    {
+      "path": "references/am-osd/osd-reference/tak-sa.js",
+      "sha256": "1788c804ca55138740b1900162ca9659b9cabf7b12644d6a94ddf50f27f5be9b",
+      "bytes": 15619
+    },
+    {
+      "path": "source-register.html",
+      "sha256": "0df5499e2f259d379ce9f5e9dbee0dc01435bd7ebac337cf3a0b898cf11db531",
+      "bytes": 7243
+    },
+    {
+      "path": "web/vendor/mermaid-10.9.3.min.js",
+      "sha256": "5a8ec91820bd55afef049068489369910e5d6ce70c8103952f27e29d3e76e8bc",
+      "bytes": 3336760
+    },
+    {
+      "path": "web/vendor/mermaid-LICENSE",
+      "sha256": "ec9fb67dcb25eccc416ed56e1aab819222c805a2a4bfe4cb19e7556bf2ffde80",
+      "bytes": 1089
+    }
+  ]
+}

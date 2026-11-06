@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "standard": "PAL",
+  "profile": 1,
+  "source_osd_commit": "2f1e4f8361589b0ce607198b478bd1a2bb029618",
+  "source_fc_commit": "29953a82b016407522deb7c9413283afee44c530",
+  "betaflight_commit": "e0b7bb01b17b21351057e9ead2d1ab39dd44fa16",
+  "source_pr": "https://github.com/RMUS-Canada/AirMetal_OSD/pull/2",
+  "sources": [
+    {
+      "repository": "RMUS-Canada/AMBetaflight-",
+      "commit": "29953a82b016407522deb7c9413283afee44c530",
+      "path": "custom firmware/F405/BTFL_cli_2026.6.2_ORQAF405PRO_SERVO_GPIO4_CAMERA_SWITCHING.txt",
+      "sha256": "8ae19bc6b9a688b1b031e36b8537c82328ddf39ee56d6bdf4b339bdd6175232d"
+    },
+    {
+      "repository": "RMUS-Canada/AMBetaflight-",
+      "commit": "29953a82b016407522deb7c9413283afee44c530",
+      "path": "custom firmware/H7/BTFL_cli_2026.6.2_ORQAH7QUADCORE_SERVO_CAMERA_SWITCHING.txt",
+      "sha256": "238a7b9f66e73d9be94cf03a902af0964f817e44b3486342f81927ab3ef20195"
+    }
+  ],
+  "active_positions": {
+    "osd_vbat_pos": 2497,
+    "osd_link_quality_pos": 2135,
+    "osd_rssi_dbm_pos": 2167,
+    "osd_throttle_pos": 2553,
+    "osd_vtx_channel_pos": 34849,
+    "osd_crosshairs_pos": 2285,
+    "osd_current_pos": 2528,
+    "osd_mah_drawn_pos": 2433,
+    "osd_gps_speed_pos": 2273,
+    "osd_gps_lon_pos": 18529,
+    "osd_gps_lat_pos": 18497,
+    "osd_gps_sats_pos": 2241,
+    "osd_home_dir_pos": 2510,
+    "osd_home_dist_pos": 2489,
+    "osd_flight_dist_pos": 2521,
+    "osd_altitude_pos": 2103,
+    "osd_warnings_pos": 14729,
+    "osd_avg_cell_voltage_pos": 2465,
+    "osd_esc_tmp_pos": 2457,
+    "osd_efficiency_pos": 2400
+  },
+  "scope": "Retained profile-1 positions shared by F405/H7; AM_OSD bitmap font and source defaults; synthetic H7-like sensor values. No live OSD settings or video capture. AUTO/onboard versus external DisplayPort route and onboard font are not established by these renders."
+}

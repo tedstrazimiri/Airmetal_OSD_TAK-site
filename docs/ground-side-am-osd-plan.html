@@ -1,0 +1,207 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ground-side AM_osd in ORQA GCS: implementation investigation · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/ground-side-am-osd-plan.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="ground-side-am_osd-in-orqa-gcs-implementation-investigation">Ground-side AM_osd in ORQA GCS: implementation investigation</h1>
+<p>Prepared 2026-11-05. Scope: ground-side TAK situational awareness and the compact HUD references. This is an implementation plan based on saved bench evidence and current source, not a wiring release or a hardware acceptance result.</p>
+<p><strong>Recommendation:</strong> develop an external ground overlay unit near TAC, on the GU QS → TAC MATRIX return. Keep the control and telemetry link physically continuous; intercept only the video return, and obtain aircraft telemetry through a separate receive-only tap. A ground gateway receives TAK data and prepares display state; AM_osd composites that state into analog video before TAC sends it to the goggles. Prove single-ended video and text first, then the MATRIX adapter, then the SA graphics.</p>
+<p>The user authorized treating the repository as the design baseline despite the physical PCB revision being unknown. Use its inline rev 0.3 family for planning. Confirm connector population and installed image during bench identification rather than blocking software preparation.</p>
+<h2 id="baselines-and-evidence">Baselines and evidence</h2>
+<ul>
+<li>ORQA GCS evidence is in this workspace: <a href="matrix-pinout.html">MATRIX contact map</a>, <a href="manual-interface-findings.html">manual topology</a>, <a href="powered-usb-bench.html">powered USB result</a>, <a href="firmware-findings.html">firmware analysis</a>, <a href="ghost-decoder.html">offline Ghost decoder</a>.</li>
+<li>AM_osd repository: <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/source/README.md">local checkout</a>. Its reference branch is <code>codex/osd-display-reference</code>, HEAD <code>2f1e4f8361589b0ce607198b478bd1a2bb029618</code>, with existing uncommitted storyboard/docs/tools. Those changes were preserved.</li>
+<li>Current remote main was fetched read-only with respect to the checkout: <code>c92a4e8a595c0f41885c6d8beeac28169df4eed9</code>. <a href="https://github.com/RMUS-Canada/AirMetal_OSD/pull/2">Calibration PR #2</a> is merged. Current main adds a second camera profile/AUX selection and setup-page work. The video compositor, DisplayPort handler, UART driver, main loop and canvas/overlay headers are byte-identical to the reference commit. The plan therefore uses current main for future firmware work and the separate reference artifacts for proposed behavior.</li>
+<li>Exact hashes, source comparison, public reference copies and verification counts: <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/planning/2026-11-05-ground-osd/source-review.json">source review</a>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Investigation question</th>
+<th>Established evidence</th>
+<th>Status / remaining gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where does operator video travel?</td>
+<td>GU RF → GU QS → TAC over MATRIX; TAC → FPV.Pro through 16-pin LEMO</td>
+<td>Documented topology; physical revisions and conditioning need confirmation</td>
+</tr>
+<tr>
+<td>Can AM_osd directly accept MATRIX?</td>
+<td>MATRIX documents differential video and UART, plus 50 V; AM_osd accepts single-ended CVBS and 3.3 V TTL UART</td>
+<td>Answered: an adapter is required; electrical implementation unresolved</td>
+</tr>
+<tr>
+<td>Can TAC USB supply the complete SA feed?</td>
+<td>Saved powered capture had local heartbeats and no battery/position output; firmware is a selective MAVLink adapter</td>
+<td>Answered for captured behavior: insufficient basis for the primary feed</td>
+</tr>
+<tr>
+<td>Can the existing PCB burn in an overlay?</td>
+<td>G431 PAL/NTSC compositor, MSP DisplayPort text, 30×16 PAL / 30×13 NTSC cells</td>
+<td>Source capability established; this ground installation untested</td>
+</tr>
+<tr>
+<td>Are the storyboard SA pages implemented?</td>
+<td>Offline Python/browser references and synthetic fixtures</td>
+<td>Answered: live TAK ingest, device SA primitives and page switching remain work</td>
+</tr>
+<tr>
+<td>Is aircraft azimuth available?</td>
+<td>Candidate GPS-course field and a possible separate magnetometer telemetry route</td>
+<td>Partially answered; nose heading/reference/quality and radio forwarding unverified</td>
+</tr>
+<tr>
+<td>Can the ground unit remove airborne OSD?</td>
+<td>Incoming OSD is already video pixels</td>
+<td>Answered: original scenery cannot be recovered; coordinate upstream OSD ownership</td>
+</tr>
+<tr>
+<td>Does the assembled insert preserve video under faults?</td>
+<td>Inline design bypasses during powered reset but explicitly lacks power-loss video passthrough</td>
+<td>Unresolved for the ground unit; requires a bypass design and measured acceptance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proposed-signal-paths">Proposed signal paths</h2>
+<p>Target location is the controller end of the GU QS–TAC cable. This keeps the new gateway and OSD accessible beside the operator. The following is a functional design, not an electrical schematic:</p>
+<pre><code class="language-text">GU QS ── C2, telemetry, power: continuous MATRIX path ─────────── TAC
+  │                                                              │
+  └─ differential video return                                   └─ existing LEMO → goggles
+       → matched CVBS receiver/conditioning
+       → AM_osd VIDEO_IN → overlay → VIDEO_OUT
+       → matched differential video driver → TAC video input
+
+Telemetry pair ── high-impedance receive-only interface ──┐
+TAK endpoint / selected CoT feed ─────────────────────────┼─ ground gateway
+Initial local page selector ─────────────────────────────┘
+Ground gateway ── dedicated 3.3 V UART / ground display protocol ── AM_osd
+</code></pre>
+<p>MATRIX documentary contacts are C2 1/2, telemetry 3/6, power 4/5 (+50 V/GND), video 7/8. Pin numbering/orientation must follow the source image. These are not Ethernet or standard PoE signals. Do not route 50 V through AM_osd's +5 V or VBAT connector pins.</p>
+<p>The adapter must establish video differential amplitude/common mode, polarity, impedance, sync and existing equalization. Merely attaching a generic balun is not a demonstrated solution. TAC's cable-length setting commands its STM32 subsystem; whether it adjusts video equalization is still unknown. The insert must avoid fighting or duplicating that conditioning.</p>
+<p>For the first prototype, power AM_osd/gateway from an independent regulated source suited to the board. Evaluate a protected MATRIX-powered supply only after load, transient and grounding measurements. Preserve pair geometry and existing termination; do not add another 100-ohm terminator to a live link by assumption. The telemetry tap must not transmit into either MATRIX lane. If a transceiver is used, hold its transmit driver disabled in hardware.</p>
+<p><strong>Placement decision gate:</strong> validate video extraction/reinjection at MATRIX before final PCB layout. If it cannot meet the video/equalization requirements, investigate a documented single-ended point after TAC conditioning, potentially on the goggles output. That would change the physical placement and needs a verified LEMO pinout; it is a fallback investigation, not a currently available connector solution.</p>
+<h2 id="gateway-and-telemetry-strategy">Gateway and telemetry strategy</h2>
+<p>Start the gateway on this laptop, using recorded data. Package it on a small dedicated ground host only after its actual I/O, latency, power and enclosure needs are measured. No particular additional computer or adapter has been selected or reserved. Relevant inventory searches found no AM_osd, G431, differential receiver or measurement instrument records; this does not establish absence of unrecorded equipment.</p>
+<p>The gateway has three responsibilities:</p>
+<ol>
+<li>Decode captured Ghost telemetry, preserving raw bytes, provenance and per-field freshness. Reuse the existing decoder as an offline oracle, not as proof of a validated live link.</li>
+<li>Receive an explicitly configured TAK feed, normalize marker identity, location, type, label, timestamps, expiry and deletion, and compute local displacements/MGRS. Keep credentials, XML/protobuf, history and network reconnection on the host.</li>
+<li>Supply bounded display state to AM_osd. The PCB owns the scanline-critical rendering; it does not become a TAK server or regional map database.</li>
+</ol>
+<p>The <a href="https://github.com/deptofdefense/AndroidTacticalAssaultKit-CIV/blob/main/takproto/README.md">official TAK protocol description</a> distinguishes legacy CoT XML from negotiated protobuf framing. Choose and test one actual endpoint/export first. Do not assume every ATAK connection emits raw XML, nor infer ORQA's TAK integration transport from a manual capability claim. Saved CoT files are the first integration fixture; connecting a live endpoint is a later bench activity.</p>
+<table>
+<thead>
+<tr>
+<th>Display input</th>
+<th>Candidate source</th>
+<th>Required validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ownship lat/lon</td>
+<td>Ghost <code>0x25</code></td>
+<td>Signed WGS84 coordinates, fix validity, age, actual ground-radio forwarding; TAC's UI/model has an unsigned-coordinate limitation</td>
+</tr>
+<tr>
+<td>Course, speed, satellites, GPS flags</td>
+<td>Ghost <code>0x26</code></td>
+<td>Match the installed FC/radio payload and units against captures</td>
+</tr>
+<tr>
+<td>Aircraft azimuth</td>
+<td>Investigate Ghost <code>0x27</code> or another explicitly supported aircraft telemetry field</td>
+<td>Actual yaw versus course, valid sensor/estimator, magnetic/true reference, declination and timestamps; verify the packet reaches the MATRIX tap</td>
+</tr>
+<tr>
+<td>Average cell voltage</td>
+<td>Ghost <code>0x23</code> plus verified telemetry configuration/cell count</td>
+<td>Distinguish pack voltage from average-cell reporting; never divide a cell-voltage report again</td>
+</tr>
+<tr>
+<td>Marker position/identity/age</td>
+<td>Ground TAK feed</td>
+<td>Identity updates, valid coordinates, source timestamps, expiry, deletes, reconnect and ordering</td>
+</tr>
+<tr>
+<td>Page selection</td>
+<td>Local gateway control first; receive-only C2 tap later if needed</td>
+<td>Physical control mapping, AUX conflicts, debounce, stale control and full-page restore</td>
+</tr>
+<tr>
+<td>Remaining compact HUD fields</td>
+<td>Per-field radio/FC evidence</td>
+<td>Home definition, consumed-mAh scaling, GPS reference-height datum and RF band/channel semantics; unsupported fields stay unavailable</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/betaflight/betaflight/blob/master/src/main/telemetry/ghst.c">current Betaflight GHST sender</a> puts <strong>GPS ground course</strong> in <code>0x26</code> and a separately flagged magnetometer heading in <code>0x27</code>. This explains why the reconstruction's UI label <code>heading_degrees</code> must not be taken as proof of aircraft nose heading. Current TAC dispatch analysis recognizes <code>0x26</code>, not <code>0x27</code>; a raw telemetry tap may expose more than TAC processes, but that is a hypothesis to test. Upstream protocol support does not establish support by this installed radio/FC.</p>
+<p>Without usable ownship position, suppress relative marker ranges/plots. Without usable azimuth, suppress heading-relative arrows and the proposed heading-up/fan pages. A separately labelled north-up engineering diagnostic can help develop ingest, but does not accept the prototype's aircraft-heading behavior. The ground host's or operator phone's heading is not a substitute for aircraft heading.</p>
+<p>If the passive capture lacks usable azimuth, first establish whether the installed radio forwards the standard magnetometer packet when the FC supplies it. If that route is unsupported, investigate a documented attitude/MSP telemetry route and a minimal aircraft telemetry change as a separate implementation dependency. TAC USB is a supplementary route only after a new capture proves the needed fields. Full heading-up SA is a go/no-go gate on this evidence; ground placement alone does not guarantee that every required aircraft field is available.</p>
+<p>Use configurable, separately measured age limits for ownship position, azimuth, marker source and link health. Record sample time and arrival time independently. CoT <code>stale</code> is an expiry input, not a timestamp to rejuvenate on cache retransmission. After time discontinuity, gateway restart, origin change or sequence rollback, invalidate the dependent state until re-established.</p>
+<h2 id="preserve-the-storyboard-behavior">Preserve the storyboard behavior</h2>
+<p>The design reference is <a href="../references/am-osd/osd-reference/tak-sa.html">TAK SA</a> plus the <a href="../references/am-osd/osd-reference/flight-layout.html">compact HUD</a> and <a href="../references/am-osd/feature-requests/2026-11-04-osd-hud-tak.html">feature request</a>.</p>
+<ul>
+<li>Normal HUD: add the nearest two fresh contacts, range/direction and own MGRS when their inputs are usable. Validate the remaining field contracts incrementally.</li>
+<li>P06: centred ownship, heading-up God's-eye plot, initial 1 km range and four rings.</li>
+<li>P07: forward fan, initial ±50 degrees and 3 km range. This is schematic TAK data, not a radar sensor or camera projection.</li>
+<li>P08: remove expired/unavailable contacts and show TAK stale. Ownship/heading failure has a separate state; feed health does not establish navigation health.</li>
+<li>P09: ownship/selected-marker MGRS, full independent prefixes, WGS84, explicit grid resolution and independent invalidation. Grid resolution is not positioning accuracy.</li>
+<li>Nearest-two ordering considers all fresh bounded contacts, independent of the plotted sector/range. Zero range has no direction arrow; off-scale chevrons convey bearing only.</li>
+</ul>
+<p>SA pages retain only average cell voltage from the legacy FC layout. A ground board can clear its own canvas, but cannot clear FC text already embedded upstream while restoring the hidden scenery. Recommended production direction: leave a small agreed set of essential aircraft-generated fields in fixed regions and let the ground unit own the additional HUD/SA fields. Reproducing the exact voltage-only SA reference requires a verified upstream OSD profile/suppression mechanism coordinated with page selection. Until that works, use a clearly labelled additive engineering preview; do not claim exact storyboard acceptance. Full opaque masking hides the camera beneath it and does not satisfy the undimmed God's-eye design.</p>
+<p>The present compositor selects camera pixels or opaque black/white. Its brightness controls are not general scene alpha blending. Keep the SA prototype's grey/dimmed backgrounds as presentation references until either a measured approximation or a revised analog display treatment is accepted. Port rings, fan, markers and labels as bounded scanline/span primitives rather than assuming a full framebuffer will fit.</p>
+<p>Current main's camera-2 AUX selection is a separate function. SA remains independent of camera angle and must not reuse that selector automatically. No new AUX assignment is made by this plan.</p>
+<h2 id="work-packages-and-exit-criteria">Work packages and exit criteria</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Concrete work / artifact</th>
+<th>Exit condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. Freeze contracts offline</td>
+<td>Snapshot current main and reference inputs; define field validity, display ownership and gateway/PCB message schema; replay synthetic ownship/CoT</td>
+<td>Deterministic results for expiry/deletes/reordering, negative coordinates, heading wrap/loss, ownship loss and reconnect; no invalid marker survives</td>
+</tr>
+<tr>
+<td>1. Prove AM_osd video alone</td>
+<td>Identify board/build target; known-good single-ended PAL source → AM_osd → monitor; ground host pushes <code>AM GROUND</code> and marker text over existing MSP DisplayPort</td>
+<td>Stable picture/overlay, correct level/termination, recorded reset/host-loss behavior; resolve any reproduced VIDEO_OUT fault before ORQA insertion</td>
+</tr>
+<tr>
+<td>2. Characterize MATRIX</td>
+<td>Revision-matched connector check, measured differential video and UART levels; separate direction captures; compare baseline versus loaded tap</td>
+<td>Electrical adapter requirements and termination documented; CRC-valid real Ghost traffic with identified streams; required fields/rates/age and heading route established</td>
+</tr>
+<tr>
+<td>3. Prove external ground insertion</td>
+<td>Video conversion/reinjection near TAC with original C2/telemetry/power path intact; dedicated regulated power and physical bypass</td>
+<td>Goggles receive stable video; baseline versus inserted image/latency/sync compared; no control-link degradation; bypass restores the original video path</td>
+</tr>
+<tr>
+<td>4. Implement live text MVP</td>
+<td>Gateway consumes selected TAK feed and verified ownship telemetry; sends DisplayPort text; local page control only</td>
+<td>Own MGRS and nearest two contacts behave correctly; stale heading removes arrows; stale markers clear; no uncontrolled internal crosshair/payload overlay appears</td>
+</tr>
+<tr>
+<td>5. Port SA firmware</td>
+<td>Branch from current main; add bounded state API, marker/ring/fan renderer, font, atomic page clearing and explicit unavailable states</td>
+<td>Geometry matches fixtures; transitions leave no old pixels; measured scanline/CPU/stack/RAM margin and UART stress pass; PAL acceptance and separate NTSC layout if needed</td>
+</tr>
+<tr>
+<td>6. Accept operational integration</td>
+<td>Add reviewed selector/control mapping; coordinate airborne OSD; test feed/host/PCB power loss, brownout/reset and reconnect; inspect goggles/DVR readability</td>
+<td>Display ownership and fault behavior accepted, source age preserved, normal HUD restored correctly; only then qualify any installed/flight use</td>
+</tr>
+</tbody>
+</table>
+<p>For Stage 1, existing firmware can receive host-generated MSP DisplayPort text. It also sends its own MSP attitude/RC/status requests; the bench host must handle/ignore them deliberately and suppress local features that would draw misleading crosshair/payload information. Do not fake attitude, arm status or release state to make the board appear connected. Do not use <code>MSP_SET_OSD_CANVAS</code> as page switching.</p>
+<p>For Stage 5, introduce a <strong>new proposed</strong> bounded API: protocol version, session/sequence, monotonic age budget, source time/expiry, page/mode, coordinate-frame/origin identity, separate validity bits, ownship state, a capped marker list and explicit replacement/deletion semantics. Start with at most eight contacts as a design proposal, then size it from actual linker/runtime and UART measurements. Commit complete snapshots atomically; invalid/incomplete packets cannot partially update the page. Reserve bandwidth for framing, checksums, responses and error recovery. Parsing/projection happens outside the scanline interrupt.</p>
+<p>Stage 3 must explicitly address power loss: repository rev 0.3 bypass is powered-reset bypass, <strong>not</strong> unpowered fail-through. A removable hard bypass is adequate for early bench experiments. A field unit needs a measured fail-through solution for the whole video adapter, not just the OSD switch. No latency number, cable-length limit, runtime margin or control-link neutrality is accepted by this document.</p>
+<h2 id="immediate-next-step-and-completion-state">Immediate next step and completion state</h2>
+<p><strong>Next hardware step:</strong> prove the repository-baseline AM_osd on an isolated single-ended PAL source/monitor with a constant host-generated <code>AM GROUND</code> overlay. Record VIDEO_IN/OUT, power/reset and bypass behavior. Keep it outside MATRIX until that passes. This is one bounded setup, not a request to connect a laptop or TTL adapter to MATRIX.</p>
+<p>The next software implementation is Stage 0: a replayable gateway contract and DisplayPort text-output harness, using the existing SA fixtures before a live TAK or aircraft connection. This plan does not implement that harness.</p>
+<p>This investigation completed the source/evidence review, architecture proposal and staged acceptance plan. Electrical characterization, a real MATRIX capture, live TAK integration, PCB SA rendering and hardware/flight acceptance remain open. Existing GCS regressions were rerun: <strong>118 tests passed; all 274 saved USB packet/prefix comparisons matched</strong>. Those checks validate the retained offline reconstruction, not the proposed ground overlay.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

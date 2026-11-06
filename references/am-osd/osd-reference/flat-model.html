@@ -1,0 +1,203 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>World-down reference and GPS-height circle — 2026-11-04 · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../../index.html">Start</a><a href="../../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="gallery.html#tak-title">TAK / SA gallery</a><a href="../../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../../documents.html">All documents</a><a href="../../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/osd-reference/flat-model.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="world-down-reference-and-gps-height-circle-2026-11-04">World-down reference and GPS-height circle — 2026-11-04</h1>
+<p>Current use assumes a <strong>stationary vehicle at release</strong>. True CCIP and in-flight package
+prediction are outside the current scope. The downward diamond always marks <strong>world down</strong>, projected through the calibrated
+camera from roll/pitch. Both downward states use the same unit ray and position.
+Aircraft GPS altitude, the ground-height reference, speed and release timing never
+translate the diamond. At a fixed attitude, only the circle diameter changes with height.
+The <a href="gallery.html#flat-title">gallery</a> has separate altitude and roll/pitch controls.</p>
+<p><img alt="Same diamond position at three heights" src="altitude-comparison.png"></p>
+<h2 id="surface-label-and-height">Surface label and height</h2>
+<p>The only surface advisory is <code>FLAT</code> in both downward states. <code>TER</code> is reserved for an
+implemented terrain backend actually using a valid height grid. There is no terrain
+backend in this prototype, so no control can falsely select <code>TER</code>. <code>CCIP ADVISORY</code>,
+<code>DOWN</code> and missing-height banners are absent.</p>
+<pre><code class="language-text">height = aircraft GPS altitude - ground-reference GPS altitude
+</code></pre>
+<p>Both altitudes use the same datum. The default fixture is 330 m aircraft altitude minus
+a 300 m captured reference, giving 30 m over the assumed plane. That height is shown at
+middle right. Barometric altitude is ignored. A launch reference establishes one plane;
+it does not follow slopes or canopy. Future <code>TER</code> needs valid grid coverage, datum and
+source freshness; it must not move the world-down diamond either.</p>
+<p>Unchecking <strong>GPS height/reference usable</strong>, a nonpositive height or an error interval
+reaching the surface hides the circle and diameter label. The same diamond remains at
+exactly the same XY, with middle-right height <code>--</code>. No stale point is held and no text
+warning is introduced. Horizontal navigation has its separate validity assumption.</p>
+<p><img alt="World-down diamond without the circle" src="proposed-downward-diamond-only.png"></p>
+<h2 id="world-down-projection">World-down projection</h2>
+<pre><code class="language-text">world ray = [0, 0, 1] in NED
+camera ray = calibrated body/camera transform(world ray, roll, pitch)
+diamond XY = project(camera ray)
+</code></pre>
+<p>The ray is a unit direction, not a vector to a finite ballistic endpoint. It is independent
+of altitude and horizontal velocity. At roll −4° and pitch +15° the recorded native
+position is <code>(166, 203)</code> at 10, 30, 60 and 120 m, including when the height reference is
+unusable. Roll/pitch changes the projected position. The enlarged diamond has native
+half-size 10, a centre dot and black outline; the fixed centre crosshair remains absent.
+The preview's ±15° attitude sliders are demonstration ranges, not accepted flight limits.</p>
+<h2 id="provisional-circle-scale">Provisional circle scale</h2>
+<p>The circle remains a visual-development assumption for a stationary release. It is
+not a calibrated confidence region. There is no nominal forward speed, velocity-based
+XY shift, release-delay compensation or in-flight trajectory model. A scalar residual-
+drift allowance sizes the illustrative footprint; it does not claim that the aircraft
+is moving. True CCIP is deferred and is not being implemented in this revision.</p>
+<p><a href="flat-model.json">flat-model.json</a> contains the shared assumptions:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align: right;">Assumed value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Release</td>
+<td style="text-align: right;">Vehicle stationary</td>
+</tr>
+<tr>
+<td>Ground reference</td>
+<td style="text-align: right;">300 m, same GPS datum</td>
+</tr>
+<tr>
+<td>Error in GPS aircraft-minus-ground height</td>
+<td style="text-align: right;">±3 m</td>
+</tr>
+<tr>
+<td>Residual drift allowance for circle scale</td>
+<td style="text-align: right;">0.50 m/s</td>
+</tr>
+<tr>
+<td>Base surface-error allowance</td>
+<td style="text-align: right;">1.00 m</td>
+</tr>
+<tr>
+<td>Surface</td>
+<td style="text-align: right;">One horizontal plane</td>
+</tr>
+</tbody>
+</table>
+<p>Use a simple reference fall-time scale at the upper height allowance, <code>h+dh</code>:</p>
+<pre><code class="language-text">allowance time = sqrt(2 * (h + dh) / g)
+r = base allowance + residual drift allowance * allowance time
+surface diameter = 2 * r
+</code></pre>
+<p>This is an assumed display budget for the stationary-release reference, with no wind,
+drag or package-specific fit. It is not a statistical probability or measured drop error.</p>
+<p>Project a surface circle around <code>(0, 0, h)</code>, directly below the aircraft, and enclose
+its sampled boundary with a screen circle centred on the world-down diamond. Add a
+2-pixel rounding margin. Native horizontal/vertical radii account for analog sampling
+aspect; HUD cells interrupt the ring. <code>D4.6M</code> labels the default assumed surface diameter.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">GPS height over plane</th>
+<th style="text-align: right;">Assumed surface diameter</th>
+<th style="text-align: right;">Screen-circle diameter</th>
+<th>Diamond native XY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">10 m</td>
+<td style="text-align: right;">3.6 m</td>
+<td style="text-align: right;">204 px</td>
+<td>166, 203</td>
+</tr>
+<tr>
+<td style="text-align: right;">30 m</td>
+<td style="text-align: right;">4.6 m</td>
+<td style="text-align: right;">92 px</td>
+<td>166, 203</td>
+</tr>
+<tr>
+<td style="text-align: right;">60 m</td>
+<td style="text-align: right;">5.6 m</td>
+<td style="text-align: right;">58 px</td>
+<td>166, 203</td>
+</tr>
+</tbody>
+</table>
+<p>Surface metres and image pixels scale differently. The screen footprint can shrink with
+height while the assumed surface diameter grows. Background imagery stays fixed to
+isolate the symbol changes; this is not a physical flight simulation.</p>
+<p>Sources: <a href="../../../source-register.html#local-only">Python circle-scale model</a>,
+<a href="../../../source-register.html#local-only">image generator</a>, and
+<a href="../../../source-register.html#local-only">browser implementation</a>. Static references call the
+actual C camera projector; browser cases use the same frozen lens coefficients. The
+manifest records altitude/error and attitude cases. Desktop canvases/masks are not MCU
+RAM allocations. C01–C03 retain their historical font, image bytes and source behaviour.</p>
+<h2 id="current-pcb-memory-boundary">Current PCB memory boundary</h2>
+<p>ST specifies 128 KiB flash and 32 KiB SRAM for the
+<a href="https://www.st.com/en/microcontrollers-microprocessors/stm32g431cb.html">STM32G431CB</a>.
+The repository's <a href="../../../source-register.html#local-only">linker script</a> reserves 8 KiB flash for
+the bootloader, 4 KiB for settings and 16 bytes of shared RAM. It also reserves a 2 KiB stack.</p>
+<p>Read-only inspection of the existing <code>0.1.0 (2f1e4f8)</code> release ELF/map, built on 2026-11-03
+at 16:19:04, gives the following. <a href="pcb-memory-budget.json">pcb-memory-budget.json</a> records
+the input hashes and exact values; this task performed no new firmware build.</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th style="text-align: right;">Linked/reserved use</th>
+<th style="text-align: right;">Remaining region bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application flash: 118,784 B</td>
+<td style="text-align: right;">74,700 B image</td>
+<td style="text-align: right;">44,084 B, about 43.1 KiB</td>
+</tr>
+<tr>
+<td>Usable RAM: 32,752 B</td>
+<td style="text-align: right;">20,336 B data/BSS + 2,048 B reserved stack</td>
+<td style="text-align: right;">10,368 B, about 10.1 KiB</td>
+</tr>
+</tbody>
+</table>
+<p>These are linker-region margins, not proven free runtime allocations. Stack high-water,
+render timing and new code/data still need measurement. The unused flash is not an
+allocated terrain partition and has no tile-loading/update contract.</p>
+<p>For signed 16-bit height samples, excluding origins, spacing, datum and integrity metadata:</p>
+<table>
+<thead>
+<tr>
+<th>Sample grid</th>
+<th style="text-align: right;">Height bytes</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32 × 32</td>
+<td style="text-align: right;">2,048 B</td>
+<td>A small local tile is plausible, subject to a measured budget</td>
+</tr>
+<tr>
+<td>64 × 64</td>
+<td style="text-align: right;">8,192 B</td>
+<td>Consumes most of the current RAM margin</td>
+</tr>
+<tr>
+<td>128 × 128</td>
+<td style="text-align: right;">32,768 B</td>
+<td>Exceeds the whole usable RAM region before firmware data</td>
+</tr>
+</tbody>
+</table>
+<p>At 10 m spacing, 32 samples span 310 m between sample centres; 64 span 630 m. Coverage,
+resolution and metadata must be chosen together. Flash could potentially hold a small
+read-only tile, but the linker/update/storage design and firmware growth would need review.</p>
+<p>The present flat-plane model needs only a ground-reference height and a small parameter
+set, with no height grid. For later terrain support, assess an FC/companion supplying
+local surface height or a small patch through telemetry before reserving broad map data
+on the OSD. Keep terrain ownership outside the video scanline path and benchmark the
+eventual bounded circle primitive on the PCB separately.</p>
+<p>Verified in this prototype revision: twelve browser/C geometry cases with zero native
+position or screen-radius differences; height-control changes; missing GPS, invalid height
+and empty-error fallback to a diamond without a circle; datum-translation invariance; larger assumed GPS error growing
+the surface envelope; and preservation of all nine baseline PNGs. Desktop/mobile browser
+checks and all six existing host regressions passed. These are software/visual checks.
+The compact layout was swept at all 117 integer heights from 4–120 m with the default
+±3 m height-error assumption. Enlarged diamond/outline bounds clear every HUD text cell;
+payload states/profile sit below the guidance area. This is not an accepted operating range.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

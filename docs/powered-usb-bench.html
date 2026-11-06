@@ -1,0 +1,127 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Powered TAC USB bench: results · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/powered-usb-bench.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="powered-tac-usb-bench-results">Powered TAC USB bench: results</h1>
+<p>Tested 2026-10-11. The user confirmed the aircraft, ground radio and TAC bench was powered, TAC remained connected to laptop USB, and aircraft propellers were removed. The user reported <strong>21.35 V</strong> on TAC's <strong>Drone Volts</strong> telemetry page. All hardware captures are finished; the user was told the aircraft could be powered down. Later physical power state is not assumed.</p>
+<h2 id="what-the-live-test-established">What the live test established</h2>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Observed result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB descriptors</td>
+<td>Same device and HID descriptor hashes as the isolated baseline; <code>35b6:0004</code>, HID + CDC ACM</td>
+<td>No new USB interface appeared with the powered link</td>
+</tr>
+<tr>
+<td>HID</td>
+<td>7 Linux axes, 16 buttons; 23 initialization events, zero changes in 3 seconds</td>
+<td>Existing gamepad interface remains available; no control mapping or movement requested</td>
+</tr>
+<tr>
+<td>Receive-only CDC</td>
+<td>231 bytes in 20.080 s: 11 valid HEARTBEAT frames, zero other messages</td>
+<td>Payload matches the controller-local heartbeat from the disconnected-radio test</td>
+</tr>
+<tr>
+<td>Parameter-list query</td>
+<td>Complete response: 97 entries indexed 0..96, each declaring total count 96</td>
+<td>Reproduces the static off-by-one discrepancy</td>
+</tr>
+<tr>
+<td>Parameter origin</td>
+<td>All 97 names, raw four-byte values and type bytes exactly match the compiled v1.3.6 table at <code>0x6b254</code></td>
+<td>This is TAC's compiled table, not evidence of the aircraft's current configuration</td>
+</tr>
+<tr>
+<td>Capability query</td>
+<td>Twice: 44-byte AUTOPILOT_VERSION prefix with header declaring 60 payload bytes / 72 total frame bytes</td>
+<td>Truncated response cannot validate as a complete MAVLink packet</td>
+</tr>
+<tr>
+<td>Capability source</td>
+<td>Function <code>0x5a6d0</code> serializes the response but explicitly passes <code>0x2c</code> (44) to USB send</td>
+<td>Live truncation matches a concrete firmware implementation defect</td>
+</tr>
+<tr>
+<td>Aircraft telemetry over USB</td>
+<td>No battery or position messages in the saved samples</td>
+<td>USB output is selective; TAC's on-screen 21.35 V reading is a separate user observation</td>
+</tr>
+</tbody>
+</table>
+<p>The data does not prove telemetry freshness, a GPS fix, exact installed firmware release or physical aircraft configuration. In particular, TAC's local heartbeat and local parameters must not be treated as an independent flight-controller identification. The firmware's position-output path suppresses output when either stored coordinate is zero, so absence of GPS packets does not distinguish lack of fix from other missing data.</p>
+<h2 id="saved-sessions-and-scope">Saved sessions and scope</h2>
+<table>
+<thead>
+<tr>
+<th>Capture</th>
+<th style="text-align: right;">Duration</th>
+<th style="text-align: right;">Bytes received</th>
+<th>CRC-valid frames after recovery</th>
+<th style="text-align: right;">Bytes sent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>receive-run2</code></td>
+<td style="text-align: right;">20.080 s</td>
+<td style="text-align: right;">231</td>
+<td>11 heartbeat</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>local-info-run1</code></td>
+<td style="text-align: right;">20.018 s</td>
+<td style="text-align: right;">3,584</td>
+<td>10 heartbeat + 90 parameters</td>
+<td style="text-align: right;">58</td>
+</tr>
+<tr>
+<td><code>local-info-run2</code></td>
+<td style="text-align: right;">26.062 s</td>
+<td style="text-align: right;">2,126</td>
+<td>4 heartbeat + 54 parameters</td>
+<td style="text-align: right;">58</td>
+</tr>
+<tr>
+<td><code>parameter-list-run3</code></td>
+<td style="text-align: right;">45.062 s</td>
+<td style="text-align: right;">3,715</td>
+<td>6 heartbeat + 97 parameters</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+<p>The first two parameter requests needed longer receive time; the final parameter-only run captured every entry, with the last arriving at 35.584 s. Variations in response cadence are observed, but their cause is not established.</p>
+<p>A total of <strong>130 application bytes</strong> were sent: two fixed <code>COMMAND_LONG</code> requests for command 512 with parameter 1 = 148, and three <code>PARAM_REQUEST_LIST</code> requests. Each targeted system 1 / component 1. No arm, control-output, home-setting, parameter-write or firmware-update request was sent. No Ethernet/MATRIX electrical probe was performed. USB CDC opening and closing can change DTR/RTS; these were host serial captures, not an electrically passive tap.</p>
+<h3 id="capture-interruption-and-decoder-recovery">Capture interruption and decoder recovery</h3>
+<p>The first 30-second receive attempt was killed by REA's idle timeout before saving. It sent zero application bytes, but its original terminal settings were not persisted and restoration is <strong>unverified</strong>. The capture helper now saves a pre-change termios snapshot, flushes a start message, handles SIGTERM, and writes a result during cleanup. Successful captures used sufficient supervisor timeout and all four restored their own starting snapshots. This does not prove restoration to the state before the interrupted attempt.</p>
+<p>The initial pymavlink streaming parser consumed parts of following heartbeats while trying to complete the truncated capability packet. The offline decoder was improved to advance one byte after a failed candidate. The <code>*-recovered.json</code> reports are authoritative for frame counts: both malformed responses leave exactly 44 unparsed bytes, and subsequent heartbeats are recovered with valid CRCs. Rejected-candidate spans can overlap valid frames; candidate counts are not physical line-error rates. Earlier decoder outputs are retained as historical evidence.</p>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/summary.json">Machine-readable summary</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/parameter-firmware-comparison.json">Complete parameters versus firmware</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/parameter-list-run3.json">Complete parameter capture</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/parameter-list-run3-recovered.json">Recovered parameter decode</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/local-info-run1.json">First malformed capability capture</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/local-info-run2.json">Second malformed capability capture</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/ghidra-export/0005a6d0.c">Capability sender decompilation</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/ghidra-export/0005a9dc.c">Parameter builder decompilation</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/rea-powered-usb-bench-evidence.json">REA evidence bundle</a></li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/powered-bench/offline-validation-recovery.json">Offline decoder checks</a></li>
+</ul>
+<p>REA identifiers are preserved in the summary. Runtime evidence and raw bytes are separated from static inference and the user's screen observation.</p>
+<h2 id="repeatable-tools">Repeatable tools</h2>
+<p><code>scripts/capture_serial_receive.py</code> performs a bounded receive-only capture. It requires either <code>--aircraft-unpowered</code> or <code>--powered-bench-props-removed</code>, based on a fresh, applicable user setup confirmation. <code>scripts/inspect_tac_ctrl.py</code> reads descriptors and joystick state. <code>scripts/query_tac_local_info.py</code> sends only the two reviewed information-request forms; <code>--parameter-list-only</code> selects a single parameter request and a 45-second receive window. <code>--dry-run</code> prints and validates the packets without opening hardware.</p>
+<p>The offline decoder uses <a href="https://github.com/ArduPilot/pymavlink">pymavlink</a> and the <a href="https://mavlink.io/en/messages/common.html">official common message definitions</a>. Dependencies are isolated and pinned:</p>
+<pre><code class="language-bash">python3 -m venv .tools/usb-bench
+.tools/usb-bench/bin/pip install -r evidence/usb/powered-bench/requirements.txt
+.tools/usb-bench/bin/python scripts/decode_tac_mavlink.py evidence/usb/powered-bench/parameter-list-run3.json --out /tmp/orqa-parameters-new-decode.json
+</code></pre>
+<p>Choose a new output path; existing outputs are not overwritten. The offline checks cover agreement with the earlier independent heartbeat decoder, signed position fields, single-byte chunks, corrupted CRCs, truncation and recovery of the real malformed-capability captures.</p>
+<h2 id="next-boundary">Next boundary</h2>
+<p>The USB test is complete. Raw Ghost validation still requires a suitable differential receive connection to the <a href="matrix-pinout.html">documented MATRIX UART pairs</a>. The laptop Ethernet port does not implement that interface. No new hardware connection is requested by this report.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

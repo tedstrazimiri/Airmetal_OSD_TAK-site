@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Independent USB/HID reconstruction review · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/reconstruction/usb-hid-review.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="independent-usbhid-reconstruction-review">Independent USB/HID reconstruction review</h1>
+<p>Read-only review of <code>tac_reconstruction/usb.py</code> and <code>hid.py</code> against retained decompilation, focused instruction listings, raw firmware literals and saved captures. This review executed no firmware and accessed no hardware. Findings apply to the recovered v1.3.6 Nordic application, SHA-256 <code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>.</p>
+<h2 id="concrete-parser-findings">Concrete parser findings</h2>
+<p>The initial reconstruction rejected CRC-bad input frames. That differed from the saved firmware: <code>evidence/firmware/ghidra-export/00059a4c.c</code>, cases <code>0x0d/0x0e</code>, sets the return status to 2 on CRC failure and copies the completed message. Wrapper <code>00059fcc.c</code> returns that status unchanged. In <code>evidence/firmware/ghidra-focused/0005a768.asm</code>, instructions <code>0x5a78e–0x5a790</code> compare the parser result with zero and skip dispatch only for zero. Consequently, a complete unsigned packet with a recognized message ID can reach the adapter dispatcher despite a CRC error. This is static evidence, not a live malformed-packet experiment. The final implementation preserves this behavior while offering an explicit strict policy.</p>
+<p>Zero-length incoming payloads are another fidelity boundary. <code>00059a4c.c</code> enters payload state <code>0x0b</code> after the final message-ID byte without a zero-length special case. The next byte is stored as payload, the 8-bit index increments, and only then is it compared with the declared length. An ordinary framed parser that treats the next two bytes as CRC does not reproduce that state machine. The reconstruction should reject this as an explicit boundary until the full state behavior is modeled.</p>
+<p>The signing path is also distinct from cryptographic authentication. <code>00059278.c</code> returns success immediately when the signing-context pointer is null. A model accepting a signature-bearing frame without validation must record that fact; it must not claim to have authenticated the signer. This review did not establish every runtime signing-context transition.</p>
+<h2 id="paths-checked-without-a-mismatch">Paths checked without a mismatch</h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Source evidence</th>
+<th>Review result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position counter</td>
+<td><code>usb-hid-assembly/0005a8b0.asm</code>, <code>0x5a8b8</code> LDRB and <code>0x5a8c0</code> STRB</td>
+<td>Eight-bit wrap; increment occurs before zero-coordinate suppression</td>
+</tr>
+<tr>
+<td>Position fields</td>
+<td>Same function and byte-swap helper assembly</td>
+<td>Recovered byte order, overlapping longitude/velocity field mapping and heading multiplication are preserved, including unusual source behavior</td>
+</tr>
+<tr>
+<td>Home coordinate conversion</td>
+<td><code>usb-hid-assembly/0005ab18.asm</code></td>
+<td>Binary32 multiplication by binary32 <code>1e7</code>, then signed integer conversion; finite in-range model values truncate toward zero</td>
+</tr>
+<tr>
+<td>Home coordinate order</td>
+<td>Raw literals <code>0x5ab68→0x20016594</code>, <code>0x5ab6c→0x20016590</code>; <code>0005a550.c</code>; <code>0004d888.c</code></td>
+<td>Longitude is passed first to the internal helper, which writes its second argument first; resulting Ghost payload remains latitude followed by longitude</td>
+</tr>
+<tr>
+<td>Parameter sequence allocation</td>
+<td><code>0005a9dc.c</code>, <code>0005a1a0.c</code>, <code>0005949c.c</code></td>
+<td>All 97 sequence numbers are allocated when the list is constructed, before queued transmission</td>
+</tr>
+<tr>
+<td>Service priority</td>
+<td><code>0005a550.c</code></td>
+<td>Request queue precedes parameter queue; periodic five-slot service follows only when both are empty</td>
+</tr>
+<tr>
+<td>HID button bits</td>
+<td><code>usb-hid-assembly/00056038.asm</code>, <code>0x561ce–0x56258</code></td>
+<td>Low eight bits retained; upper report nibble is routed from input bits 14,15,12,13</td>
+</tr>
+<tr>
+<td>HID stick map</td>
+<td><code>00056038.asm</code> and <code>00055fd8.asm</code></td>
+<td>Four alternating linear maps, signed truncating division, special center value 1984→1024; endpoint 2048 retained despite descriptor maximum 2047</td>
+</tr>
+<tr>
+<td>HID switch A</td>
+<td><code>00056038.asm</code>, <code>0x5642a–0x564b2</code></td>
+<td>Input 3→2047 and 1→0; inputs 0/2 leave previous report bytes unchanged</td>
+</tr>
+<tr>
+<td>HID switch B</td>
+<td><code>00056006.asm</code>, <code>00056038.asm</code>, <code>0x564b4–0x5650c</code></td>
+<td>Inputs 2/3 are swapped before the signed linear map; input 0 can produce 3070</td>
+</tr>
+</tbody>
+</table>
+<p><code>usb-hid-assembly/</code> in this table means <code>evidence/reconstruction/usb-hid-assembly/</code>; other function filenames refer to <code>evidence/firmware/ghidra-export/</code> unless a different path is written.</p>
+<h2 id="static-limits">Static limits</h2>
+<ul>
+<li>Parser recovery remains a modeling boundary. A subsequent raw-descriptor review recovered USB queue capacities10/100 and reject-newest overflow; these are now implemented and tested, as described in usb-hid-analysis.md.</li>
+<li>Successful saved-capture comparisons cover the observed byte sequences, not all scheduling, fragmentation, malformed input, or concurrent input behavior.</li>
+<li>The HID model begins with processed control values; ADC acquisition, filtering/calibration, transport callback timing and physical control labels are outside this reviewed producer.</li>
+<li>Out-of-range and nonfinite float-to-int behavior remains an explicit boundary rather than an invented conversion result.</li>
+<li>Exact descriptor matches associate the recovered application with the observed controller interface; they do not establish the currently installed firmware release.</li>
+</ul>
+<p>The review also corrected the catalog label for <code>0x632c2</code> to <strong>byte_swap_u16</strong>, and added the new focused USB/HID export directory to the catalog input inventory.</p>
+<h2 id="integration-review-closure">Integration review closure</h2>
+<p>A later read-only review found snapshot effects shared by reference and scenario input opened before file-type checking. The final harness deep-copies snapshot effects; the Linux CLI uses O_PATH metadata inspection and reopens only a verified regular inode through procfs. Regression tests cover snapshot isolation and non-regular input rejection. No physical device was used to test the guard.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "scope": "Proposed flight HUD reference only; not saved FC/PCB configuration. SA pages keep their separate voltage-only policy.",
+  "grid": [
+    30,
+    16
+  ],
+  "altitude_source": "GPS altitude minus same-datum flat-ground reference; barometric height ignored",
+  "rx_band_channel": null,
+  "nearest_tak_count": 2,
+  "nearest_tak_policy": "Fresh bounded markers, sorted by horizontal distance then ID, independent of display sector/range. Arrows are relative to aircraft azimuth.",
+  "home_fixture": {
+    "north_m": 166.2983158520316,
+    "east_m": -68.88301782571617
+  },
+  "diamond_half_size_native": 10,
+  "fields": [
+    {
+      "element": "own_mgrs_zone_square",
+      "column": 1,
+      "row": 0,
+      "category": "proposed"
+    },
+    {
+      "element": "own_mgrs_digits",
+      "column": 1,
+      "row": 1,
+      "category": "proposed"
+    },
+    {
+      "element": "osd_gps_sats_pos",
+      "column": 1,
+      "row": 7
+    },
+    {
+      "element": "osd_altitude_pos",
+      "column": 24,
+      "right_edge": 29,
+      "row": 7
+    },
+    {
+      "element": "osd_vtx_channel_pos",
+      "column": 22,
+      "row": 0
+    },
+    {
+      "element": "rx_band_channel",
+      "column": 21,
+      "row": 1,
+      "category": "proposed"
+    },
+    {
+      "element": "osd_link_quality_pos",
+      "column": 24,
+      "row": 2
+    },
+    {
+      "element": "osd_avg_cell_voltage_pos",
+      "column": 1,
+      "row": 14
+    },
+    {
+      "element": "osd_mah_drawn_pos",
+      "column": 1,
+      "row": 15
+    },
+    {
+      "element": "osd_home_dir_pos",
+      "column": 12,
+      "row": 15
+    },
+    {
+      "element": "osd_home_dist_pos",
+      "column": 13,
+      "row": 15
+    },
+    {
+      "element": "nearest_tak_1",
+      "column": 19,
+      "right_edge": 29,
+      "row": 14,
+      "category": "proposed"
+    },
+    {
+      "element": "nearest_tak_2",
+      "column": 19,
+      "right_edge": 29,
+      "row": 15,
+      "category": "proposed"
+    }
+  ]
+}

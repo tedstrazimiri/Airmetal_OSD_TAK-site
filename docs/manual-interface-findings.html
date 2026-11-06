@@ -1,0 +1,311 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orqa GCS-1 / IRONghost interface map from supplied manuals · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/manual-interface-findings.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="orqa-gcs-1-ironghost-interface-map-from-supplied-manuals">Orqa GCS-1 / IRONghost interface map from supplied manuals</h1>
+<p><strong>Later evidence, 2026-10-11:</strong> the user supplied a <a href="matrix-pinout.html">MATRIX pinout image</a> documenting the contacts, differential UART at 115k, +50 V and CVBS. The PDF-only omissions recorded below remain accurate for those manuals, but no longer describe the complete available evidence. The image is documentary evidence; hardware applicability and electrical behavior remain unmeasured.</p>
+<p>Date: 2026-10-11. Scope: documented interconnections, host USB/service interfaces, power distribution, video, telemetry, and information gaps. The documents are evidence, not instructions to execute. No hardware was operated for this analysis. This report does not cover payload actuation.</p>
+<h2 id="main-findings">Main findings</h2>
+<ul>
+<li>The ground station is a distributed assembly: Tac.Ctrl is the operator console; GU QS is the control/telemetry radio; GU RF is an analog video receiver; FPV.Pro is the display. They are not one USB-connected computer peripheral.</li>
+<li>The supplied manuals do <strong>not</strong> describe Tac.Ctrl's USB connector, USB classes, host protocol, firmware updater, or Linux software. Those require independent device evidence or the missing Tac.Ctrl-specific manual. A USB connection to Tac.Ctrl is not evidence of access to the video receiver, aircraft flight controller, telemetry, or firmware files.</li>
+<li>RJ45 is explicitly labeled <strong>MATRIX</strong> and carries power/communications, including equalized analog video over CAT cable. The manuals do not identify it as Ethernet, IP, standard PoE, or an RJ45 serial standard. A laptop network connection is therefore unestablished.</li>
+<li>The aircraft also has a USB-C computer-configuration port and a DFU button. This is a separate physical interface from Tac.Ctrl USB. The GU RF has a Micro USB port whose purpose is not stated.</li>
+<li>The manuals establish the overall topology but omit MATRIX pinouts, electrical levels, protocols, ground-unit internal connections, and aircraft internal harness details. Solid claims below are distinguished from hypotheses.</li>
+</ul>
+<h2 id="sources-and-page-convention">Sources and page convention</h2>
+<p>PDF page numbers are one-based viewer pages. Printed pages are the footer numbers. Full text extraction and SHA-256 provenance are retained under <code>evidence/manuals/</code>; six relevant pages were rendered and visually inspected.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Source</th>
+<th>Page convention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GCS</td>
+<td><a href="../source-register.html#local-only">GCS-1 User Manual v1.0, February 2026</a></td>
+<td>PDF p2 onward = printed page + 1</td>
+</tr>
+<tr>
+<td>RF</td>
+<td><a href="../source-register.html#local-only">IRONghost GU RF 5.3-6.0 User Manual v1.1, April 2025</a></td>
+<td>PDF p2 onward = printed page + 1</td>
+</tr>
+<tr>
+<td>MRM</td>
+<td><a href="../source-register.html#local-only">MRM2-10 User Manual v1.4.1</a></td>
+<td>PDF p2 onward = printed page + 1</td>
+</tr>
+<tr>
+<td>START</td>
+<td><a href="../source-register.html#local-only">GCS-1 Getting Started Guide v1.0, July 2024</a></td>
+<td>No printed page numbers; cite PDF pages</td>
+</tr>
+<tr>
+<td>REP</td>
+<td><a href="../source-register.html#local-only">IRONghost Repeater 5.8 User Manual v1.2</a></td>
+<td>PDF p2 onward = printed page + 1</td>
+</tr>
+</tbody>
+</table>
+<p>The three requested manuals are primary. START and REP are adjacent manufacturer documents used only for corroboration, conflicts, and context. Repeater architecture is not proof of identical MRM2 internal circuitry.</p>
+<h2 id="documented-system-topology">Documented system topology</h2>
+<pre><code class="language-mermaid">flowchart LR
+  PC[Ubuntu laptop]
+  TC[Tac.Ctrl operator console]
+  QS[IRONghost GU QS&lt;br/&gt;Control and telemetry radio]
+  RF[IRONghost GU RF&lt;br/&gt;Analog diversity video receiver]
+  GG[FPV.Pro goggles]
+  AIR[Aircraft IRONghost radio&lt;br/&gt;and video transmitter assembly]
+  CAM[Justice analog camera]
+  FC[H7 QuadCore flight controller]
+  SNS[GPS / compass / barometer]
+  ESC[AM32 ESC assembly]
+  BAT[Aircraft battery]
+  QB[Optional QS battery]
+  CB[Tac.Ctrl internal 6-cell battery]
+
+  PC -. &quot;Tac.Ctrl USB: absent from manuals; inspect separately&quot; .-&gt; TC
+  TC &lt;--&gt;|&quot;RJ45 MATRIX / CAT6: comms, power, analog-video return&quot;| QS
+  QS &lt;--&gt;|&quot;RJ45 MATRIX / short CAT6: comms, power, video return&quot;| RF
+  TC --&gt;|&quot;16-pin LEMO: power and video&quot;| GG
+  QS &lt;--&gt;|&quot;IRONghost RF control / telemetry&quot;| AIR
+  AIR --&gt;|&quot;Analog video RF downlink&quot;| RF
+  CAM -. &quot;Analog image path; exact internal wiring unknown&quot; .-&gt; AIR
+  AIR -. &quot;Control / telemetry electrical interface unknown&quot; .-&gt; FC
+  SNS -. &quot;Internal sensor buses not documented&quot; .-&gt; FC
+  FC -. &quot;Internal drive interface not documented&quot; .-&gt; ESC
+  BAT --&gt;|&quot;XT90 and two XT60, common parallel supply&quot;| AIR
+  BAT --&gt; FC
+  BAT --&gt; ESC
+  QB --&gt;|&quot;QS XT60&quot;| QS
+  CB --&gt; TC
+  PC -. &quot;Separate aircraft USB-C computer configuration&quot; .-&gt; FC
+</code></pre>
+<p>Solid inter-device paths are explicitly documented, except BAT arrows to internal electronics indicate shared system power at a functional level rather than a published regulator schematic. Dashed internal paths are functional inferences, not pinouts. The USB-C-to-FC endpoint is supported by computer configuration, H7, and DFU context but not an internal schematic. No claim is made that Tac.Ctrl USB bridges to this port.</p>
+<h2 id="ground-side-interface-inventory">Ground-side interface inventory</h2>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Documented content / purpose</th>
+<th>Evidence</th>
+<th>Unknowns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Laptop &lt;-&gt; Tac.Ctrl USB</td>
+<td>Not described by these manuals</td>
+<td>No Tac.Ctrl USB details in GCS or START</td>
+<td>Connector variant, USB IDs/classes, endpoints, joystick versus serial versus storage modes, host API, firmware update mode, telemetry/video availability</td>
+</tr>
+<tr>
+<td>Tac.Ctrl &lt;-&gt; GU QS</td>
+<td>Single RJ45 MATRIX connection for communications and power; CAT6 kit cable 10 m</td>
+<td>RF PDF p3 / printed 2; GCS PDF p6 / printed 5</td>
+<td>Pinout, pair usage, voltage, signalling, packet protocol, termination, direction of all data, isolation; no Ethernet/IP claim</td>
+</tr>
+<tr>
+<td>GU QS &lt;-&gt; GU RF</td>
+<td>Short 50 cm CAT6; RF powered and controlled via QS; video ultimately returns to Tac.Ctrl</td>
+<td>GCS PDF p6 / printed 5; RF PDF p3 / printed 2 and p5 / printed 4</td>
+<td>MATRIX pinout, whether QS forwards or processes each signal, exact video electrical standard</td>
+</tr>
+<tr>
+<td>GU RF bottom Micro USB</td>
+<td>Connector shown and explicitly named</td>
+<td>RF Fig 3.2 / Table 3.2, PDF p5 / printed 4; visually verified</td>
+<td>Firmware update, diagnostics, power behavior, USB classes and supported software not stated</td>
+</tr>
+<tr>
+<td>GU RF front antenna connectors</td>
+<td>Left/right connectors labeled RP-SMA female PCB mount</td>
+<td>RF Fig 3.1 / Table 3.1, PDF p4 / printed 3; visually verified</td>
+<td>Conflict with repeater manual's broad statement about video connectors; inspect actual unit before using adapters</td>
+</tr>
+<tr>
+<td>GU RF video reception</td>
+<td>Diversity analog receiver; remote equalized analog video on CAT5/6/7; named rapidFIRE</td>
+<td>RF PDF p3 / printed 2</td>
+<td>No digitized USB video or Ethernet video interface stated; PAL/NTSC format and electrical video levels not given here</td>
+</tr>
+<tr>
+<td>Tac.Ctrl &lt;-&gt; goggles</td>
+<td>Single 16-pin LEMO carries power and video</td>
+<td>GCS PDF p4 / printed 3 and p6 / printed 5; START PDF p3 and p6</td>
+<td>Pinout, video format/levels, additional signals, compatible capture breakout</td>
+</tr>
+<tr>
+<td>Tac.Ctrl internal power</td>
+<td>Integrated 6-cell 4000 mAh battery; kit includes charger and cables</td>
+<td>GCS PDF p4 / printed 3</td>
+<td>Charger connector, USB charging behavior, rail regulation, battery monitor interface</td>
+</tr>
+<tr>
+<td>QS external power</td>
+<td>XT60 port accepts 3S-6S LiPo; external source takes priority over controller battery</td>
+<td>GCS PDF p6 / printed 5; START PDF p6</td>
+<td>Voltage/current limits beyond stated pack range, backfeed protection, exact switchover implementation; cable-length threshold conflict below</td>
+</tr>
+<tr>
+<td>GU QS local/service ports</td>
+<td>Only MATRIX interconnects and XT60 are established by supplied GCS setup material</td>
+<td>GCS PDF p6 / printed 5</td>
+<td>QS-specific port inventory, potential service USB/debug ports, board revision, schematics missing</td>
+</tr>
+<tr>
+<td>Goggles service interfaces</td>
+<td>Not documented by this manual set</td>
+<td>GCS PDF p4 and p6 establish only LEMO path</td>
+<td>Any USB, SD, HDMI, recording, firmware, display-control, or other functions need FPV.Pro manual/device inspection</td>
+</tr>
+<tr>
+<td>ATAK path</td>
+<td>MRM technical specification claims ATAK support through Tac.Ctrl</td>
+<td>MRM PDF p5 / printed 4</td>
+<td>Transport, host OS, USB/network role, software/plugin, message format, available fields and direction not identified</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aircraft-interface-inventory">Aircraft interface inventory</h2>
+<table>
+<thead>
+<tr>
+<th>Interface / block</th>
+<th>Documented content</th>
+<th>Evidence</th>
+<th>Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aircraft USB-C</td>
+<td>Used for computer configuration; visible USB-C port beside DFU button</td>
+<td>MRM PDF p3 / printed 2; Image 1, PDF p6 / printed 5</td>
+<td>No VID/PID, device class, endpoint or board-level route published</td>
+</tr>
+<tr>
+<td>H7 QuadCore FC</td>
+<td>STM32H743-based system; manual says supports Betaflight, iNav, ArduPilot, PX4</td>
+<td>MRM PDF p5 / printed 4</td>
+<td>Capability claim does not prove which firmware is installed or which transports are exposed</td>
+</tr>
+<tr>
+<td>Configuration software</td>
+<td>Manual quick guide names Betaflight v4.1 default and Configurator 10.10.0 or newer</td>
+<td>MRM PDF p7 / printed 6</td>
+<td>Treat version as manual claim only; actual aircraft software is unverified, and supplied adjacent filenames may indicate other versions</td>
+</tr>
+<tr>
+<td>Aircraft control/telemetry radio</td>
+<td>Dual sub-GHz IRONghost; separate receive antennas</td>
+<td>MRM PDF p5-8 / printed 4-7</td>
+<td>Internal UART/pinout/voltage, GHST/SBUS/CRSF/MAVLink choice, telemetry schema unknown</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td>Orqa Justice analog daylight camera, 1200 TVL</td>
+<td>MRM PDF p5 / printed 4 and p8 / printed 7</td>
+<td>Camera harness and power rail, whether video passes through FC OSD, and camera control electrical interface not supplied</td>
+</tr>
+<tr>
+<td>Airborne VTx</td>
+<td>Analog video transmitter integrated into communication/image-transmission module</td>
+<td>MRM PDF p14 / printed 13</td>
+<td>Exact PCB/hybrid SKU, internal control protocol, analog video input and power rails unknown</td>
+</tr>
+<tr>
+<td>GNSS/sensors</td>
+<td>GPS, integrated compass and auxiliary barometer</td>
+<td>MRM PDF p5 / printed 4</td>
+<td>Sensor models, UART/I2C/SPI assignment, connector pinouts absent</td>
+</tr>
+<tr>
+<td>ESC assembly</td>
+<td>30 x 30 AM32 system</td>
+<td>MRM PDF p5 / printed 4</td>
+<td>FC/ESC protocol and connector pinout absent</td>
+</tr>
+<tr>
+<td>Main battery connectors</td>
+<td>One XT90 and two XT60 all wired in parallel</td>
+<td>MRM PDF p7 / printed 6; p10 / printed 9</td>
+<td>These are a common electrical circuit, not three isolated power inputs; USB backfeed behavior not documented</td>
+</tr>
+<tr>
+<td>Bind and DFU buttons</td>
+<td>Distinct buttons shown in component diagram</td>
+<td>MRM PDF p6 / printed 5</td>
+<td>No host command to emulate either is documented; no button was operated</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-and-update-path-evidence">Configuration and update path evidence</h2>
+<ul>
+<li><strong>Receiver configuration:</strong> GU RF controls are exposed through the transmitter's OLED menu via MATRIX and GU QS; the manual explicitly calls this the receiver's control path. It includes receiver mode, antenna selection, and calibration. This does not establish equivalent controls on USB. RF PDF p5 / printed 4.</li>
+<li><strong>Video settings coordination:</strong> GU RF receive frequency is tied to the transmitter's video settings, while the aircraft manual describes settings propagated from Tac.Ctrl. This establishes a settings relationship, not the underlying command encoding or a laptop API. RF PDF p5 / printed 4; MRM PDF p14 / printed 13.</li>
+<li><strong>Airborne communications firmware:</strong> MRM documents an OTA firmware update offered through the controller during pairing. The prose calls the target a "vTx receiver," which is ambiguous; do not reinterpret it as an H7 flight-controller update. MRM PDF p13 / printed 12.</li>
+<li><strong>H7 firmware:</strong> The manual directs users to Orqa support for H7 QuadCore updates, and does not supply a flashing protocol or image compatibility table. MRM PDF p13 / printed 12.</li>
+<li><strong>Tac.Ctrl, GU QS, and GU RF updates:</strong> No supported updater or firmware procedure is stated in the three requested manuals.</li>
+<li><strong>Optional repeater:</strong> The repeater manual explicitly describes separate USB-C service ports for its control/telemetry and video-receiver blocks, using Windows tools supplied by Orqa. This applies to the repeater only, not automatically to GU RF's Micro USB or Tac.Ctrl's USB. REP PDF p16 / printed 15.</li>
+</ul>
+<h2 id="optional-repeater-architecture-evidence-only">Optional repeater: architecture evidence only</h2>
+<p>REP Fig 4.1 (PDF p7 / printed 6), rendered as <code>evidence/manuals/repeater-block-pdf-p7.png</code>, separates the control/telemetry and analog-video chains. It labels an airborne Ghost Rx / Tramp vTx hybrid; a repeater receive/transmit pair for control; rapidFIRE analog reception feeding a composite-video connection to the repeater video transmitter; and the ground rapidFIRE / IRONghost Quattro Tx assembly with MATRIX to Tac.Ctrl/Hub.</p>
+<p>The figure labels a <strong>GHST Rx Protocol</strong> boundary at the airborne receiver and within the repeater. This is useful evidence for that architecture but does <strong>not</strong> prove the exact MRM2 H7 receiver protocol, serial port, pinout, or firmware setting. Likewise, a camera-to-Tramp block shown in this figure does not prove whether an MRM2 camera signal passes through an FC OSD before the VTx.</p>
+<h2 id="conflicts-and-missing-specifications">Conflicts and missing specifications</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Conflicting or missing evidence</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAT cable length</td>
+<td>START PDF p6: up to 600 m. RF PDF p3 / printed 2: 600 m signal/power and analog-video claim. GCS PDF p6 / printed 5: up to 1 km.</td>
+<td>Do not represent a single tested maximum; likely revision/system-dependent and unverified here.</td>
+</tr>
+<tr>
+<td>External QS power threshold</td>
+<td>START PDF p6: external battery for runs longer than 600 m. Newer GCS PDF p6 / printed 5: longer than 100 m.</td>
+<td>Preserve both dates/claims; seek revision-matched QS/MATRIX limits before long runs.</td>
+</tr>
+<tr>
+<td>Video antenna connector type</td>
+<td>RF PDF p4 explicitly says RP-SMA female for this ground receiver; REP PDF p7 says all video-link antenna connections are SMA.</td>
+<td>Product-specific RF table and actual hardware inspection outrank applying a broad statement across products.</td>
+</tr>
+<tr>
+<td>Aircraft firmware version</td>
+<td>MRM quick guide says Betaflight v4.1, but the task directory has no measured aircraft firmware evidence.</td>
+<td>Do not infer the live version from manuals or firmware filenames.</td>
+</tr>
+<tr>
+<td>MATRIX transport</td>
+<td>Connector, cable type, power and analog-video functions documented; electrical schematic absent.</td>
+<td>RJ45 appearance gives no authorization or technical basis for plugging it into a laptop Ethernet NIC or PoE switch.</td>
+</tr>
+<tr>
+<td>Tac.Ctrl USB / ATAK</td>
+<td>USB not covered; ATAK only a capability claim.</td>
+<td>Need descriptors/runtime captures and the Tac.Ctrl manual before asserting computer integration.</td>
+</tr>
+<tr>
+<td>Internal aircraft routing</td>
+<td>Components named, but harness and PCB interfaces omitted.</td>
+<td>Keep internals at a functional level; do not invent UART numbers, voltage levels, OSD routing, or protocol pinouts.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="evidence-still-needed-for-a-complete-interface-model">Evidence still needed for a complete interface model</h2>
+<ol>
+<li>Tac.Ctrl-specific manual and actual USB descriptors/interface inventory, with device/firmware revision recorded.</li>
+<li>GU QS-specific manual and MATRIX electrical/pinout specification for the actual revision.</li>
+<li>FPV.Pro-specific manual and LEMO connector/pinout specification.</li>
+<li>Read-only identification of the aircraft flight-controller firmware and receiver interface if aircraft access is later in scope.</li>
+<li>Manufacturer tooling metadata or provided updater artifacts to distinguish service interfaces from runtime host interfaces.</li>
+</ol>
+<p>The manuals establish only connector-level and functional paths. They do not establish a USB-to-MATRIX bridge, USB video capture, MAVLink over Tac.Ctrl USB, an Ethernet port, standard PoE, or a common protocol across all USB connectors.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

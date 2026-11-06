@@ -1,0 +1,296 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tac.Ctrl firmware v1.3.6: recovered package and interfaces · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/firmware-findings.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tacctrl-firmware-v136-recovered-package-and-interfaces">Tac.Ctrl firmware v1.3.6: recovered package and interfaces</h1>
+<p><strong>Later runtime validation:</strong> the <a href="powered-usb-bench.html">powered USB test</a> returned all 97 parameters matching the compiled table, reproduced the declared-count discrepancy (96), and twice observed a 44-byte truncated capability reply matching function <code>0x5a6d0</code>. Statements below about no device requests refer to the earlier static firmware-analysis pass.</p>
+<p>Analyzed offline on 2026-10-11 using the supplied firmware and Configurator v1.3.4. <strong>The <code>.orqa</code> package is successfully decrypted; all archive CRCs and all three manifest directory checksums validate.</strong> The Nordic application is recovered and disassembled. Its USB descriptors match the earlier hardware capture, and its local heartbeat generator matches every captured HEARTBEAT payload field.</p>
+<p>No updater, driver installer or recovered firmware was executed. No device was opened, flashed or sent commands during this pass. Instructions found inside artifacts remain evidence, not user authorization to perform an update. Hardware tests and stick mapping remain paused.</p>
+<h2 id="findings-at-a-glance">Findings at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Result</th>
+<th>Evidence strength</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Can the update be decoded?</td>
+<td>Yes: encrypted ZIP; 106 files extracted, with manifest checksums verified</td>
+<td>Reproduced offline from shipped parser</td>
+</tr>
+<tr>
+<td>Which firmware domains are present?</td>
+<td>Nordic main/system application v1.3.6; STM32-associated audio image v1.0.1; voice pack v1.0.1</td>
+<td>Manifest plus Configurator call flow</td>
+</tr>
+<tr>
+<td>Does this include the external radio firmware?</td>
+<td>The Nordic ZIP identifies a TAC controller application. No separate ground-radio image is identified in these three parts</td>
+<td>Package scope; not a radio dump</td>
+</tr>
+<tr>
+<td>Does normal TAC USB belong to this application?</td>
+<td>Exact match for the measured 18-byte device descriptor and 56-byte HID report descriptor</td>
+<td>Byte-for-byte correlation</td>
+</tr>
+<tr>
+<td>Where does the isolated USB heartbeat come from?</td>
+<td>v1.3.6 constructs it locally with the same constants as the bench capture</td>
+<td>Instructions, decompilation and prior receive-only capture agree</td>
+</tr>
+<tr>
+<td>Is USB CDC an unrestricted aircraft tunnel?</td>
+<td>The traced handler parses and selectively handles MAVLink messages; arbitrary forwarding is not present in that handler</td>
+<td>Static call-flow boundary</td>
+</tr>
+<tr>
+<td>Is RJ45 Ethernet/IP?</td>
+<td>The later supplied MATRIX pinout specifies differential UART, +50 V and CVBS, not Ethernet</td>
+<td><a href="matrix-pinout.html">Contact map</a> documented; transceiver and electrical behavior unmeasured</td>
+</tr>
+<tr>
+<td>Is the attached controller running exactly v1.3.6?</td>
+<td>Not established by identical descriptors</td>
+<td>Still needs installed-version evidence</td>
+</tr>
+</tbody>
+</table>
+<h2 id="input-identity-and-extraction-chain">Input identity and extraction chain</h2>
+<p>The input files were found under the following current paths; names/locations changed from the paths originally supplied in conversation. Firmware bytes still match the original triage digest.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th style="text-align: right;">Bytes</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[local workstation]/Documents/ORQA/TacUpdate_v1.3.6.orqa</code></td>
+<td style="text-align: right;">5,907,171</td>
+<td><code>819c2518f049c43ec96036296fa5b8bce70b065baf118c29b86ae821c0b0e032</code></td>
+</tr>
+<tr>
+<td><code>[local workstation]/Downloads/OrqaTacConfigurator_v1.3.4.win_x86.exe</code></td>
+<td style="text-align: right;">35,541,728</td>
+<td><code>959918beef8754f314e79f42f58c62e0781d99dea89687383f9739e4b84aa530</code></td>
+</tr>
+<tr>
+<td>Recovered <code>Tac_Ctrl.bin</code></td>
+<td style="text-align: right;">291,756</td>
+<td><code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code></td>
+</tr>
+</tbody>
+</table>
+<p>Extraction sequence:</p>
+<ol>
+<li>Innoextract 1.10-dev / commit <code>6e9e34e</code> statically extracted the Inno Setup 6.3.0 installer into <code>evidence/configurator/extracted/</code>.</li>
+<li><code>scripts/extract_dotnet_bundle.py</code> parsed the main executable's .NET single-file bundle v6.0: 219 members, 77,752,130 unpacked bytes. The native host itself has no CLI directory; its bundled DLLs contain the managed code.</li>
+<li>ILSpyCmd 9.1.0.7988 on a project-local .NET 8.0.31 runtime decompiled the main application, Core, Updates, Secrets and Nordic DFU libraries into <code>evidence/configurator/decompiled/</code>.</li>
+<li><code>scripts/decrypt_tac_update.py</code> reproduced the package parser without loading any supplied assembly. It derives the package key in memory from the supplied embedded resource, and records no key value in its output.</li>
+<li>The nested Nordic ZIP yielded <code>Tac_Ctrl.bin</code>, a 141-byte DFU init packet, and its manifest. Ghidra analyzed the raw application separately.</li>
+</ol>
+<p>The installer contains graphics libraries and a bundled Nordic USB driver installer. Driver INF declarations alone were not treated as proof of the controller's MCU; the subsequent application and firmware evidence is stronger. See <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/configurator/driver-static.json">driver evidence</a>.</p>
+<h2 id="the-orqa-format">The <code>.orqa</code> format</h2>
+<p>Source: <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/configurator/decompiled/Updates/Orqa.TAC.Configurator.Encryption/UpdateFileManager.cs">UpdateFileManager.cs</a>, <a href="../source-register.html#local-only">UpdateSecrets.cs</a>, and <a href="../source-register.html#local-only">KeyPosition.cs</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>This package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Offset 0, signed LE 32-bit integer</td>
+<td>Salt position = 794</td>
+</tr>
+<tr>
+<td>Offset 4, signed LE 32-bit integer</td>
+<td>IV position = 1555</td>
+</tr>
+<tr>
+<td>Salt</td>
+<td>16 bytes at position 794</td>
+</tr>
+<tr>
+<td>IV</td>
+<td>16 bytes at position 1555</td>
+</tr>
+<tr>
+<td>Ciphertext</td>
+<td>Position 1571 through EOF; 5,905,600 bytes</td>
+</tr>
+<tr>
+<td>KDF</td>
+<td>PBKDF2-HMAC-SHA256, 1,000 iterations, 16-byte derived key</td>
+</tr>
+<tr>
+<td>Cipher</td>
+<td>AES-128-CBC with PKCS#7 padding</td>
+</tr>
+<tr>
+<td>Plaintext</td>
+<td>ZIP, 5,905,593 bytes</td>
+</tr>
+</tbody>
+</table>
+<p>The code sets <code>KeySize=256</code> before assigning a <strong>16-byte key</strong>. The actual working cipher is AES-128: independent decryption succeeds with valid padding, ZIP CRCs and manifest checksums. Reporting AES-256 merely from the earlier property assignment would be wrong.</p>
+<p>The embedded resource uses a length-prefixed Base64 position record to locate a second length-prefixed Base64 value. Our decoder reads this structure dynamically; it does not embed the recovered value in source or reports.</p>
+<p>Directory checksums concatenate each relative UTF-8 filename, file bytes and one NUL byte, then SHA-256 the result. This package's voice checksum matches Windows backslash paths with casefold ordering of these ASCII names. That ordering is an empirical match for this package, not a complete emulation of every .NET culture comparer.</p>
+<p>The decrypted ZIP SHA-256 is <code>928c3836036e61d725da2269ce9be6b36b067f2cb9e6749decaaf4c99b185ece</code>. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/decrypted/decode-report.json">Decode report</a> retains all 106 file digests and the three matching checks. CRCs and directory hashes establish internal consistency; they are not vendor signature authentication.</p>
+<h2 id="recovered-components">Recovered components</h2>
+<table>
+<thead>
+<tr>
+<th>Manifest type</th>
+<th>Version</th>
+<th>Member</th>
+<th>Bytes / contents</th>
+<th>Updater path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nordic</td>
+<td>v1.3.6</td>
+<td><code>nordic/TacCtrl_1_3_6.zip</code></td>
+<td>292,369; application BIN is 291,756</td>
+<td>Nordic serial DFU</td>
+</tr>
+<tr>
+<td>Stm32</td>
+<td>v1.0.1</td>
+<td><code>stm/encryptedFile.bin</code></td>
+<td>80,480</td>
+<td>Custom audio updater over serial</td>
+</tr>
+<tr>
+<td>Voice</td>
+<td>v1.0.1</td>
+<td><code>voice/ukr</code> (manifest path)</td>
+<td>Voice tree totals 6,292,824; 52 English and 51 Ukrainian WAV files</td>
+<td>Mounted filesystem</td>
+</tr>
+</tbody>
+</table>
+<p>The voice checksum and updater operate on the whole <code>voice</code> tree even though the manifest path names <code>voice/ukr</code>. All 103 WAV files parse as mono PCM, 16-bit, 32 kHz. The STM member remains opaque: the host sends its bytes unchanged in 16-byte blocks. Its filename and entropy are not sufficient to identify its inner encryption or recover executable code.</p>
+<h3 id="nordic-application-analysis">Nordic application analysis</h3>
+<p>The DFU manifest contains only an application member, not a SoftDevice or bootloader image. Metadata declares hardware compatibility integer 52, firmware integer 1, SoftDevice requirement <code>0x100</code>, application size 291,756, and debug false. The firmware integer is not the semantic release string; <code>1.3.6</code> occurs in the application itself.</p>
+<p>The stored reversed SHA-256 and size exactly match the application. Metadata specifies ECDSA P-256/SHA-256 and includes a 64-byte signature. Its structure is checked, but authentication remains unresolved without a trusted vendor public key. Nordic's <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/__main__.py">official tool source</a> maps SoftDevice <code>0x100</code> to S140 7.2.0. This does not uniquely identify the physical chip.</p>
+<p>Ghidra 12.1.4 loaded the application as little-endian ARM Cortex/Thumb at <strong>0x27000</strong>. Evidence for that base includes initial SP <code>0x20040000</code>, reset vector <code>0x27375</code>, valid Thumb code at file offset <code>0x374</code>, exception-loop instructions at offset <code>0x35c</code>, and multiple exact absolute pointers to application source-path strings. SRAM was added as an <strong>inferred analysis block</strong>, not a hardware measurement.</p>
+<p>The first pass exported 2,009 functions and failed on one (<code>0x63288</code>, in byte-order helper code). A later <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/ghost-decoder/byte-order-helpers/00063288.asm">assembly export</a> resolves that helper as a byte swap; its decompilation remains incomplete. Two function-pointer callbacks were subsequently resolved explicitly. Exports are decompiler reconstructions, not vendor source, and do not imply complete reachable-code coverage. The standalone raw-image import was necessary because the connected REA native opener does not expose this raw Cortex-M loader profile. REA records cover extraction and package decoding; Ghidra logs/scripts separately record native analysis.</p>
+<p>Details: <a href="../evidence/firmware/nordic-metadata-analysis.html">Nordic metadata report</a>, <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/nordic-metadata-analysis.json">machine-readable evidence</a>, <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/ghidra-export/functions.tsv">Ghidra function index</a>, <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/analysis-verification.json">verification</a>.</p>
+<h2 id="normal-usb-heartbeat-source-and-supported-adapter-behavior">Normal USB: heartbeat source and supported adapter behavior</h2>
+<p>The measured 18-byte device descriptor appears at application file offset <strong>0x40488</strong>, including VID:PID <strong>35b6:0004</strong>. The measured 56-byte HID report appears at <strong>0x46654</strong>, including the duplicate Slider usage. These exact matches associate this application with the captured USB implementation; they do not prove the installed release number.</p>
+<p>The initialization function at <code>0x53da4</code> registers both the gamepad and CDC components. Their implementation paths are retained as <code>usbGamepad.c</code> and <code>usbCdc.c</code> in assertion strings.</p>
+<p>The local heartbeat path is:</p>
+<pre><code class="language-text">scheduled service 0x5a550
+  -&gt; local heartbeat builder 0x5aaa8
+  -&gt; heartbeat packer 0x5a0c4 / 0x5a03e
+  -&gt; MAVLink serialization 0x59798
+  -&gt; USB CDC sender 0x6338c / 0x33fd8
+</code></pre>
+<p><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/ghidra-focused/0005aaa8.asm">Instructions at 0x5aaa8</a> explicitly store <code>custom_mode=5</code>, <code>type=2</code>, <code>autopilot=3</code>, <code>base_mode=25</code>, <code>system_status=3</code>. The packer adds <code>mavlink_version=3</code>, message ID 0 and CRC-extra 50. Component ID is 1; the system-ID variable initializes to 1 in the startup data image. <strong>These are exactly the payload fields observed with the aircraft and ground radio disconnected.</strong> This resolves how the supplied firmware can produce that stream without an aircraft; it does not verify the installed firmware image byte-for-byte.</p>
+<p>The CDC receive callback at <code>0x6330c</code> feeds one byte at a time to <code>0x5a768</code>. The traced dispatcher recognizes the following paths. Numeric names use the <a href="https://mavlink.io/en/messages/common.html">MAVLink common definitions</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Input path in v1.3.6</th>
+<th>Static behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HEARTBEAT, message 0</td>
+<td>Queues an event; service logs receipt</td>
+</tr>
+<tr>
+<td>PARAM_REQUEST_LIST, message 21</td>
+<td>Builds PARAM_VALUE responses from a <strong>compiled local table</strong>, not a demonstrated aircraft parameter query</td>
+</tr>
+<tr>
+<td>COMMAND_LONG, message 76; command 512 and parameter 1 = 148</td>
+<td>Queues a local AUTOPILOT_VERSION response</td>
+</tr>
+<tr>
+<td>COMMAND_LONG; command 179</td>
+<td>Extracts coordinates, scales them by 10^7, and stages a Ghost-facing home-coordinate message, followed by an acknowledgement</td>
+</tr>
+<tr>
+<td>Other values in this dispatcher</td>
+<td>No arbitrary pass-through branch is present</td>
+</tr>
+</tbody>
+</table>
+<p>The parameter builder loops through 97 entries while declaring count 96; this is a static implementation discrepancy, not a live-tested defect. The capability response is locally constructed. Neither its values nor the heartbeat's ArduPilot identity should be treated as independent aircraft identification.</p>
+<p>A scheduled output path at <code>0x5a8b0</code> constructs GLOBAL_POSITION_INT from stored telemetry fields and suppresses output when either coordinate is zero. Interpretation of all fields and end-to-end freshness still needs validation. The later byte-order assembly review supports the <a href="ghost-decoder.html">decoder's unsigned GPS display interpretation</a>; signed coordinates, fix validity and freshness remain unresolved.</p>
+<p>The home-coordinate path is an example of <strong>selective translation</strong> between USB MAVLink and Ghost-facing data. It is not evidence for a general MAVLink bridge or for acceptance of other aircraft commands. No such requests were transmitted in this investigation.</p>
+<h2 id="update-interfaces-are-separate-from-normal-usb">Update interfaces are separate from normal USB</h2>
+<p>The <a href="../evidence/configurator/transport-analysis.html">Configurator transport report</a> traces each class, handler and protocol field with saved-code line references.</p>
+<ul>
+<li><strong>System:</strong> Configurator selects <code>1915:521F</code> or <code>35B6:0005</code>, opens 115200 8N1 with DTR enabled, and uses Nordic serial DFU with SLIP framing. These update identities are declared by code, not measured from hardware.</li>
+<li><strong>Audio:</strong> Windows discovery selects <code>0000:0002</code>; custom serial commands control the update and raw 16-byte payload blocks are acknowledged. The code's VID/PID property names are inverted in construction and selection; the effective values above account for both inversions.</li>
+<li><strong>Voice:</strong> The application selects a mounted drive labeled <code>TAC</code> or containing an <code>eng</code> directory and copies the language folders. Entering its voice-connection screen can initiate file replacement when a matching volume is detected. Static inspection avoided that behavior.</li>
+</ul>
+<p>These paths concern controller service modes. They do not establish the external RF receiver's Micro-USB function or any USB routing inside the hardware.</p>
+<h2 id="ground-radio-direction-and-remaining-work">Ground-radio direction and remaining work</h2>
+<p>The main firmware contains a Ghost-facing UART driver and a separate STM32-facing UART driver. Read the <a href="../evidence/firmware/ghost-interface-analysis.html">focused Ghost/internal-UART report</a> for MMIO, logical MCU pin and framing evidence. MCU GPIO numbers are <strong>not RJ45 contact numbers</strong>; electrical routing and signaling levels remain unmeasured.</p>
+<pre><code class="language-mermaid">flowchart LR
+  PC[Laptop]
+  USB[TAC normal USB&lt;br/&gt;35b6:0004 HID + CDC]
+  N[Nordic controller application&lt;br/&gt;UI, USB, selective MAVLink handling]
+  G[Ghost-facing UARTE0&lt;br/&gt;115200 baud in initialization]
+  S[STM32-facing UARTE1&lt;br/&gt;115200 baud in initialization]
+  STM[STM32 subsystem&lt;br/&gt;audio firmware + cable-setting command]
+  EXT[MATRIX supplied pinout&lt;br/&gt;C2 1/2; telemetry 3/6&lt;br/&gt;50 V 4/5; CVBS 7/8]
+  RADIO[External IRONghost radios]
+  PC &lt;--&gt; USB
+  USB &lt;--&gt; N
+  N &lt;--&gt; G
+  N &lt;--&gt; S
+  S &lt;--&gt; STM
+  G -.-&gt; EXT
+  STM -. possible cable conditioning .-&gt; EXT
+  EXT &lt;-. manufacturer-documented MATRIX link .-&gt; RADIO
+</code></pre>
+<p>Solid internal paths represent recovered code interfaces, not board continuity measurements. The cable-length menu sends a setting to the STM32 path; its effect on external circuitry is not established. The package's separate STM audio image does not imply that audio is that processor's only role.</p>
+<p>An <a href="ghost-decoder.html">offline Ghost decoder</a> now implements the traced framing and supported fields, with independent synthetic fixtures. The <a href="matrix-pinout.html">supplied MATRIX pinout</a> adds documentary evidence for the two differential UART pairs. The next validation requires a receive-only capture using suitable differential receivers; no new hardware test has been performed. Ordinary USB serial probing must still distinguish TAC-generated information from radio telemetry.</p>
+<p>Unresolved: full Ghost message semantics, external transceiver/line-driver circuitry, MATRIX pinout revision applicability and measured electrical behavior, the cable-length command's electrical effect, external ground-radio firmware/service interface, installed controller release, and STM audio-image decoding. No Ethernet/IP compatibility follows from these results.</p>
+<h2 id="repeatable-offline-work-and-evidence">Repeatable offline work and evidence</h2>
+<p>Run from the project root; choose an output directory that does not exist:</p>
+<pre><code class="language-bash">.tools/firmware-analysis/bin/python scripts/decrypt_tac_update.py \
+  [local workstation]/Documents/ORQA/TacUpdate_v1.3.6.orqa \
+  evidence/configurator/decompiled/Secrets/Orqa.TAC.Configurator.Secrets.secrets.bin \
+  evidence/firmware/decrypted-new-pass
+</code></pre>
+<p>The helper validates bounds, ZIP paths, size limits, member CRCs, PKCS#7 padding and manifest checksums before writing extracted output. It never talks to a device. The original input and every extracted file hash were rechecked after analysis.</p>
+<p>REA evidence bundle: <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/rea-configurator-evidence.json">rea-configurator-evidence.json</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Evidence ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Installer extraction</td>
+<td><code>ev_f9e525f4b6b0d44e2b7396b47032b8e75d641322ee1a2e054e290c541ab378f6</code></td>
+</tr>
+<tr>
+<td>Main managed assembly identity</td>
+<td><code>ev_d3013d5ea3ed79dc5542271bebd912a5839b0aebe6bc2a23cf37733a312811dc</code></td>
+</tr>
+<tr>
+<td>Updates assembly members</td>
+<td><code>ev_87a3b781e7bd9fcf75967e3c99c3bd91b80d589ee2c242b4607ffe4ae09bdfb8</code></td>
+</tr>
+<tr>
+<td>Successful package decoder capture</td>
+<td><code>ev_71b5a9d657aef6384acd47ebc92d207c474fa7475b91748bcf8caa89e0ba92b2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Earlier entropy/signature/Unblob probes are retained in <a href="firmware-initial-triage.html">initial triage</a> as historical findings. Their statements that no payload or cipher was known are superseded by this report. The early header values 794/1555 are now identified as salt/IV positions; the earlier ARC and bzip2 matches were false positives.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

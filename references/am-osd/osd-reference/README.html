@@ -1,0 +1,444 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Canonical OSD display references — 2026-11-04 · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../../index.html">Start</a><a href="../../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="gallery.html#tak-title">TAK / SA gallery</a><a href="../../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../../documents.html">All documents</a><a href="../../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/osd-reference/README.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="canonical-osd-display-references-2026-11-04">Canonical OSD display references — 2026-11-04</h1>
+<p>These eleven states provide a reviewable visual reference for the existing analog OSD,
+proposed firefighting package guidance and TAK situational-awareness pages. Use the images
+with the <a href="../osd-development-roadmap.html">development roadmap</a>.</p>
+<p><strong>Current</strong> means a source-derived reconstruction; <strong>existing option</strong> means supported
+behaviour with assumed settings; <strong>proposed</strong> means a design that is not implemented.
+None is a live camera/OSD capture. Telemetry, sensor availability, forest backgrounds
+and package performance are synthetic fixtures.</p>
+<p>Open the <a href="gallery.html">image gallery</a> or the overview below. Every state includes a clean
+960 × 720 frame, transparent overlay and 1560 × 1000 annotated reference. Annotation
+colour belongs to the document; the OSD itself is monochrome.</p>
+<p>The gallery now includes an <a href="gallery.html#flat-title">adjustable flat-ground GPS-height prototype</a>.
+Proposed flight displays omit the fixed FC crosshair. The forward view uses a velocity
+marker. Downward, the diamond always marks world down from roll/pitch. Usable GPS height
+adds a diameter-changing circle without moving diamond XY; without height the same diamond
+remains alone. <code>FLAT</code> is the surface label; <code>TER</code> is reserved for actual height-grid use. Barometric
+height is ignored. See the
+<a href="flat-model.html">model, height comparison and PCB storage assessment</a>. C01–C03 preserve
+the original source behaviour and are collapsed in the gallery for comparison.
+All proposed flight views use the <a href="flight-layout.html">revised HUD</a>: MGRS at top left,
+VTX/RX/LQ at top right, satellites at middle left, height at middle right, cell/mAh at
+bottom left, home arrow/distance at bottom centre, and the two nearest TAK markers
+with relative arrows/ranges at bottom right. Proposed frames use the thinner
+<a href="font-candidate/README.html">Fixed Medium 9x15 bitmap candidate</a>; C01–C03 retain the current font.</p>
+<p>The new <a href="tak-sa.html">TAK SA pages</a> clear all legacy FC elements except average cell voltage.
+The overhead page centres an ownship arrow and rotates markers with aircraft azimuth;
+the forward fan plots longer-range contacts ahead. The gallery includes heading/range
+controls and an offline Normal / God's-eye / Radar AUX preview, mock landscape backgrounds,
+and an <a href="mgrs.html">MGRS own-position / selected-marker card</a>. All markers are synthetic.</p>
+<p><img alt="TAK heading and forward-range comparison" src="tak-sa-comparison.png"></p>
+<p><img alt="Seven flight display states" src="contact-sheet.png"></p>
+<h2 id="image-catalogue">Image catalogue</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>State</th>
+<th>Clean frame</th>
+<th>Annotated reference</th>
+<th>Transparent overlay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C01</td>
+<td>Forward video, current defaults</td>
+<td><a href="current-forward-default.png">PNG</a></td>
+<td><a href="current-forward-default-reference.png">Reference</a></td>
+<td><a href="current-forward-default-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>C02</td>
+<td>Downward video, current nadir</td>
+<td><a href="current-downward-default.png">PNG</a></td>
+<td><a href="current-downward-default-reference.png">Reference</a></td>
+<td><a href="current-downward-default-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>C03</td>
+<td>Existing payload option</td>
+<td><a href="current-downward-payload.png">PNG</a></td>
+<td><a href="current-downward-payload-reference.png">Reference</a></td>
+<td><a href="current-downward-payload-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P01</td>
+<td>Forward ground-velocity marker</td>
+<td><a href="proposed-forward-velocity.png">PNG</a></td>
+<td><a href="proposed-forward-velocity-reference.png">Reference</a></td>
+<td><a href="proposed-forward-velocity-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P02</td>
+<td>Forward low-speed state</td>
+<td><a href="proposed-forward-low-speed.png">PNG</a></td>
+<td><a href="proposed-forward-low-speed-reference.png">Reference</a></td>
+<td><a href="proposed-forward-low-speed-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P03</td>
+<td>World-down diamond with height circle</td>
+<td><a href="proposed-downward-ccip.png">PNG</a></td>
+<td><a href="proposed-downward-ccip-reference.png">Reference</a></td>
+<td><a href="proposed-downward-ccip-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P04</td>
+<td>World-down diamond only</td>
+<td><a href="proposed-downward-diamond-only.png">PNG</a></td>
+<td><a href="proposed-downward-diamond-only-reference.png">Reference</a></td>
+<td><a href="proposed-downward-diamond-only-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P06</td>
+<td>TAK God's-eye SA</td>
+<td><a href="proposed-tak-gods-eye.png">PNG</a></td>
+<td><a href="proposed-tak-gods-eye-reference.png">Reference</a></td>
+<td><a href="proposed-tak-gods-eye-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P07</td>
+<td>TAK forward radar-style SA</td>
+<td><a href="proposed-tak-forward-radar.png">PNG</a></td>
+<td><a href="proposed-tak-forward-radar-reference.png">Reference</a></td>
+<td><a href="proposed-tak-forward-radar-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P08</td>
+<td>TAK marker feed stale</td>
+<td><a href="proposed-tak-stale.png">PNG</a></td>
+<td><a href="proposed-tak-stale-reference.png">Reference</a></td>
+<td><a href="proposed-tak-stale-overlay.png">Overlay</a></td>
+</tr>
+<tr>
+<td>P09</td>
+<td>TAK MGRS coordinate readout</td>
+<td><a href="proposed-tak-mgrs.png">PNG</a></td>
+<td><a href="proposed-tak-mgrs-reference.png">Reference</a></td>
+<td><a href="proposed-tak-mgrs-overlay.png">Overlay</a></td>
+</tr>
+</tbody>
+</table>
+<p>P05 is retired: the nearly immediate camera change does not need a transition card.
+Other reference IDs remain stable. No transition page is proposed for normal switching.</p>
+<h2 id="sources-and-reconstruction-boundary">Sources and reconstruction boundary</h2>
+<p>The baseline uses all 20 positions enabled in profile 1 of the retained F405/H7 combined
+servo/camera CLI variants from <code>RMUS-Canada/AMBetaflight-</code> commit <code>29953a82</code>. Those enabled
+layouts match exactly. <a href="source-layout.json">source-layout.json</a> retains original paths,
+full commit IDs, SHA-256 digests and packed positions. Original CLI bytes stay unchanged.</p>
+<p>The numeric examples depict a hypothetical instrumented H7-like flight. A shared layout
+does not establish common sensor availability: the F405 migration's current-sensing
+configuration differs, for example. These are not observations of either installed unit.</p>
+<p>The retained H7 CLI selects <code>osd_displayport_device = AUTO</code>. These images do not prove
+whether an installation uses the FC's onboard OSD or external DisplayPort, and the onboard
+font is not established. C01–C03 use <strong>AM_OSD's actual font</strong>, showing how AM_OSD would draw
+the retained layout when receiving it. A saved FC/OSD readback and video capture are
+needed to establish a particular installation's true current screen.</p>
+<p>AM_OSD baseline: <a href="https://github.com/RMUS-Canada/AirMetal_OSD/pull/2">PR #2</a>, head <code>2f1e4f8</code>.
+Sources: <a href="../../../source-register.html#local-only">font</a>, <a href="../../../source-register.html#local-only">defaults</a>,
+<a href="../../../source-register.html#local-only">nadir task</a>, <a href="../../../source-register.html#local-only">projector</a>,
+<a href="../../../source-register.html#local-only">payload</a>, <a href="../../../source-register.html#local-only">renderer</a>.</p>
+<p>The documentation renderer decodes the actual 256-glyph, 12 × 18, 2-bpp table and compiles
+and calls the real C camera projector. It reconstructs the 28 × 28 nadir sprite from the
+firmware pixel rule. Proposed views decode the exported 9x15 candidate C table in the
+same 12×18/2-bpp format. It does not execute the FC OSD scheduler, capture video, simulate
+transport/interlace timing or establish optical registration.</p>
+<p>This edition is PAL, 4:3, 30 × 16 cells, with zero grid offsets. It uses the inherited
+52 µs active width, 13.1 µs grid start and 288 field-line mapping. The 360-pixel character
+canvas spans about 860 of the 960 displayed horizontal pixels. White/black pixel patterns
+come from firmware; brightness/noise/display response are not electrical calibration.
+NTSC and 16:9 references are outside this edition.</p>
+<h2 id="retained-profile-1-layout">Retained profile-1 layout</h2>
+<p>Coordinates are zero-based character positions. Sensor/build/runtime prerequisites can
+still make an enabled item unavailable. The nominal warning region is empty. Fly mode,
+timer and compass bar are not enabled in this retained layout.</p>
+<table>
+<thead>
+<tr>
+<th>Existing element</th>
+<th style="text-align: right;">Column</th>
+<th style="text-align: right;">Row</th>
+<th>Reference content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VTX band/channel/power</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td><code>R:1:800</code>, synthetic VTX labels</td>
+</tr>
+<tr>
+<td>Estimated relative altitude</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1</td>
+<td>Altitude glyph, <code>30.0</code>, m</td>
+</tr>
+<tr>
+<td>Latitude</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>Four fractional digits, as selected by stored variant</td>
+</tr>
+<tr>
+<td>Link quality</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td>GHST-style quality glyph, <code>99</code></td>
+</tr>
+<tr>
+<td>Longitude</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td>Four fractional digits</td>
+</tr>
+<tr>
+<td>RSSI dBm</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">3</td>
+<td>RSSI glyph, <code>-67</code></td>
+</tr>
+<tr>
+<td>GPS satellites</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td>Two satellite glyphs, <code>14</code></td>
+</tr>
+<tr>
+<td>GPS speed</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td>Speed glyph and metric speed</td>
+</tr>
+<tr>
+<td>Fixed FC crosshair</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">7</td>
+<td>Actual three-glyph centre reference</td>
+</tr>
+<tr>
+<td>Electrical efficiency</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td><code>1667</code> mAh/km in nominal fixture</td>
+</tr>
+<tr>
+<td>Consumed capacity</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td><code>2460</code> mAh</td>
+</tr>
+<tr>
+<td>Warning region</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">12</td>
+<td>Blank nominally; proposed failure text uses this area</td>
+</tr>
+<tr>
+<td>ESC temperature</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">12</td>
+<td><code>E</code>, thermometer, <code>54</code>, °C; final unit cell clips</td>
+</tr>
+<tr>
+<td>Average cell voltage</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td>Battery glyph, <code>3.78</code> V</td>
+</tr>
+<tr>
+<td>Home distance</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">13</td>
+<td>Home glyph, <code>180</code> m</td>
+</tr>
+<tr>
+<td>Pack voltage</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td>Battery glyph, <code>37.8</code> V</td>
+</tr>
+<tr>
+<td>Home direction</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14</td>
+<td>Existing direction arrow</td>
+</tr>
+<tr>
+<td>Distance flown</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">14</td>
+<td>Total-distance glyph, <code>640</code> m</td>
+</tr>
+<tr>
+<td>Current</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td><code>60.00</code> A, hypothetical valid current sensor</td>
+</tr>
+<tr>
+<td>Throttle</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">15</td>
+<td>Throttle glyph, <code>42</code></td>
+</tr>
+</tbody>
+</table>
+<p>AM_OSD defaults select Generic 132°, top facing forward, 4:3, zero trim, full brightness
+and <strong>Always</strong>. C01/C02 use roll +12°, pitch 15° nose down. The moving AM nadir marker
+therefore appears in both views. C01 deliberately exposes the absence of camera-aware
+gating: the downward projection is drawn over forward video. It is not a forward vector.</p>
+<p>The default payload ARM channel is unset, so C01/C02 show no payload text. C03 assumes
+ARM and both station channels are configured, with mirrored state ARMED and both stations
+ready. The existing heading occupies row 3, station boxes row 4. The heading fits the
+spare centre space beside the retained four-decimal coordinates. RDY/REL/empty are
+switch/timer inferences, not package-presence or detachment feedback.</p>
+<h2 id="proposed-drawing-contract">Proposed drawing contract</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Reference</th>
+<th>Required work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Surface identity</td>
+<td><code>FLAT</code>; future <code>TER</code> only for actual height-grid use</td>
+<td>No <code>CCIP ADVISORY</code>, <code>DOWN</code>, <code>FWD</code> or <code>GPS VEL</code> notifications</td>
+</tr>
+<tr>
+<td>Ground-velocity direction</td>
+<td>Circle, wings and top stem in P01</td>
+<td>3-D ground velocity, valid heading, forward lens/mount calibration</td>
+</tr>
+<tr>
+<td>Low-speed state</td>
+<td>No vector or warning banner in P02</td>
+<td>Measured threshold/hysteresis; fixture 0.2 m/s is illustrative</td>
+</tr>
+<tr>
+<td>World-down reference</td>
+<td>Same diamond and centre dot in P03/P04</td>
+<td>Attitude-only unit-ray projection; no altitude/velocity displacement</td>
+</tr>
+<tr>
+<td>Circle scale</td>
+<td>Height-dependent screen circle, <code>D4.6M</code> at the default fixture</td>
+<td>Assumed additive error budget; no impact/confidence claim</td>
+</tr>
+<tr>
+<td>Height reference</td>
+<td>Middle-right altitude and <code>FLAT</code></td>
+<td>GPS altitude minus same-datum ground reference; assumes a horizontal plane</td>
+</tr>
+<tr>
+<td>Missing GPS height</td>
+<td>Larger diamond only, no circle or text banner in P04</td>
+<td>Attitude-projected vertical reference; no ranged moving-impact claim; barometer ignored</td>
+</tr>
+<tr>
+<td>Base telemetry</td>
+<td>Corners, middle edges and bottom-centre navigation</td>
+<td><a href="flight-layout.html">Layout and unavailable-field policy</a>; FC/OSD integration remains planned</td>
+</tr>
+</tbody>
+</table>
+<p>P01 uses an illustrative Generic 132° forward lens, fixed body-forward camera, 12° nose
+down attitude and NED velocity <code>(10, 2, 1)</code> m/s. It does not reuse a downward Justice fit
+for another camera. The fixed FC crosshair and separate vertical-speed readout are removed.</p>
+<p>P03/P04 use the experimental Justice OpenCV downward fit, roll −4° and pitch 15° nose up.
+P03/P04 assume a stationary vehicle at release over a flat reference plane. <code>BAG-A</code>
+is a placeholder. The diamond is always world down; there is no nominal speed, release-
+delay compensation or finite trajectory point. The <a href="flat-model.html">circle model</a> uses
+only an illustrative base/drift allowance for scale. True CCIP is deferred and outside
+the current implementation scope.</p>
+<p>The proposed downward view uses station boxes on row 12 and station/profile identity on
+row 13, keeping the larger diamond clear. It suppresses the FC fixed crosshair.
+The <a href="flight-layout.html">proposed flight base layout</a> uses the requested readout groups.
+The historical source-layout table above continues to describe C01–C03. SA pages retain
+their separate voltage-only policy.
+Forward and downward views have no fixed centre cue. Both P03/P04 diamonds are the same
+world-down vertical reference, not the former crosshair sprite or a ballistic impact point. Removing the
+FC crosshair in a device installation needs a reviewed FC layout/configuration change;
+no delivered CLI is edited here. New glyphs, GPS/reference inputs and labels remain
+prototype features with PCB implementation deferred.</p>
+<p>The world-down symbol region clears payload text. Production logic must maintain a clear
+guidance area as symbols move: hide/relocate secondary labels or use a distinct off-screen
+cue. Do not clamp an off-screen vector/impact point to an edge as if it were on-image.</p>
+<h2 id="reproduce-and-verify">Reproduce and verify</h2>
+<p>Linux requirements: Python 3, Pillow, native <code>cc</code> and DejaVu Sans. No raw footage, online
+assets, Arm SDK, FC or OSD hardware is needed. From repository root:</p>
+<pre><code class="language-sh">python3 tools/render_osd_reference.py
+python3 tools/render_osd_reference.py --check
+python3 -m unittest discover -s tests -v
+</code></pre>
+<p>Optionally verify original CLI hashes and positions against a local AMBetaflight checkout:</p>
+<pre><code class="language-sh">python3 tools/render_osd_reference.py --check --fc-repo /path/to/AMBetaflight
+</code></pre>
+<p><a href="manifest.json">manifest.json</a> records source hashes, per-frame glyph codes/coordinates,
+marker coordinates, clipped cells, PNG sizes and SHA-256 digests. The check regenerates
+temporarily and compares generated bytes. Current frames retain one clipped ESC unit
+cell; proposed frames have no clipped text cells. The missing-height state retains only
+an un-ranged drop-reference diamond, without a circle. The additional height fixtures and interactive model are
+recorded in the manifest alongside the canonical states.</p>
+<p>When font/projector/defaults, layout or drawing policy changes, review the effect,
+regenerate, inspect all eleven references and update the assumptions. Preserve historical
+captures separately. Host checks do not establish live timing, registration or drop accuracy.</p>
+<p>Verified for this edition on 2026-11-03:</p>
+<ul>
+<li>Original F405/H7 CLI hashes and all 20 matching enabled positions checked.</li>
+<li>All 46 PNGs and the manifest regenerated byte for byte; clipping/text-overlap,
+  diamond-only fallback and circle-suppression checks passed.</li>
+<li>All eleven annotated states visually inspected; annotations keep the symbols readable.</li>
+<li>Six existing host camera/settings/protocol tests passed.</li>
+<li>Local documentation/gallery links checked.</li>
+<li>Updated gallery checked at 1440 px and 390 px: all images loaded, no overflow or browser
+  exceptions; altitude control changed geometry and invalid/missing inputs retained the
+  reference diamond without a circle.</li>
+<li>Twelve browser geometry cases matched the real C projector/Python model exactly at
+  the recorded native positions and screen radii. Datum-translation and height-error
+  sensitivity checks passed. All nine original current-state PNGs kept their hashes.</li>
+<li>AMBetaflight's complete offline verifier passed; original evidence/bundle bytes remain
+  intact. No AM_OSD firmware source was changed.</li>
+</ul>
+<p>Physical camera, selector, heading, release and flight checks remain open.</p>
+<p>The SA extension passed 64 heading/range/render cases, 12 cross-language geometry cases
+(native-coordinate difference below 1e-9), forward-fan filtering, off-scale/expiry/stale-feed
+checks, three-position preview switching, label-boundary checks and verification that
+average cell voltage is its only retained FC element. At 1440 px and 390 px, all 13 gallery
+images loaded without overflow or browser exceptions. These are concept checks; no live
+TAK/AUX/PCB operation occurs here.</p>
+<p>The latest revision checks camera-independent TAK layouts over both mock backgrounds,
+MGRS own/selected readouts and stale-coordinate clearing, diamond-only height fallback,
+and the revised flight HUD. Both downward diamonds are larger, with no DROP REF
+label; low-speed vector suppression has no warning banner. P05's transition card is retired. No firmware,
+FC settings, hardware, PR or publication is changed by these local documentation updates.
+The enlarged-diamond layout also passed a sweep of all 117 integer GPS heights from
+4–120 m under the default ±3 m model: neither the diamond nor its black outline overlaps
+a HUD text cell. This checks the synthetic projection/layout, not a flight envelope.</p>
+<p>The navigation/font revision verified all 46 PNGs plus the candidate C/binary by
+deterministic regeneration, 206 local links, 64 SA render combinations, 360-heading
+nearest selection, arrow cardinal directions, expiry/tie/invalid/zero-range cases,
+undimmed God's-eye background pixels and ARM table-byte equality. Browser checks at
+1440/390 px loaded all 13 gallery images without overflow or exceptions. The nine
+current-source PNG hashes and six host regressions remain preserved/passing.</p>
+<h2 id="2026-11-04-world-down-revision">2026-11-04 world-down revision</h2>
+<p>The diamond is now always the attitude-projected world-down ray in both downward states.
+Altitude, reference height, speed and release timing do not translate it. Circle scale
+uses height; no usable height hides only the circle. Surface text is <code>FLAT</code> today, with
+<code>TER</code> reserved for real height-grid use; <code>CCIP ADVISORY</code> is removed. Roll/pitch controls
+in the gallery demonstrate the only inputs that change diamond XY. The legacy P03 file
+slug contains <code>ccip</code> for link stability; these frames no longer claim a finite impact point.</p>
+<p>The current use assumption is stationary release. Nominal 4 / 1.5 m/s speed and timing
+compensation have been removed from the sample model. True CCIP remains future work,
+not part of the current display implementation.</p>
+<p>Verified for the 2026-11-04 revision: 117 integer height cases keep diamond XY identical;
+12 height/error and six attitude browser/C cases agree on native position and circle
+radius. Roll/pitch controls move the diamond; altitude and height-reference loss do not.
+All 46 PNGs/C/binary outputs reproduce, nine historical baseline PNGs remain byte-identical,
+206 local links pass, desktop/mobile previews have no overflow/script errors, and all six
+existing host tests pass. These are offline checks, not installed stationary-drop acceptance.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "scope": "Offline visual prototype only; assumed engineering envelope, not calibrated accuracy or confidence.",
+  "ground_gps_altitude_m": 300.0,
+  "default_gps_altitude_m": 330.0,
+  "gps_height_error_m": 3.0,
+  "release_assumption": "vehicle stationary; no nominal horizontal or vertical motion",
+  "residual_drift_allowance_m_s": 0.5,
+  "base_surface_error_m": 1.0,
+  "gravity_m_s2": 9.80665,
+  "roll_deg": -4.0,
+  "pitch_up_deg": 15.0,
+  "camera_model": "justice-opencv",
+  "surface_label": "FLAT",
+  "diamond_reference": "world-down unit ray, roll/pitch only; no altitude or trajectory offset",
+  "future_terrain_label": "TER only when an implemented height-grid backend is actually used",
+  "terrain": "single horizontal plane at ground_gps_altitude_m; same altitude datum as aircraft GPS",
+  "dynamics": "stationary-release circle scale only; no true CCIP or in-flight trajectory model"
+}

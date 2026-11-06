@@ -1,0 +1,153 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orqa GCS-1 interface investigation · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/gcs-investigation.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="orqa-gcs-1-interface-investigation">Orqa GCS-1 interface investigation</h1>
+<p><strong>2026-11-05 ground-overlay follow-up:</strong> the <a href="ground-side-am-osd-plan.html">AM_osd integration plan</a> proposes an external video insert near TAC, a receive-only telemetry tap and a ground TAK gateway. It reconciles current AM_osd main with the separate HUD/SA storyboard, identifies heading and airborne-OSD constraints, and defines staged bench acceptance. No wiring, firmware, FC settings or live TAK connection changed. Existing offline checks passed again: 118 tests and 274 saved USB packet/prefix comparisons. The next hardware step is an isolated single-ended AM_osd video/text proof before any MATRIX insertion.</p>
+<p>The <a href="../outputs/ground-osd-topology-20261105/index.html">Pi 4B topology and pinout package</a> now includes all eight MATRIX contacts, Pi/AM_osd UART wiring, a candidate receive-only telemetry circuit, four-pole video bypass, hardware endpoints/purposes and downloadable SVG/PNG/CSV files. <a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring notes</a> distinguish documentary pinouts from proposed circuits. Pi 4B is suitable as the prototype data gateway; electrical interface matching and physical acceptance remain open. No hardware was reserved or connected.</p>
+<p>Verified on 2026-10-11, starting at Tac.Ctrl USB on this Ubuntu laptop. Initial bench state: Tac.Ctrl and ground radios powered, aircraft unpowered. The latest test used the powered aircraft / ground radio / TAC bench with propellers removed, confirmed by the user. <strong>The powered USB test is complete; see the <a href="powered-usb-bench.html">results</a>.</strong> The aircraft could be powered down after capture; subsequent physical state is not assumed.</p>
+<p><strong>Result:</strong> Tac.Ctrl <code>35b6:0004</code> simultaneously exposes a USB HID gamepad and a CDC ACM serial port. A receive-only serial capture produced <strong>seven checksum-valid MAVLink 2 HEARTBEAT messages</strong>. The user-supplied MATRIX pinout documents separate differential UART pairs, +50 V power and CVBS video on the RJ45 contacts. This is not a laptop Ethernet interface; see the <a href="matrix-pinout.html">pinout</a>.</p>
+<p><strong>Isolation tests:</strong> the radio-disconnected capture produced seven valid heartbeats; after a user-confirmed controller restart, a further eight-second capture produced nine valid heartbeats with identical payload fields. The recovered v1.3.6 firmware now shows a local heartbeat builder with exactly those payload constants. This explains the controller-local stream; it does not establish the installed firmware version. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/radio-disconnection-comparison.json">Initial comparison</a>, <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/fresh-boot-comparison.json">fresh-boot evidence</a> and <a href="firmware-findings.html">firmware analysis</a>.</p>
+<p><strong>Centered-stick baseline:</strong> user-confirmed centered sticks produced five seconds of stable Linux joystick state, with zero change events. Axis values were <code>[0, 0, 0, 0, -32767, 0, 0]</code>; the controls corresponding to these axis numbers are not yet assigned. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/hid-centered-summary.json">Baseline evidence</a>.</p>
+<p><strong>First control assignment:</strong> right-hand stick fully left changes only Linux joystick <strong>axis 2</strong> from centered 0 to <strong>+32767</strong>. Its right endpoint is not yet measured. This names a physical control and USB axis, not an aircraft roll/yaw channel. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/hid-right-stick-full-left-summary.json">Held-left evidence</a>.</p>
+<p>This is a first interface map with measured USB evidence. It is not a complete firmware reconstruction or an electrically verified wiring diagram. Documents were used as evidence; their setup, update and operating instructions were not automatically executed.</p>
+<p><strong>Firmware breakthrough: the package is decrypted and the controller application is disassembled.</strong> The supplied Configurator v1.3.4 exposed the <code>.orqa</code> reader. All ZIP CRCs and all three manifest checksums pass. Recovered parts are the Nordic system application, STM32-associated audio image, and 103 voice WAVs. Normal USB descriptors match the earlier capture exactly. The CDC handler selectively processes MAVLink and stages some Ghost-facing messages; it is not an established unrestricted aircraft tunnel. See <a href="firmware-findings.html">firmware findings</a> and <a href="../evidence/configurator/transport-analysis.html">update transport trace</a>. Nothing was flashed. A later <a href="powered-usb-bench.html">powered USB bench test</a> verified the local parameter table and reproduced a truncated capability response.</p>
+<p><strong>Powered USB result:</strong> all 97 returned parameters match the compiled TAC table, while each reports a count of 96. Two capability requests each received only 44 bytes of a declared 72-byte frame, matching the firmware send-length bug. TAC displayed 21.35 V per the user; the USB samples contained no battery or GPS messages. <a href="powered-usb-bench.html">Full report and limitations</a>.</p>
+<h2 id="runnable-controller-reconstruction">Runnable controller reconstruction</h2>
+<p>The <a href="reconstruction.html">offline reconstruction</a> now connects USB/MAVLink, HID reports, Ghost control/telemetry, settings, calibration and the Nordic-side STM/audio protocol. <strong>All 274 saved USB packet/prefix comparisons match; the full 118-test suite passes.</strong> The model preserves observed and statically recovered firmware quirks. It is evidence-derived Python source, not recovered vendor source or a flashable image.</p>
+<pre><code class="language-bash">python3 -m tac_reconstruction demo
+python3 -m tac_reconstruction verify-captures
+</code></pre>
+<p>See the <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/reconstruction/coverage.json">coverage ledger</a> for implemented surfaces and gaps, and the <a href="../evidence/reconstruction/catalog-analysis.html">static catalog</a> for 2,012 indexed functions, call relationships, source paths and 103 voice resources. No hardware was accessed during reconstruction.</p>
+<h2 id="offline-ghost-decoder">Offline Ghost decoder</h2>
+<p>The <a href="ghost-decoder.html">decoder guide</a> covers saved binary, hex and JSON chunk captures. The decoder checks CRCs, recovers after noise and damaged frames, extracts raw control channels, preserves unknown messages and keeps C2 and telemetry streams separate. Battery and GPS interpretations are traced to the TAC display; signed GPS handling remains unresolved. Validation uses independent synthetic fixtures, not a hardware Ghost capture.</p>
+<p>Run the included two-direction demonstration from this directory:</p>
+<pre><code class="language-bash">python3 scripts/decode_ghost_traffic.py examples/ghost-demo.capture.json --input-format json
+</code></pre>
+<p>The <a href="matrix-pinout.html">MATRIX contact map</a> identifies C2 on 1/2, telemetry on 3/6, power on 4/5 and video on 7/8. The source specifies differential UART at 115k, consistent with the firmware's 115200 baud. No capture wiring or electrical measurements were performed.</p>
+<h2 id="system-diagram">System diagram</h2>
+<p>Solid paths are measured USB behavior or manufacturer-documented external connections. Dashed paths show functional aircraft routing whose board-level implementation remains unknown. QS/RF labels below follow the supplied manuals; physical ground-unit revisions have not been inspected.</p>
+<pre><code class="language-mermaid">flowchart TB
+  subgraph LAP[Ubuntu laptop - measured]
+    HID[Linux HID / joydev&lt;br/&gt;7 axes and 16 buttons]
+    CDC[Linux CDC ACM serial&lt;br/&gt;MAVLink 2 HEARTBEAT received]
+  end
+  subgraph GCS[GCS-1 ground assembly]
+    TC[Tac.Ctrl&lt;br/&gt;console and internal battery]
+    QS[IRONghost GU QS&lt;br/&gt;control / telemetry radio]
+    VRX[IRONghost GU RF 5.3-6.0&lt;br/&gt;analog diversity video receiver]
+    GG[FPV.Pro goggles]
+    QP[Optional QS external battery]
+    RFUSB[GU RF Micro USB&lt;br/&gt;purpose undocumented]
+  end
+  subgraph AIR[MRM2 aircraft - documented / not connected]
+    RX[IRONghost airborne radio]
+    FC[H7 flight controller]
+    CAM[Justice analog camera]
+    VTX[Analog video transmitter]
+    SENS[GPS / compass / barometer]
+    ESC[AM32 ESC assembly and motors]
+    PWR[Aircraft battery&lt;br/&gt;XT90 + two XT60 in parallel]
+    AU[Aircraft USB-C configuration port]
+  end
+  TC --&gt;|USB interface 0 - HID input| HID
+  TC --&gt;|USB interfaces 2 + 3 - observed MAVLink| CDC
+  CDC -.-&gt;|USB bulk OUT exists; application commands untested| TC
+  TC &lt;--&gt;|RJ45 MATRIX / CAT6 - power, comms, video return| QS
+  QS &lt;--&gt;|Short CAT6 / MATRIX - power, comms, video return| VRX
+  TC --&gt;|16-pin LEMO - power and video| GG
+  QP --&gt;|XT60| QS
+  RFUSB --- VRX
+  QS &lt;--&gt;|IRONghost RF - control / telemetry| RX
+  VTX --&gt;|Analog RF video downlink| VRX
+  RX -.-&gt;|Electrical interface / protocol unverified| FC
+  CAM -.-&gt;|Analog image path; OSD routing unknown| VTX
+  SENS -.-&gt;|Internal buses unknown| FC
+  FC -.-&gt;|Internal drive interface unknown| ESC
+  AU -.-&gt;|Computer configuration; internal route inferred| FC
+  PWR -.-&gt;|Power distribution / regulators not mapped| FC
+  PWR -.-&gt; RX
+  PWR -.-&gt; VTX
+  PWR -.-&gt; ESC
+</code></pre>
+<p>The goggles' video comes back through the MATRIX chain. No USB video interface was enumerated on Tac.Ctrl. The aircraft configuration USB-C is a separate connector; Tac.Ctrl USB has not been shown to bridge to it. The onboard receiver and transmitter are drawn separately by function, not as a claim that they are separate physical boards.</p>
+<h2 id="what-is-established">What is established</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+<th>Evidence / status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What does the laptop see?</td>
+<td>Orqa Tac.Ctrl, VID:PID <code>35b6:0004</code>, USB full speed 12 Mbit/s, HID plus CDC ACM</td>
+<td>Measured</td>
+</tr>
+<tr>
+<td>Can it provide joystick input?</td>
+<td>Yes. Linux reports 7 axes and 16 buttons; a five-second sample included 3 change events after 23 initialization events</td>
+<td>Measured; physical control mapping not performed</td>
+</tr>
+<tr>
+<td>Does it have a data/telemetry serial interface?</td>
+<td>Yes. <code>/dev/ttyACM1</code> emitted 7 MAVLink 2 HEARTBEAT messages in approximately 8 seconds</td>
+<td>Measured; seven CRCs validated</td>
+</tr>
+<tr>
+<td>Is it relaying aircraft telemetry?</td>
+<td>Captured heartbeats match a local generator in v1.3.6. A separate GPS-output path uses stored telemetry fields; end-to-end forwarding/freshness remains untested</td>
+<td>Bench isolation plus static firmware evidence</td>
+</tr>
+<tr>
+<td>Does it accept MAVLink commands or parameter requests?</td>
+<td>v1.3.6 has selective handlers for heartbeat, parameter-list request and two COMMAND_LONG cases; parameter data is compiled locally</td>
+<td>Parameter-list path verified against the compiled table; capability response malformed in two live tests</td>
+</tr>
+<tr>
+<td>Does USB expose video, Ethernet or disk storage?</td>
+<td>No corresponding interface in the current single USB configuration</td>
+<td>Measured descriptor boundary; alternate boot/firmware modes unknown</td>
+</tr>
+<tr>
+<td>Can MATRIX be plugged into a laptop Ethernet port?</td>
+<td>The supplied pinout describes differential UART, +50 V and CVBS, not Ethernet</td>
+<td>User-supplied contact map; revision and electrical behavior unmeasured</td>
+</tr>
+<tr>
+<td>Are internal aircraft pinouts known?</td>
+<td>No. Manuals identify components but do not give FC/radio/video harness details</td>
+<td>Documented functional map only</td>
+</tr>
+</tbody>
+</table>
+<p>Detailed <a href="usb-findings.html">USB findings</a> include endpoint and report layouts, heartbeat fields, evidence IDs and test limits. The <a href="manual-interface-findings.html">manual interface inventory</a> covers ground, aircraft, service, power and optional repeater interfaces with PDF page references.</p>
+<h2 id="evidence-and-repeatable-tools">Evidence and repeatable tools</h2>
+<ul>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/rea-usb-evidence.json">REA evidence bundle</a>: runtime captures, decoding evidence and unresolved questions.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/rea-usb-snapshot.json">USB snapshot</a>: exact descriptors and Linux joystick sample.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/serial-receive-sample.json">Serial sample</a>: 147 received bytes, timing, restored terminal settings.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/usb/mavlink-decoded.json">Decoded frames</a>: all seven HEARTBEAT CRC checks and fields.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/ghost-decoder/verification.json">Ghost decoder validation</a>: tests, synthetic demonstration and file hashes.</li>
+<li><a href="matrix-pinout.html">MATRIX pinout</a>: supplied image and contact transcription.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/manuals/source-manifest.json">Manual source manifest</a>: source paths, SHA-256 values and page counts. Original PDFs remain in <code>[local workstation]/Documents/ORQA</code>.</li>
+<li><code>scripts/inspect_tac_ctrl.py</code>: read descriptors and Linux input without opening serial.</li>
+<li><code>scripts/capture_serial_receive.py</code>: explicit, bounded receive-only serial capture, guarded by an aircraft-unpowered flag. Opening/closing CDC ACM can change DTR/RTS; this is not an electrically passive tap.</li>
+<li><code>scripts/decode_mavlink_heartbeat.py</code>: offline parser and CRC validation; no hardware access.</li>
+</ul>
+<p>From this project directory:</p>
+<pre><code class="language-bash">python3 scripts/inspect_tac_ctrl.py --seconds 5 --out evidence/usb/next-usb-snapshot.json
+python3 scripts/capture_serial_receive.py --aircraft-unpowered --seconds 8 --out evidence/usb/next-serial-sample.json
+python3 scripts/decode_mavlink_heartbeat.py evidence/usb/next-serial-sample.json --out evidence/usb/next-mavlink-decoded.json
+</code></pre>
+<p>Only use the second command after independently confirming the aircraft remains unpowered. Files are created exclusively; choose a new filename for each run. The capture preserves baud settings, temporarily removes host buffering/translation/echo, restores the original settings, and performs no application writes. The recorded initial host baud setting was 9600; this is not proof that 9600 is a required device baud or the USB wire speed.</p>
+<h2 id="next-setup-step">Next setup step</h2>
+<p><strong>User redirected the investigation to the ground radios; stick mapping is paused.</strong> The user confirmed that the controller in hand is TAC, consistent with the measured Tac.Ctrl USB identity. The previous photo and manual-login requests are superseded. The user supplied the available controller release notes and firmware, inspected in <a href="firmware-findings.html">firmware findings</a>.</p>
+<p>The Configurator has now been supplied and inspected. The earlier download request is complete. Firmware decoding, manifest verification, update transport recovery and initial native-code tracing are saved in <a href="firmware-findings.html">firmware findings</a>.</p>
+<p><strong>Next step:</strong> identify a suitable differential receive interface for a capture of the documented C2 and telemetry pairs. The offline decoder is ready; a real capture is needed to validate the firmware-derived interpretations. No new hardware connection is requested yet.</p>
+<p>The previously proposed RF Micro-USB test is deferred at the user's request. Its <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/ground-radio/usb-before-rf-connection.json">USB baseline</a> remains saved, but no new hardware action is requested.</p>
+<p>The later <a href="matrix-pinout.html">user-supplied pinout</a> resolves the documented contact map that the manuals omitted: differential UART, +50 V supply and CVBS video. It does not establish the line-driver standard or applicability to every hardware revision. A differential capture receiver must exclude power and video contacts. No power or Ethernet configuration was performed by the assistant.</p>
+<p>Remaining message semantics, physical HID mapping and MATRIX electrical verification remain unresolved. The powered USB test sent only the reviewed capability and parameter-list read requests (130 bytes total). No flight-control, parameter-write or firmware-update requests, permission changes or laptop RJ45 connection were made.</p>
+<p>The older getting-started guide and newer GCS manual disagree about supported cable length and when external QS power is needed. The interface inventory preserves both claims; neither is a measured limit here.</p>
+<h2 id="handoff">Handoff</h2>
+<p>The current task is active, focused on identifying and interfacing with the ground radios. USB enumeration, powered USB capture, package decryption, controller analysis, the Ghost decoder and a runnable offline controller reconstruction are complete for this pass. Start with <code>docs/reconstruction.md</code> and <code>evidence/reconstruction/verification.json</code> for the model and validation. Read <code>docs/powered-usb-bench.md</code> for the latest live results, then <code>docs/ghost-decoder.md</code> and <code>docs/matrix-pinout.md</code> for the raw Ghost capture workflow, then <code>docs/firmware-findings.md</code>, <code>evidence/firmware/ghost-interface-analysis.md</code> and <code>evidence/configurator/transport-analysis.md</code> for source evidence. Scripts and hashes reproduce the offline extraction; the Ghidra project and exports are retained under <code>evidence/firmware/</code>. The opaque STM audio member remains undecoded. Stick mapping is paused at right-horizontal axis 2 / full-left +32767. End-to-end aircraft telemetry, installed firmware identity, MATRIX line-driver details, electrical verification and physical ground-unit revisions remain open. Shared inventory entry <code>HW-0031</code> records the observed Tac.Ctrl; ownership remains unconfirmed and no exclusive allocation was inferred.</p>
+<p>User preference: perform available software work autonomously, then give <strong>one clear next hardware connection or test-setup step</strong>. Do not present a menu of hardware options.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

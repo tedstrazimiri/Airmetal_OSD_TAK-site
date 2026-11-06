@@ -1,0 +1,382 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tac.Ctrl USB findings · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../index.html">Start</a><a href="../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="status-and-roadmap.html">Status and roadmap</a><a href="ground-side-am-osd-plan.html">Ground integration plan</a><a href="../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../documents.html">All documents</a><a href="../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/docs/usb-findings.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tacctrl-usb-findings">Tac.Ctrl USB findings</h1>
+<p><strong>Latest powered test:</strong> <a href="powered-usb-bench.html">powered-usb-bench.md</a> records the props-removed live test, local parameter replies and truncated capability response. The receive-only tests below remain historical evidence for the original isolation work.</p>
+<p>Date: 2026-10-11. Host: Ubuntu Linux x86-64. Device: USB product string <code>Orqa Tac.Ctrl</code>, VID:PID <code>35b6:0004</code>. User confirmed controller and ground radios powered, aircraft unpowered. All device nodes below are snapshot values and may change after reconnect; the helper scripts resolve the target dynamically.</p>
+<p><strong>Later firmware correlation:</strong> the supplied v1.3.6 package has now been decrypted and its Nordic application disassembled. Its device and HID report descriptors match this capture exactly. A local heartbeat builder emits the same fixed payload fields seen in the isolation tests. The normal CDC receive handler selectively processes MAVLink requests, including locally generated parameter/capability responses; a transparent aircraft tunnel is not established. Read <a href="firmware-findings.html">current firmware findings</a>. Installed version and end-to-end radio behavior remain unverified. Earlier unknown-source statements below describe the initial hardware-only evidence.</p>
+<h2 id="rea-method-and-evidence">REA method and evidence</h2>
+<p>REA 6.4.0 captured the execution of narrowly scoped Python host-inspection/receive tools and an offline packet validator. This is <strong>controlled runtime evidence</strong>, not decompilation of Tac.Ctrl firmware. At the initial USB pass no Tac.Ctrl firmware or desktop program was provided. The user subsequently supplied a v1.3.6 update package; see <a href="firmware-findings.html">offline package findings</a>. Its match to the installed firmware is unverified. The nearby MRM-2S HEX image is an aircraft artifact and was not substituted for controller firmware.</p>
+<table>
+<thead>
+<tr>
+<th>Evidence ID</th>
+<th>Operation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ev_11fe29187d8ca2395ae75a3b6f44d28988823409f942846aa7dcd5e18b4a37b4</code></td>
+<td>REA process capture of <code>inspect_tac_ctrl.py</code></td>
+<td>USB/HID snapshot and 5-second Linux input sample; exit 0; no truncation</td>
+</tr>
+<tr>
+<td><code>ev_b971ab1ec34e604be138fd2ae8f58ff2304a75d283054f1585710125bfd4f3e7</code></td>
+<td>REA process capture of <code>capture_serial_receive.py</code></td>
+<td>147 bytes received in 8.088 s; zero application bytes written; termios restoration verified; exit 0</td>
+</tr>
+<tr>
+<td><code>ev_6ec28cbf7a6f30a405fe90bf43e5e78287d2cdc8224cf05d2a97219d59453722</code></td>
+<td>REA process capture of offline heartbeat decoder</td>
+<td>7 valid HEARTBEAT frames, zero unexplained bytes; source and decoder files included in filesystem snapshots</td>
+</tr>
+</tbody>
+</table>
+<p>The complete exported bundle is <code>../evidence/rea-usb-evidence.json</code>. REA process sampling is not a USB bus trace and does not observe network traffic. The first two captures did not request filesystem snapshots; their explicit JSON outputs retain data. The third capture hashes the serial input, decoder and output. Host environment effects and physical signal provenance remain limitations.</p>
+<h2 id="usb-enumeration">USB enumeration</h2>
+<p>Observed at bus 003, device 023, sysfs <code>3-1</code>. USB 2.00 descriptor, <strong>12 Mbit/s full-speed</strong> operation, one configuration, three interfaces numbered <strong>0, 2 and 3</strong>. No interface 1 appears in this configuration; the numbering gap alone does not establish a hidden interface.</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Class</th>
+<th>Linux driver / node</th>
+<th>Endpoint</th>
+<th>Type, maximum packet, interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>HID gamepad</td>
+<td><code>usbhid</code>, <code>/dev/input/event24</code>, <code>/dev/input/js1</code>, <code>/dev/hidraw10</code></td>
+<td><code>0x81</code> IN</td>
+<td>Interrupt, 64 bytes, 1 ms descriptor interval</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CDC ACM communications</td>
+<td><code>cdc_acm</code>, <code>/dev/ttyACM1</code> paired with interface 3</td>
+<td><code>0x82</code> IN</td>
+<td>Interrupt notifications, 64 bytes, 16 ms descriptor interval</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CDC data</td>
+<td>Same serial function</td>
+<td><code>0x83</code> IN / <code>0x03</code> OUT</td>
+<td>Bulk, 64 bytes each</td>
+</tr>
+</tbody>
+</table>
+<p>Endpoint 0 is the standard control endpoint, maximum packet 64 bytes. IN means device to laptop; OUT means laptop to device. Descriptor intervals and packet maxima are not measured application update rates or throughput.</p>
+<p>Stable serial symlink observed:</p>
+<pre><code class="language-text">/dev/serial/by-id/usb-Orqa_Orqa_Tac.Ctrl_000000000000-if02
+</code></pre>
+<p>The serial descriptor is all zeros, so it is not a reliable unique physical-unit identifier. <code>bcdDevice=1.00</code> is a USB device revision, not a verified firmware version. The configuration advertises self-power, remote wakeup and 100 mA maximum USB draw; these descriptors do not measure charging or battery behavior.</p>
+<p>No UVC video, USB audio, mass storage or USB networking class was present. Other firmware/boot modes and proprietary tunnelling inside CDC remain untested. <code>lsusb -v</code> could not directly open the USB device with current permissions; standard descriptors and the full HID report descriptor were available through sysfs. <code>/dev/hidraw10</code> is root-only; no permission rules or drivers were changed.</p>
+<h2 id="hid-report-layout">HID report layout</h2>
+<p>The 56-byte report descriptor is retained in <code>evidence/usb/hid-report-descriptor.bin</code> and <code>.hex</code> relative to the project root. SHA-256: <code>1e12645e986407d42f6938acf1316cab3bea3c59ea4e368793e60419043c62ca</code>.</p>
+<p>It describes a Generic Desktop Game Pad, with no report ID, only Input reports, and no declared Output or Feature reports. Expected input payload: <strong>144 bits / 18 bytes</strong>. This length is derived from the descriptor; raw USB/HID reports were not captured.</p>
+<table>
+<thead>
+<tr>
+<th>Report bytes, zero-based</th>
+<th>Content</th>
+<th>Declared logical range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-1</td>
+<td>16 button bits, usages 1-16</td>
+<td>0 or 1</td>
+</tr>
+<tr>
+<td>2-3</td>
+<td>X, 16-bit little-endian</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>4-5</td>
+<td>Y</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>Z</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>8-9</td>
+<td>Rx</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>10-11</td>
+<td>Ry</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>Rz</td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>14-15</td>
+<td>Slider, usage <code>0x36</code></td>
+<td>0-2047</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>Slider, also usage <code>0x36</code></td>
+<td>0-2047</td>
+</tr>
+</tbody>
+</table>
+<p>Linux joydev reports seven axes, codes 0-6, and 16 buttons. The duplicated Slider usage is consistent with both raw fields mapping to one Linux axis; the exact collision behavior and independent slider availability need raw HID capture. Do not assign roll/pitch/throttle/yaw or switches from these generic names alone.</p>
+<p>The REA five-second sample contained 23 initialization events and 3 subsequent change events. Initialization events are cached state, not 23 newly observed control operations. The earlier three-second sample is retained separately. Joydev normalizes axes into a signed range; those values must not be interpreted as the descriptor's 0-2047 raw values. See the primary <a href="https://docs.kernel.org/input/joydev/joystick-api.html">Linux joystick API</a> and <a href="https://docs.kernel.org/hid/hidintro.html">HID descriptor documentation</a>.</p>
+<h2 id="cdc-serial-mavlink-2-verified">CDC serial: MAVLink 2 verified</h2>
+<p>A bounded receive-only capture received 7 packets, each 21 bytes long. All 147 bytes are accounted for as MAVLink 2 HEARTBEAT messages (message ID 0, payload length 9). Each packet passes the MAVLink CRC calculation with HEARTBEAT CRC extra 50. A deliberately altered offline payload failed the checksum check.</p>
+<p>Example first packet:</p>
+<pre><code class="language-text">fd 09 00 00 ce 01 01 00 00 00 05 00 00 00 02 03 19 03 03 b6 23
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Observed value</th>
+<th>Meaning / boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wire framing</td>
+<td><code>0xFD</code></td>
+<td>MAVLink 2</td>
+</tr>
+<tr>
+<td>Payload length</td>
+<td>9</td>
+<td>HEARTBEAT payload</td>
+</tr>
+<tr>
+<td>Compatibility / incompatibility flags</td>
+<td>Both 0</td>
+<td>No signature present on these packets</td>
+</tr>
+<tr>
+<td>Sequence</td>
+<td>206 through 212</td>
+<td>Consecutive within this sample</td>
+</tr>
+<tr>
+<td>System / component ID</td>
+<td>1 / 1</td>
+<td>Sender-declared addressing, not physical identity</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>0 / HEARTBEAT</td>
+<td>Link presence and status declaration</td>
+</tr>
+<tr>
+<td><code>custom_mode</code></td>
+<td>5</td>
+<td>Autopilot-specific; not assigned an operational mode here</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>2</td>
+<td>Declares <code>MAV_TYPE_QUADROTOR</code></td>
+</tr>
+<tr>
+<td><code>autopilot</code></td>
+<td>3</td>
+<td>Declares <code>MAV_AUTOPILOT_ARDUPILOTMEGA</code></td>
+</tr>
+<tr>
+<td><code>base_mode</code></td>
+<td>25 / <code>0x19</code></td>
+<td>Reported armed bit clear; custom-mode bit set. Does not verify aircraft state</td>
+</tr>
+<tr>
+<td><code>system_status</code></td>
+<td>3</td>
+<td>Declares standby</td>
+</tr>
+<tr>
+<td><code>mavlink_version</code> payload field</td>
+<td>3</td>
+<td>HEARTBEAT compatibility field; does <strong>not</strong> mean MAVLink 3 framing</td>
+</tr>
+<tr>
+<td>CRC, first packet</td>
+<td><code>0x23b6</code></td>
+<td>Valid, with CRC extra 50</td>
+</tr>
+</tbody>
+</table>
+<p>Intervals between received packets were 1160, 1192, 1190, 1156, 1191 and 1194 ms; mean approximately 1180.5 ms. This is a short receive-time observation, not a link performance measurement. No position, attitude, battery, parameter, status-text or version message appeared in this eight-second window. That bounded negative does not establish those messages are unsupported.</p>
+<p>Definitions were checked against the official <a href="https://mavlink.io/en/guide/serialization.html">MAVLink packet serialization specification</a>, <a href="https://mavlink.io/en/messages/minimal.html#HEARTBEAT">HEARTBEAT definition and enums</a>, and <a href="https://github.com/mavlink/c_library_v2/blob/master/minimal/mavlink_msg_heartbeat.h">generated HEARTBEAT header</a>, accessed 2026-10-11.</p>
+<p><strong>Attribution limit:</strong> the aircraft was unpowered. The heartbeat may be generated by Tac.Ctrl, a powered ground module, or a ground-side proxy/template. Its ArduPilot and quadrotor fields do not prove that the controller runs ArduPilot or that the aircraft has that firmware. USB serial transport of valid MAVLink is verified; end-to-end aircraft telemetry, command forwarding, ATAK integration, or a complete MAVLink dialect is not.</p>
+<h2 id="actions-and-limits">Actions and limits</h2>
+<ul>
+<li>USB/sysfs descriptor reads and read-only Linux joystick access.</li>
+<li>One 8-second serial receive session, opened <code>O_RDONLY</code>, with no <code>write()</code> calls, commands, heartbeat transmissions, configuration requests, firmware uploads or baud changes.</li>
+<li>Host canonical buffering, translation and echo temporarily disabled, original terminal settings restored and read back successfully. Opening/closing CDC ACM can still affect DTR/RTS; USB control transfers were not captured. Initial host setting <code>B9600</code> is not a verified required baud rate.</li>
+<li>Device remained enumerated as bus 003 device 023 after the capture. This does not prove uninterrupted application state or rule out internal resets.</li>
+<li>Offline decoding and one CRC corruption check. No aircraft operation, flight-control changes, radio settings changes or RJ45 connection.</li>
+</ul>
+<p>The ground-radio-disconnected observation below supersedes the initial attribution limit. A later revision-matched vendor artifact can help explain whether the current heartbeat is a local status template, a telemetry proxy, or another firmware behavior.</p>
+<h2 id="follow-up-ground-radio-disconnected">Follow-up: ground radio disconnected</h2>
+<p>At 16:05 UTC on 2026-10-11, repeated the same eight-second receive-only capture after the user confirmed the ground radio was disconnected. The prior aircraft-unpowered condition was maintained; Tac.Ctrl remained on USB. The physical disconnection is user-reported, not measured electrically.</p>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Ground radio connected</th>
+<th>Ground radio disconnected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duration</td>
+<td>8.088 s</td>
+<td>8.013 s</td>
+</tr>
+<tr>
+<td>Received bytes</td>
+<td>147</td>
+<td>147</td>
+</tr>
+<tr>
+<td>Checksum-valid HEARTBEAT frames</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Sender system / component</td>
+<td>1 / 1</td>
+<td>1 / 1</td>
+</tr>
+<tr>
+<td>Sequence values</td>
+<td>206-212</td>
+<td>220-226</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td>custom mode 5, type 2, autopilot 3, base mode 25, status 3, version 3</td>
+<td>Identical</td>
+</tr>
+<tr>
+<td>Mean receive interval</td>
+<td>1180.5 ms</td>
+<td>1161.7 ms</td>
+</tr>
+<tr>
+<td>Application bytes written</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Terminal settings restored</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The captures were about an hour apart; sequence numbers are modulo 256 and are not evidence of uninterrupted sequence continuity between tests. The short interval difference is not a performance conclusion.</p>
+<p><strong>Finding:</strong> these valid MAVLink heartbeats persist without the ground radio. Their ongoing availability is local to the Tac.Ctrl USB side and does not establish live aircraft telemetry. A controller-local generator or proxy is supported. Because the controller was not cold-started for this capture, cached status or a proxy that retains prior state remains possible.</p>
+<p>REA capture: <code>ev_ebb90a988d0beac3023830180bfabfad1338985682f127c530741004f06b7160</code>. Offline decoding: <code>ev_6be1810f25b908ebbf5a1a89fd147fc3e5a59082ff9b3066a7f6ddd1b109280f</code>. Both exited 0 without truncation. Exact files: <code>evidence/usb/serial-radios-disconnected.json</code>, <code>evidence/usb/mavlink-radios-disconnected.json</code>, and <code>evidence/usb/radio-disconnection-comparison.json</code> relative to the project root. REA bundle: <code>evidence/rea-radio-disconnected-evidence.json</code>.</p>
+<p>The following restart test completes the requested hardware setup for this observation.</p>
+<h2 id="follow-up-controller-restarted-ground-radio-disconnected">Follow-up: controller restarted, ground radio disconnected</h2>
+<p>At 16:09 UTC on 2026-10-11, captured another 8.085 seconds after the user confirmed the requested USB unplug, controller off/on and USB reconnect sequence. Ground radio remained disconnected and aircraft unpowered. USB re-enumerated from device 023 to 024, corroborating a USB reconnection. Complete power removal and the controller's internal reset cause were not independently measured.</p>
+<ul>
+<li>Received 189 bytes: <strong>9 checksum-valid MAVLink 2 HEARTBEAT frames</strong>, all bytes accounted for.</li>
+<li>Sender IDs remain 1 / 1; heartbeat payload exactly matches both earlier tests.</li>
+<li>Sequences 35-43. Their lower value alone does not prove a reset because sequence numbers wrap at 256.</li>
+<li>Receive intervals 927, 948, 946, 926, 948, 948, 924 and 947 ms; mean 939.25 ms. The changed short-window rate is observed, but its cause is unestablished.</li>
+<li>Zero application bytes written; original host serial settings restored and verified.</li>
+<li>USB descriptor and HID report descriptor hashes exactly match the initial snapshot. The same HID + CDC interfaces and Linux 7-axis / 16-button joystick remain exposed.</li>
+<li>A two-second read-only joystick snapshot contained 23 initialization events and no change events. Physical neutral positions were not user-confirmed for this snapshot.</li>
+</ul>
+<p><strong>Finding:</strong> the same heartbeat is available from Tac.Ctrl alone after the requested restart. It does not require a connected ground radio or powered aircraft. This strengthens controller-local generation/proxy attribution and removes the need to assume a continuing pre-restart volatile session. Firmware defaults, persistent stored state and proxy semantics remain unestablished; the reported ArduPilot identity is still not verified installed firmware.</p>
+<p>REA serial capture: <code>ev_ac4f2d649ea9bbe187de2188987412dc00acb43734ae87e99895b05c174ab5ae</code>; decoding: <code>ev_797142d4e1d0ed41dc677c727d4655f7cd194fd758a7e34010adbc93eeb04247</code>; USB/HID snapshot: <code>ev_0435adbddb4883c2b4ad081045c4f9e5771ba37ca5fe23e8c4fb46948c32d950</code>. All exited 0. Files are under <code>evidence/usb/</code>: <code>serial-fresh-boot-radio-disconnected.json</code>, <code>mavlink-fresh-boot-radio-disconnected.json</code>, <code>fresh-boot-usb-snapshot.json</code> and <code>fresh-boot-comparison.json</code>. REA bundle: <code>evidence/rea-fresh-boot-evidence.json</code>.</p>
+<p>The centered-stick baseline below completes this setup step.</p>
+<h2 id="follow-up-user-confirmed-centered-stick-baseline">Follow-up: user-confirmed centered-stick baseline</h2>
+<p>At 16:17 UTC on 2026-10-11, the user confirmed both sticks centered and controls untouched. Ground radio remained disconnected and aircraft unpowered. A five-second read-only Linux joystick sample returned 23 initialization events and <strong>zero change events</strong>. No serial port was opened by this capture.</p>
+<table>
+<thead>
+<tr>
+<th>Linux axis number</th>
+<th>Initial and final normalized value</th>
+<th>Change events</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>-32767</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Button indices 0-7 reported 1, and 8-15 reported 0. These are unmapped HID logical states, not a claim that eight physical buttons were pressed. Slider and switch positions were unspecified. Axis 4 being at the lower limit is not evidence of a centering fault because its physical control has not yet been identified.</p>
+<p>This establishes a stable baseline in the Linux joydev coordinate system. Kernel filtering/deadband may hide smaller raw variations; no raw HID jitter claim is made. Source: <code>evidence/usb/hid-centered-baseline.json</code>; summary: <code>evidence/usb/hid-centered-summary.json</code>. REA capture <code>ev_52c672691702e32c33a40e5668e678ef054bc48145989a9c1fd70f5ed5ec3ba8</code> exited 0 without truncation; bundle <code>evidence/rea-hid-centered-evidence.json</code>.</p>
+<p>The held-left test below completes this setup step.</p>
+<h2 id="physical-control-mapping-right-stick-full-left">Physical control mapping: right stick full left</h2>
+<p>At 16:19 UTC on 2026-10-11, the user confirmed holding only the right-hand stick straight fully left. A one-second read-only capture was taken immediately, and the user was told to release before documentation work. Ground radio remained disconnected and aircraft unpowered.</p>
+<p>Only Linux joydev <strong>axis 2</strong> changed from the centered baseline, ending at <strong>+32767</strong>. The other six axes and all button states matched baseline. Its initialization event still showed cached 0, followed by one actual axis change to +32767 during the capture. Thus the result uses the observed final update rather than assuming the initial cached state was already current.</p>
+<table>
+<thead>
+<tr>
+<th>Physical control</th>
+<th>Linux axis / code</th>
+<th>Center</th>
+<th>Full left</th>
+<th>Full right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Right-hand stick horizontal</td>
+<td>2 / ABS_Z</td>
+<td>0</td>
+<td>+32767</td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<p>The generic ABS_Z label is a host HID mapping and does not name an aircraft yaw/roll channel. Raw HID values, aircraft assignments and the opposite endpoint are not yet measured. Source: <code>evidence/usb/hid-right-stick-full-left.json</code>; comparison: <code>evidence/usb/hid-right-stick-full-left-summary.json</code>. REA capture <code>ev_3c07dc90cced2a6d62f54d3d1efeaee7ddc2e6471de9d71fb996b14d15088a17</code> exited 0 without truncation. Bundle: <code>evidence/rea-hid-right-left-evidence.json</code>.</p>
+<p>Mapping paused by the user before the full-right test. Do not continue control mapping unless requested. The user subsequently confirmed the controller in hand is TAC, consistent with measured USB identity; the photo request is withdrawn. The user supplied the available release notes and v1.3.6 update package, superseding the manual-login request, and explicitly requested firmware reverse engineering before further hardware tests. See <a href="firmware-findings.html">firmware findings</a>. RF Micro-USB enumeration is deferred. MATRIX electrical compatibility with laptop Ethernet remains unestablished.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

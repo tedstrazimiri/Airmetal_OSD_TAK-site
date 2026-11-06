@@ -1,0 +1,245 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ground AM_osd topology — Raspberry Pi 4B prototype · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/outputs/ground-osd-topology-20261105/wiring-and-hardware.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="ground-am_osd-topology-raspberry-pi-4b-prototype">Ground AM_osd topology — Raspberry Pi 4B prototype</h1>
+<p>2026-11-05. Open <a href="index.html">the interactive diagram</a>, <a href="topology.png">topology PNG</a>, or <a href="pinouts.png">pinout PNG</a>. Vector originals: <a href="topology.svg">topology</a> and <a href="pinouts.svg">pinouts</a>. The <a href="hardware.csv">hardware CSV</a> gives purposes, endpoints and selection status.</p>
+<p><strong>Decision: use the Pi 4B as the prototype gateway.</strong> Its UART, USB and network interfaces fit TAK ingest, Ghost decoding, coordinate conversion and display updates. AM_osd remains the analog video compositor. This is an engineering suitability judgment, not a measured latency or load result. A headless service with bounded contacts avoids processing video frames on the Pi. The Pi's TV jack is an output, so it does not replace the differential video receiver or accept the MATRIX feed.</p>
+<p>The supplied MATRIX drawing is the contact authority. AM_osd inline rev 0.3 family is the board planning baseline, as authorized by the user. Actual harness contact orientation and installed image must match the repository before bench wiring. This package is a proposed topology, not an electrically accepted schematic or completed prototype.</p>
+<h2 id="1-matrix-at-both-insert-connectors">1. MATRIX at both insert connectors</h2>
+<p>Use two bare 8P8C/RJ45 breakouts with adequate voltage rating/clearance and a short CAT6 patch lead. Avoid Ethernet magnetics or hidden PoE/balun circuitry. Keep the original twisted-pair geometry and short tap stubs. Number contacts using the supplied drawing; do not assign them from an assumed cable colour or a mirrored plug view.</p>
+<table>
+<thead>
+<tr>
+<th>Contact</th>
+<th>Function</th>
+<th>Proposed connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>C2_N</td>
+<td>Radio-side 1 straight to TAC-side 1; control direction TAC → radio</td>
+</tr>
+<tr>
+<td>2</td>
+<td>C2_P</td>
+<td>Radio-side 2 straight to TAC-side 2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>TEL_N</td>
+<td>Radio-side 3 straight to TAC-side 3; high-impedance receive-only branch to U1 B7</td>
+</tr>
+<tr>
+<td>4</td>
+<td>+50 V DC</td>
+<td>Straight-through only; <strong>no connection to Pi, AM_osd or local regulators</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>GND</td>
+<td>Straight-through; common G0 reference for this non-isolated prototype</td>
+</tr>
+<tr>
+<td>6</td>
+<td>TEL_P</td>
+<td>Radio-side 6 straight to TAC-side 6; branch to U1 A6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>VIDEO_N</td>
+<td>Through K1 input/output transfer: direct in bypass, through video adapters/OSD in overlay mode</td>
+</tr>
+<tr>
+<td>8</td>
+<td>VIDEO_P</td>
+<td>Same transfer arrangement, preserving P polarity</td>
+</tr>
+</tbody>
+</table>
+<p>The document describes 115k full-duplex differential UART, with 100-ohm termination at the receiving end. It does not establish RS-422/RS-485 compliance or bus common mode. Preserve existing telemetry termination; do not fit an additional 100/120-ohm termination or bias network to the tap. No MATRIX wire reaches the Pi's Ethernet jack.</p>
+<h2 id="2-pi-am_osd-wiring">2. Pi ↔ AM_osd wiring</h2>
+<table>
+<thead>
+<tr>
+<th>Pi / supply endpoint</th>
+<th>AM_osd endpoint</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical 8, GPIO14 TXD</td>
+<td>J3 pin 4, board label TX6 / net FC_TX / MCU PA10 RX</td>
+<td>Gateway → OSD</td>
+</tr>
+<tr>
+<td>Physical 10, GPIO15 RXD</td>
+<td>J3 pin 3, board label RX6 / net FC_RX / MCU PA9 TX</td>
+<td>OSD → gateway</td>
+</tr>
+<tr>
+<td>Physical 6, GND</td>
+<td>J3 pin 2, GND</td>
+<td>Common G0, also referenced to MATRIX 5</td>
+</tr>
+<tr>
+<td>Independent regulated +5 V</td>
+<td>J3 pin 1</td>
+<td>AM_osd board power</td>
+</tr>
+</tbody>
+</table>
+<p>The RX6/TX6 names are from the FC's perspective: <strong>J3.4 is AM_osd receive; J3.3 is AM_osd transmit.</strong> Both Pi and AM_osd UART logic are 3.3 V. Run 115200 8N1, no hardware flow control. Keep the TTL cable short. The USB telemetry input and the AM_osd UART are distinct serial devices.</p>
+<p>Enable the Pi UART hardware, disable the serial login/boot console and assign a stable UART to GPIO14/15. On Pi 4, use the documented PL011/Bluetooth mapping if required for a stable clock. Check the running OS configuration rather than assuming a <code>/dev/ttyAMA0</code> device identity. Use one serial writer for AM_osd; do not allow console or management traffic onto it.</p>
+<p>Existing MSP DisplayPort can carry a text proof. The gateway must deliberately handle the board's outgoing MSP requests and suppress inappropriate local crosshair/payload drawing. SA rings, fan, markers, page takeover and a bounded state API remain firmware work. Do not use <code>MSP_SET_OSD_CANVAS</code> as a page selector.</p>
+<h2 id="3-receive-only-telemetry-interface">3. Receive-only telemetry interface</h2>
+<p>U1 is a <strong>candidate</strong> TI THVD1450D (8-pin SOIC) circuit, powered at 3.3 V. It is not yet proven compatible with MATRIX. Confirm bus common mode, idle polarity, input loading and physical protection first. A breakout must allow removal/disabling of termination and bias resistors.</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Wire to</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MATRIX 6 TEL_P</td>
+<td>U1 pin 6 A</td>
+<td>Differential positive input</td>
+</tr>
+<tr>
+<td>MATRIX 3 TEL_N</td>
+<td>U1 pin 7 B</td>
+<td>Differential negative input</td>
+</tr>
+<tr>
+<td>Pi physical 1, 3V3</td>
+<td>U1 pin 8 VCC</td>
+<td>Small receiver supply; 100 nF decoupling at U1</td>
+</tr>
+<tr>
+<td>G0 / Pi physical 6</td>
+<td>U1 pin 5 GND</td>
+<td>Common reference</td>
+</tr>
+<tr>
+<td>U1 pin 2 /RE</td>
+<td>G0</td>
+<td>Receiver enabled</td>
+</tr>
+<tr>
+<td>U1 pin 3 DE</td>
+<td>G0, hard wired</td>
+<td>Bus driver disabled independently of Pi software</td>
+</tr>
+<tr>
+<td>U1 pin 4 D</td>
+<td>G0</td>
+<td>Driver input defined</td>
+</tr>
+<tr>
+<td>U1 pin 1 R</td>
+<td>U2 RXD</td>
+<td>3.3 V receive-only byte stream</td>
+</tr>
+<tr>
+<td>U2 GND</td>
+<td>G0</td>
+<td>Logic reference</td>
+</tr>
+<tr>
+<td>U2 USB</td>
+<td>Pi USB-A</td>
+<td>Linux serial device</td>
+</tr>
+</tbody>
+</table>
+<p>U2 is a documented USB-to-3.3 V UART adapter, for example an FTDI-class adapter. Its TXD, RTS, CTS and power lead stay unused/insulated. <strong>A 3.3 V logic adapter may still expose 5 V on its power lead.</strong> Select by the actual adapter data sheet; no universal USB adapter header numbering is assumed here. U1's disabled driver is the protection against software accidentally sending data into MATRIX.</p>
+<p>Capture at nominal 115200 with separate lane provenance. A second identical U1/U2 chain may later receive C2: MATRIX 2 → A6, MATRIX 1 → B7. It remains optional; select SA pages locally on the Pi first. Physical RC mapping and AUX conflict checks are separate work.</p>
+<h2 id="4-analog-video-endpoints-and-bypass">4. Analog video endpoints and bypass</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Functional wiring</th>
+<th>Suggested building block</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V1 differential receiver</td>
+<td>Radio MATRIX 7/8 via K1A → IN−/IN+; single-ended output → AM_osd J1.3; return → J1.2 / G0</td>
+<td>AD8130-based evaluation circuit</td>
+</tr>
+<tr>
+<td>AM_osd</td>
+<td>J1.3 VIDEO_IN → analog compositor → J2.3 VIDEO_OUT</td>
+<td>Existing inline PCB</td>
+</tr>
+<tr>
+<td>V2 differential driver</td>
+<td>AM_osd J2.3 → CVBS input; OUT−/OUT+ via K1B → TAC MATRIX 7/8; return → J2.2 / G0</td>
+<td>AD8132-based evaluation circuit</td>
+</tr>
+</tbody>
+</table>
+<p>J1/J2 pins 1,4,5,6 are unused in this ground harness. Their copper pass-through does not power the OSD. The video ports above are functional endpoints, <strong>not AD8130/AD8132 package pin numbers</strong>. Do not wire those ICs without a proper circuit: feedback, gain, output common mode, source/load impedance, decoupling, supply rails and any equalization must be designed from measured MATRIX video. Pi micro-HDMI/TV-out and generic CCTV baluns are not replacements for this qualification.</p>
+<p>K1 needs <strong>four changeover signal poles</strong>, for example two DPDT signal relays operated together. A single 4PDT manual switch can establish the topology on the bench if its signal integrity is acceptable. Contact/coil pin numbers depend on the selected device. Logical contacts are:</p>
+<table>
+<thead>
+<tr>
+<th>Logical pole</th>
+<th>COM</th>
+<th>NC, default bypass</th>
+<th>NO, overlay mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K1A-N</td>
+<td>Radio MATRIX 7</td>
+<td>Join to K1B-N NC</td>
+<td>V1 IN−</td>
+</tr>
+<tr>
+<td>K1A-P</td>
+<td>Radio MATRIX 8</td>
+<td>Join to K1B-P NC</td>
+<td>V1 IN+</td>
+</tr>
+<tr>
+<td>K1B-N</td>
+<td>TAC MATRIX 7</td>
+<td>Join to K1A-N NC</td>
+<td>V2 OUT−</td>
+</tr>
+<tr>
+<td>K1B-P</td>
+<td>TAC MATRIX 8</td>
+<td>Join to K1A-P NC</td>
+<td>V2 OUT+</td>
+</tr>
+</tbody>
+</table>
+<p>This transfers both ends of the active branch. In bypass, V1's receiving-end termination and V2's driver are disconnected. Leaving V1 terminated across the line while bypassing its output would create a second load on the original TAC video link. In overlay mode, provide the correct new receiver termination and restore a compatible signal to TAC; do not transplant the UART's 100-ohm note into a video design without measurement.</p>
+<p>For initial bench tests use deliberate local bypass selection. A later relay implementation needs rated drive circuitry, flyback handling, a de-energised bypass default, and health supervision independent of Pi software. Verify transition behavior and power-loss recovery for the whole V1/OSD/V2 assembly. AM_osd's own powered-reset bypass does not cover loss of its supply.</p>
+<h2 id="5-suggested-hardware-summary">5. Suggested hardware summary</h2>
+<p>Required additions around Pi + AM_osd are two bare MATRIX breakouts/patch wiring, one conditional receive-only differential UART circuit, one USB-to-3.3 V UART adapter, matched differential CVBS receiver and driver circuits, a four-pole bypass, independent bench supplies, and measurement/source/display equipment. <a href="hardware.csv">The hardware CSV</a> gives each endpoint and purpose. Model suggestions are candidate circuits, not a purchase-ready BOM.</p>
+<p>Power Pi via its own good-quality USB-C 5 V / 3 A supply. Power AM_osd at J3.1 from a separate regulated 5 V output. Use suitable analog bench rails for the selected V1/V2 circuit; these are not assumed to be 3.3 V or GPIO-powered. All indicated returns join G0 in this non-isolated prototype. Evaluate grounding and backfeed before connection. MATRIX 4 stays pass-through only.</p>
+<p>Use a differential oscilloscope measurement suitable for the actual common-mode voltage, plus a known PAL source and monitor. Start with AM_osd alone. Next compare unloaded MATRIX with the receive tap/insert, then verify sync, levels, picture, latency and control/telemetry continuity. Keep aircraft outputs inactive during wiring tests.</p>
+<p>Relevant inventory was checked. HW-0007 records two owned Pis with unresolved batch models and a separately observed Pi 4B bench context; availability for this project is unconfirmed. This design proposal does not allocate either Pi or transfer equipment from the Ascent project. Relevant receiver/test-equipment searches found no matching inventory entries, which does not establish absence of unrecorded equipment.</p>
+<h2 id="6-what-remains-open">6. What remains open</h2>
+<p>MATRIX electrical characterization; actual aircraft azimuth/fix/source-time availability; clean-SA versus baked airborne OSD ownership; live TAK endpoint; bounded SA firmware/render budget; whole-unit bypass behavior; analog goggles/DVR acceptance. No Pi video throughput claim or flight readiness follows from this diagram.</p>
+<p>At 115200 8N1 the theoretical UART ceiling is 11,520 bytes/s before protocol overhead. A proposed 320-byte bounded display snapshot at 10 Hz would use 3,200 bytes/s before framing, requests and replies. This illustrates why a small state feed is plausible; it is not a finalized packet format or measured render/update rate.</p>
+<h2 id="sources-and-reproduction">Sources and reproduction</h2>
+<ul>
+<li><a href="../../assets/matrix-pinout.svg">Supplied MATRIX image</a> and <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/manuals/matrix-port-pinout.json">transcription</a>.</li>
+<li><a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/source/DESIGN.md">AM_osd DESIGN.md</a> §§1.5 S2/S4/S12 and A6/A7; <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/source/hardware/osd_inline_lite_2edge/spec.py">inline connector source</a> J3 net assignments.</li>
+<li><a href="https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts">Pi official UART documentation</a> and <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio">GPIO table</a>.</li>
+<li><a href="https://pip-assets.raspberrypi.com/categories/545-raspberry-pi-4-model-b/documents/RP-008341-DS-1-raspberry-pi-4-datasheet.pdf">Pi 4B official datasheet</a>, saved <a href="sources/pi4b-datasheet.pdf">locally</a>; power §4.1, GPIO §5.1, TV output §5.5.</li>
+<li><a href="https://www.ti.com/lit/ds/symlink/thvd1450.pdf">TI THVD1450 datasheet</a>, saved <a href="sources/THVD1450.pdf">locally</a>, page 5 pin configuration. The SOIC pin table was checked from the primary PDF.</li>
+<li><a href="https://www.analog.com/en/products/ad8130.html">AD8130 receiver</a>, <a href="https://www.analog.com/en/products/ad8132.html">AD8132 driver</a>. Candidate applications do not establish ORQA compatibility.</li>
+<li><a href="../../docs/ground-side-am-osd-plan.html">Original implementation investigation</a>.</li>
+</ul>
+<p>Rebuild from this folder with <code>node build.mjs</code>. It regenerates HTML/SVG, wiring JSON and hardware JSON/CSV. The notes are maintained separately. PNGs are browser renders of the SVG originals. Interactive controls illustrate wiring states only; they open no serial/network hardware sessions.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "synthetic": true,
+  "datum": "WGS84",
+  "grid_resolution_m": 1,
+  "precision_digits_per_axis": 5,
+  "conversion": {
+    "library": "mgrs",
+    "version": "1.5.0",
+    "method": "toMGRS(lat, lon, MGRSPrecision=5); truncated grid cell",
+    "geodesic_library": "pyproj",
+    "geodesic_version": "3.6.1",
+    "selected_marker_method": "WGS84 geodesic from ownship; bearing atan2(east, north); distance hypot(north, east)",
+    "inverse_check": "toLatLon; independent pyproj UTM shows source inside returned 1 m cell",
+    "sources": [
+      "https://github.com/hobuinc/mgrs",
+      "https://geographiclib.sourceforge.io/html/GeoConvert.1.html"
+    ]
+  },
+  "ownship": {
+    "id": "OWN",
+    "label": "OWN POSITION",
+    "latitude_deg": 49.1234,
+    "longitude_deg": -80.1234,
+    "mgrs": "17UNQ6395741543",
+    "zone_band": "17U",
+    "square_100km": "NQ",
+    "easting": "63957",
+    "northing": "41543",
+    "formatted": "17U NQ 63957 41543",
+    "inverse_latitude_deg": 49.12339400171729,
+    "inverse_longitude_deg": -80.12341157490705,
+    "utm_cell_offset_m": [
+      0.8367960816249251,
+      0.6765741119161248
+    ]
+  },
+  "selected_marker": {
+    "id": "F2",
+    "label": "F2 FIRE",
+    "latitude_deg": 49.14318163744476,
+    "longitude_deg": -80.11449123118119,
+    "mgrs": "17UNQ6458243750",
+    "zone_band": "17U",
+    "square_100km": "NQ",
+    "easting": "64582",
+    "northing": "43750",
+    "formatted": "17U NQ 64582 43750",
+    "inverse_latitude_deg": 49.1431791408237,
+    "inverse_longitude_deg": -80.11449293158957,
+    "utm_cell_offset_m": [
+      0.12076862994581461,
+      0.2789894472807646
+    ],
+    "north_m": 2200,
+    "east_m": 650,
+    "distance_m": 2294.0139493908923
+  }
+}

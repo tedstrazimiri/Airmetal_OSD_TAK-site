@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Independent Ghost payload review for the offline decoder · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/ghost-decoder/protocol-review.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="independent-ghost-payload-review-for-the-offline-decoder">Independent Ghost payload review for the offline decoder</h1>
+<p>Scope: static TAC 1.3.6 image (<code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>, Cortex-M base <code>0x27000</code>). No decoder implementation imported, no hardware used, no Ghidra project writes. Sources below are saved artifacts under <code>evidence/firmware/ghidra-export/</code>, except the focused byte-order assembly under <code>evidence/ghost-decoder/byte-order-helpers/</code>.</p>
+<p><code>fixtures-review.json</code> contains literal synthetic frame hex and independently calculated expected values. They are not radio captures. CRC was calculated by GF(2) polynomial long division of the complete type+payload bit string, appending eight zero bits and dividing by polynomial <code>0x1D5</code>; this is independent of a byte-at-a-time decoder CRC routine. The standard <code>123456789</code> check yields <code>BC</code>.</p>
+<h2 id="framing-boundary">Framing boundary</h2>
+<p><code>0004c4a0.c:28–33,464–466</code> builds the 14-byte outgoing control frames:</p>
+<p><code>81 0C &lt;type&gt; &lt;10 payload bytes&gt; &lt;CRC&gt;</code></p>
+<p>Length counts type+payload+CRC, so total bytes = length+2. CRC covers type and payload only. <code>0004c428.c</code> implements polynomial <code>D5</code>, MSB first, initial 0, no final XOR. The receive callback at <code>0x4be5c</code> explicitly processes 14- and 27-byte frames and the dispatcher <code>0004cbf8.c</code> requires address <code>80</code>. The receive fragment accumulator also recognizes <code>90</code>, but the shown dispatcher does not consume it; preserve <code>90</code> frames as opaque candidates.</p>
+<p>For the offline decoder, do not interpret an <code>80</code> type <code>10</code> as a proven RC command or an <code>81</code> type <code>23</code> as telemetry: meaning depends on address/direction. Unrecognized types should retain raw payload with valid/invalid CRC status. The review establishes payload interpretation for the exact lengths below; malformed length must not be used to read missing fields.</p>
+<h2 id="control-types-10-11-12-exact-bit-order">Control types 10, 11, 12: exact bit order</h2>
+<p>Let <code>p[0..9]</code> denote payload bytes (frame bytes 3–12). The four first channels are:</p>
+<pre><code>ch1 = p[0] | ((p[1] &amp; 0x0f) &lt;&lt; 8)
+ch2 = (p[1] &gt;&gt; 4) | (p[2] &lt;&lt; 4)
+ch3 = p[3] | ((p[4] &amp; 0x0f) &lt;&lt; 8)
+ch4 = (p[4] &gt;&gt; 4) | (p[5] &lt;&lt; 4)
+</code></pre>
+<p>Equivalent: four 12-bit values packed consecutively least-significant-bit first into the first six bytes. Source <code>0004c4a0.c:58–61,86–87,112–114,139–142</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th><code>p[6],p[7],p[8],p[9]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>10</code></td>
+<td>Channels 5, 6, 7, 8 as unsigned bytes</td>
+</tr>
+<tr>
+<td><code>11</code></td>
+<td>Channels 9, 10, 11, 12 as unsigned bytes</td>
+</tr>
+<tr>
+<td><code>12</code></td>
+<td>Channels 13, 14, 15, 16 as unsigned bytes</td>
+</tr>
+</tbody>
+</table>
+<p>Sources: <code>0004c4a0.c:143–248</code>, <code>250–356</code>, <code>358–462</code>. Return the exact transmitted numeric values. <strong>Do not multiply the byte channels by 16</strong> or convert all channels to one assumed pulse-width range.</p>
+<p>Scaling occurs before packing in resolver <code>0x521e4</code>: source types 1–4 return stick-associated values with optional inversion around endpoints <code>0x159</code>/<code>0xE26</code> (345/3622); switch helper functions <code>0x52158</code>, <code>0x5218a</code>, <code>0x521bc</code> emit values including 24,124,224; scroll source types 15/16 map input 0..2047 to 24..224 using integer affine mapping (<code>000521e4.c:138–142</code>, <code>000520b8.c</code>). These are source mappings chosen by per-channel configuration, not fixed meanings of every channel number. A channel decoder should therefore expose raw transmitted values and bit widths, not recover physical controls from the number alone.</p>
+<p>Hand-selected nibble fixture: <code>81 0c 10 23 61 45 89 c7 ab 18 7c e0 ff 15</code> decodes channels 1–4 as <code>0x123,0x456,0x789,0xABC</code> and channels 5–8 as <code>24,124,224,255</code>.</p>
+<h2 id="received-payload-fields-intermediate-state-versus-ui-interpretation">Received payload fields: intermediate state versus UI interpretation</h2>
+<p>This firmware has an important two-stage byte-order pattern. Handlers explicitly construct big-endian numeric intermediate values in RAM state <code>0x200056A8</code>, but some UI consumers then reverse their bytes before displaying them. A field called simply <code>voltage_raw</code> can therefore be ambiguous. Preserve payload bytes and distinguish handler-state values from UI-end interpretation.</p>
+<p>Assembly <code>byte-order-helpers/00063288.asm</code> shows input bytes copied to output positions 3,2,1,0 and returns the word: <code>bswap32</code>. <code>000632c2.asm</code> swaps two bytes and returns with <strong>LDRH</strong>, hence a zero-extended <code>bswap16</code>. The truncated C decompilation of <code>0x632c2</code> is not an adequate source for its prototype.</p>
+<p>All payload offsets in this table are relative to <code>p[0] = frame[3]</code>; unsigned types are intentional unless stated otherwise.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Exact handler storage</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>23</code></td>
+<td>BE u16 at p0→state+28, p2→+2A, p4→+2C; p6 byte→+2E; p7..9 unassigned here</td>
+<td><code>0004d1dc.c</code></td>
+</tr>
+<tr>
+<td><code>24</code></td>
+<td>Queues bytes from p0, queue item size 23; keep opaque</td>
+<td><code>0004d248.c</code>; literal <code>0x4d264=0x66210</code>, descriptor word at <code>0x6621c=23</code></td>
+</tr>
+<tr>
+<td><code>25</code></td>
+<td>BE u32 p0→+2F; BE u32 p4→+33; BE u16 p8→+37</td>
+<td><code>0004d328.c</code></td>
+</tr>
+<tr>
+<td><code>26</code></td>
+<td>BE u16 p0→+39; BE u16 p2→+3B; byte p4→+3D; BE u16 p5→+3E; BE u16 p7→+40; byte p9→+42</td>
+<td><code>0004d3ac.c</code></td>
+</tr>
+<tr>
+<td><code>32</code></td>
+<td>Bytes p0..5→state+1E..+23; p6..9 unassigned here</td>
+<td><code>0004d268.c</code></td>
+</tr>
+<tr>
+<td><code>33</code></td>
+<td><strong>LE u16</strong> p0→state+14; byte p2→+16; byte p3→+17; p4..9 unassigned here</td>
+<td><code>0004d2c0.c</code>, direct unaligned halfword load on little-endian Cortex-M</td>
+</tr>
+</tbody>
+</table>
+<p>The short telemetry fixtures use 10-byte payloads. The type24 fixture uses 23 bytes / total frame 27. Do not invent names for fields whose consumer semantics have not been traced.</p>
+<h3 id="type-23-ui-supported-battery-fields">Type 23: UI-supported battery fields</h3>
+<p><code>000620e8.c:15–33</code> applies <code>bswap16</code> to each of state+28,+2A,+2C. Thus UI input is effectively <strong>LE u16 on the wire</strong>:</p>
+<ul>
+<li>p0..1: LE u16 /100.0, displayed as <code>Drone Volts</code>, unit <code>V</code>.</li>
+<li>p2..3: LE u16 /100.0, displayed as <code>Drone Amps</code>, unit <code>A</code>.</li>
+<li>p4..5: LE u16 directly, displayed as <code>Drone mAh</code>, unit <code>mAh</code>.</li>
+</ul>
+<p>Literal at <code>0x62418</code> is high double word <code>0x40590000</code>, low word supplied as zero: 100.0. Division helper <code>0x638ac</code> is the software double division routine (denominator reciprocation and quotient refinement in its saved export); <code>0x63c48</code> converts a signed 32-bit integer to double, but all inputs here are zero-extended 16-bit values, so no signed ambiguity affects these fields. Format <code>%.2f</code> is at <code>0x6d4e8</code>.</p>
+<p>String evidence: literals <code>0x62420→0x6d4f0='Drone Volts'</code>, <code>0x62424→0x6d4fc='V'</code>, <code>0x62428→0x6d500='Drone Amps'</code>, <code>0x6242c→0x6d50c='A'</code>, <code>0x62430→0x6d510='Drone mAh'</code>, <code>0x62434→0x6d51c='mAh'</code>.</p>
+<p>For payload <code>01 02 03 04 05 06 07 08 09 0A</code>, raw handler BE values are 258,772,1286; UI values are <strong>5.13 V, 10.27 A, 1541 mAh</strong>. The endian-trap fixture is deliberate.</p>
+<h3 id="type-25-ui-supported-gps-fields-with-a-signedness-limitation">Type 25: UI-supported GPS fields with a signedness limitation</h3>
+<p><code>000620e8.c:38–58</code> swaps state+2F,+33 using <code>bswap32</code> and state+37 using <code>bswap16</code>. Effective wire fields:</p>
+<ul>
+<li>p0..3 LE u32 /10,000,000.0, displayed as <code>GPS Lat</code>, unit <code>deg</code>.</li>
+<li>p4..7 LE u32 /10,000,000.0, displayed as <code>GPS Long</code>, unit <code>deg</code>.</li>
+<li>p8..9 LE u16 directly, displayed as <code>Altitude</code>, unit <code>m</code>.</li>
+</ul>
+<p>The paired literals at <code>0x623f8=0</code> and <code>0x623fc=0x416312d0</code> encode double 10,000,000.0; format <code>%.7f</code> is at <code>0x6d530</code>. Labels resolve through <code>0x62444→0x6d538</code>, <code>0x6244c→0x6d544</code>, <code>0x62454→0x6d558</code>, with degree/metre strings at <code>0x6d540</code>/<code>0x6d564</code>.</p>
+<p><strong>Do not silently assert signed geographic coordinates.</strong> UI converter <code>0x63c70</code> constructs double without sign-bit handling; in contrast, signed converter <code>0x63c48</code> explicitly masks bit31 and negates negative input. This makes the observed UI path an unsigned interpretation. A payload carrying bit31 can produce a number outside geographic range. The decoder can expose <code>latitude_e7_raw_u32</code>, <code>longitude_e7_raw_u32</code>, <code>ui_latitude_unsigned_degrees</code>, <code>ui_longitude_unsigned_degrees</code> and annotate the limitation. Interpreting those same bit patterns as signed two's-complement coordinates is plausible but <strong>not proven by this UI path</strong>.</p>
+<p><code>received_type25_unsigned_ui_boundary</code> intentionally verifies this boundary: the first LE word is <code>0x80000000</code>, the second <code>0xFFFFFFFF</code>. UI-equivalent values are 214.7483648 and 429.4967295, not claimed valid coordinates. Altitude zero-extends its 16-bit word, so signed negative altitude is also unproven here.</p>
+<h3 id="other-received-types">Other received types</h3>
+<p>The report provides handler raw fields for 26/32/33 and opaque payload for24. Type26 UI does name some fields (heading, satellite count, distance), but a complete consistent unit/signedness map is outside this bounded decoder review. Keep raw outputs instead of extrapolating standard GHST documentation to every field.</p>
+<h2 id="fixture-use">Fixture use</h2>
+<p>The JSON contains 12 literal frames: three control variants; 23/24/25/26/32/33; a high-bit GPS case; an unknown type; and a deliberately corrupted CRC. Expectations are precomputed and do not depend on production parser functions. They include all raw expected field values and applicable UI conversions. The malformed CRC fixture has the same payload as the first control fixture but last byte14 instead of15; it must not be accepted as valid decoded control data.</p>
+<p>These fixtures establish decoding arithmetic and boundaries only. They do not validate the physical radio link, timing, serial framing at an electrical level, current installed firmware, or the interpretation of every packet type.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

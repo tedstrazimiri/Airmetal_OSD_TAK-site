@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-03",
+  "build_identity": "0.1.0 (2f1e4f8) Nov 03 2026 16:19:04",
+  "scope": "Read-only inspection of existing local linked artifacts; no new build or hardware measurement. Remaining bytes are link-region slack, not an approved runtime allocation.",
+  "sources": {
+    "firmware/ld/stm32g431cb.ld": "bb9c8afcc6db7f7f0b2466278909b019de5aebcb9be4ea00afc1ae9fed8f694c",
+    "build/release/analog_osd.map": "604ebd1e033f64a6c10cd4825172b9f969899fa06d245a4545c6240bc93a91f2",
+    "build/release/analog_osd.elf": "61bc51ccae10eaa59584945cd356ff8481378d46151ea58891d9c8b2ca77881f"
+  },
+  "chip_flash_bytes": 131072,
+  "chip_ram_bytes": 32768,
+  "bootloader_bytes": 8192,
+  "settings_bytes": 4096,
+  "app_flash_region_bytes": 118784,
+  "app_image_bytes": 74700,
+  "app_flash_region_slack_bytes": 44084,
+  "shared_ram_bytes": 16,
+  "ram_region_bytes": 32752,
+  "linked_data_bss_bytes": 20336,
+  "reserved_stack_bytes": 2048,
+  "ram_after_linked_and_reserved_stack_bytes": 10368,
+  "terrain_samples": {
+    "32x32_int16_bytes": 2048,
+    "64x64_int16_bytes": 8192,
+    "128x128_int16_bytes": 32768
+  }
+}

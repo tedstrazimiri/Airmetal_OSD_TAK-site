@@ -1,0 +1,209 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tac Configurator v1.3.4: static USB/update transport trace · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/configurator/transport-analysis.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tac-configurator-v134-static-usbupdate-transport-trace">Tac Configurator v1.3.4: static USB/update transport trace</h1>
+<p>Analyzed 2026-10-11. This report describes decompiled shipped code, not a hardware test. Neither the updater nor its driver was executed; no serial device was opened and no USB/flash commands were sent. The Configurator's three update paths concern the controller, not a demonstrated interface to the external ground radios.</p>
+<h2 id="main-finding">Main finding</h2>
+<p>The application separates <strong>system firmware</strong>, <strong>audio firmware</strong>, and <strong>voice files</strong> into three update paths. Its system firmware path uses Nordic serial DFU, its audio firmware path uses a small custom ASCII/binary serial protocol associated by the application with STM32, and its voice-file path writes files on a mounted volume. This provides substantive evidence for separate controller system/audio firmware domains; it does not identify their exact silicon, physical USB switching, board wiring, or MATRIX/RJ45 pinout.</p>
+<p>The code's UI names map <code>Nordic</code> to <code>SYSTEM FIRMWARE</code>, <code>Stm32</code> to <code>AUDIO FIRMWARE</code>, and <code>Voice</code> to <code>VOICE PACK</code>: <code>App/Orqa.TAC.Configurator.Assets.Lang.Resources.resx:55,61,64</code> below the decompilation root.</p>
+<p>Decompilation root: <code>[local workstation]/Documents/ChatGPT/REA - Orqa GCS/evidence/configurator/decompiled/</code>. All file references below are relative to this root; line numbers refer to the saved decompilation, not vendor source.</p>
+<h2 id="usb-discovery-and-identities">USB discovery and identities</h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Declared selection</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System / Nordic update</td>
+<td>Actual VID:PID <code>1915:521F</code> or <code>35B6:0005</code></td>
+<td><code>App/Orqa.TAC.Configurator/CompositionRoot.cs:26–30</code>; Windows selection <code>Core/Orqa.TAC.Configurator.Core.Windows/TACWindowsConnectionManager.cs:30–45,81–105</code></td>
+</tr>
+<tr>
+<td>Audio / STM32 update, Windows</td>
+<td>Actual VID:PID <code>0000:0002</code>, caption contains <code>USB Serial</code></td>
+<td>Windows manager <code>:53–65,81–105</code>, with property inversion explained below</td>
+</tr>
+<tr>
+<td>Audio / STM32 update, Linux implementation</td>
+<td>Checks exact strings <code>ID_VENDOR_ID=1915</code> and <code>ID_MODEL_ID=521f</code>, then labels resulting record <code>0000</code>, <code>0002</code></td>
+<td><code>Core/Orqa.TAC.Configurator.Core.Linux/TACLinuxConnectionManager.cs:56–73</code></td>
+</tr>
+<tr>
+<td>Voice-file update</td>
+<td>No VID/PID check. Eligible mounted drive with volume label <code>TAC</code> <strong>or</strong> root <code>eng</code> directory</td>
+<td><code>Updates/Orqa.TAC.Configurator.Encryption/VoicePackUpdateManager.cs:243–285</code></td>
+</tr>
+</tbody>
+</table>
+<p>Windows enumerates <code>Win32_PnPEntity</code> entries whose captions include <code>(COM</code>, extracts a <code>COM\d+</code> name, and parses <code>VID_</code> and <code>PID_</code> values. A naming inversion is important: it constructs <code>SerialPortInfo(port, parsedPID, parsedVID, caption)</code> at Windows manager line 105; the constructor assigns its second parameter to property <code>VID</code> and third to <code>PID</code> (<code>Core/Orqa.TAC.Configurator.Core.Data/SerialPortInfo.cs:15–20</code>). The selection tests then reverse those properties, so the effective USB IDs above are correct. Quoting the property names alone would falsely reverse the hardware VID/PID.</p>
+<p>No interface number is matched in the Configurator COM-port discovery. <code>SingleOrDefault</code> is used, so more than one matching COM entry can throw rather than select one. System-update discovery additionally requires the caption to contain <code>USB</code> (case-sensitive).</p>
+<p>The Linux system discovery searches <code>/dev/ttyACM*</code> and invokes <code>udevadm info -q property -n &lt;device&gt;</code>; it compares strings to configured tuples without case normalization (<code>TACLinuxConnectionManager.cs:28–48,76–90</code>). Configured IDs include uppercase <code>521F</code> and <code>35B6</code>; raw case handling matters. Its STM selector is inconsistent with the Windows selector and uses the Nordic ID. These are observations of a Windows-distributed application's Linux code, not a claim that a supported Linux release behaves this way.</p>
+<p>The previously measured normal-mode controller ID <code>35b6:0004</code> is not one of these updater selectors. The <code>35b6:0005</code> value is therefore a <strong>code-declared update identity</strong>, not yet a live descriptor observation. Bundled Nordic driver declarations, recovered separately in <code>driver-payloads/*.inf</code>, match generic Nordic DFU/CDC devices; they alone were not sufficient to establish this application-level association.</p>
+<h2 id="overall-update-state-flow">Overall update state flow</h2>
+<p><code>App/Orqa.TAC.Configurator.ViewModels.TAC/DescriptionViewModel.cs:71–115</code> conditionally processes manifest parts in the fixed order Nordic → STM32 → Voice, regardless of manifest display order, with a connection screen and completion wait for each included type. A manifest does not have to contain all three types.</p>
+<p>For Nordic/STM, opening the corresponding screen starts device enumeration approximately every 100 ms; the Next button calls the appropriate handler only after a device is found. See <code>App/Orqa.TAC.Configurator.ViewModels.TAC.Connection/ConnectNordicViewModel.cs:84–134</code> and <code>ConnectStmViewModel.cs:84–134</code>. <code>App/Orqa.TAC.Configurator.Services/UpdateService.cs:48–61</code> awaits the handler and tracks success/failure.</p>
+<p>The packaged UI text describes three modes. This is evidence, not a request to put the hardware into these modes:</p>
+<ul>
+<li>System: middle navigation button held during power-on; screen <code>Controller Update</code> (<code>Resources.resx:32,52</code>).</li>
+<li>Audio firmware: up and down navigation buttons held during power-on; screen <code>Updating sound system...</code> (<code>Resources.resx:40,42</code>).</li>
+<li>Voice files: <code>CONTROLLER SETTINGS</code> → <code>Change voice pack</code>; screen <code>Ready! Transfer files.</code> (<code>Resources.resx:43,62</code>).</li>
+</ul>
+<h2 id="nordicsystem-firmware-serial-transport">Nordic/system firmware serial transport</h2>
+<p>Call chain: <code>NordicUpdateHandler.RunAsync</code> chooses the manifest's Nordic part and sets its extracted path (<code>App/Orqa.TAC.Configurator.Services.Update/NordicUpdateHandler.cs:34–46</code>); <code>TACUpdateManager.UpdateAsync</code> passes that path and selected COM port to <code>NRFUtilLibWrapper.RunDFU</code> (<code>Core/Orqa.TAC.Configurator.Core/TACUpdateManager.cs:21–24</code>). The wrapper loads a Nordic ZIP, constructs <code>DfuTransportSerial(portName, 16)</code> and starts <code>DfuOperation</code> (<code>Core/Orqa.TAC.Configurator.Core/NRFUtilLibWrapper.cs:26–39</code>).</p>
+<p>The bundled <code>Nordic.nRF.DFU.dll</code> was separately decompiled to <code>Nordic/</code> for this trace, with the same local ILSpy 9.1 toolchain. No library methods were invoked.</p>
+<h3 id="port-and-framing">Port and framing</h3>
+<p><code>Nordic/Nordic.nRF.DFU/DfuTransportSerial.cs:82–119</code> creates a port with:</p>
+<ul>
+<li>115200 baud, 8 data bits, no parity, one stop bit;</li>
+<li>DTR enabled, handshake none;</li>
+<li>receive buffer 4096, transmit buffer 2048;</li>
+<li>read/write timeout 5000 ms;</li>
+<li>up to 50 port-discovery attempts separated by 200 ms.</li>
+</ul>
+<p>The USB line-coding value does not establish an internal UART's physical bit rate.</p>
+<p>Commands and data are SLIP-encoded. The encoder wraps with <code>C0</code>, escapes data <code>C0</code> as <code>DB DC</code> and <code>DB</code> as <code>DB DD</code>; the serial writer deliberately removes the initial <code>C0</code>, leaving an escaped payload plus trailing <code>C0</code>. Firmware data is prefixed with command byte <code>08</code> before encoding. Sources: <code>Nordic/Nordic.nRF.DFU.Util/SLIPEncoder.cs:7–39</code>; <code>DfuTransportSerial.cs:47–62</code>.</p>
+<p>Responses must decode as <code>60 &lt;request_opcode&gt; &lt;status&gt; &lt;payload&gt;</code>. Status <code>01</code> is treated as success. Expected response opcode and payload length are checked, and response waits time out after five seconds. Sources: <code>Nordic/Nordic.nRF.DFU/DfuTransportPrn.cs:33–64,80–139</code>; <code>ErrorCode.cs:5–6</code>.</p>
+<h3 id="commands-recovered-from-the-bundled-library">Commands recovered from the bundled library</h3>
+<p>Numbers below are hexadecimal and are <strong>static protocol descriptions, not commands sent</strong>. Integer fields are little-endian in this Windows/x86 implementation.</p>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Request</th>
+<th>Successful response payload</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>00</code></td>
+<td>Protocol version</td>
+<td>One version byte</td>
+<td><code>DfuTransportSerial.cs:170–175</code></td>
+</tr>
+<tr>
+<td><code>01</code></td>
+<td>Create object: type byte, size <code>u32</code></td>
+<td>Empty</td>
+<td><code>DfuTransportPrn.cs:143–156</code></td>
+</tr>
+<tr>
+<td><code>02</code></td>
+<td>Set packet-receipt notification interval <code>u16</code>; wrapper uses 16</td>
+<td>Empty</td>
+<td><code>DfuTransportSerial.cs:139–156</code></td>
+</tr>
+<tr>
+<td><code>03</code></td>
+<td>Get CRC</td>
+<td>Offset <code>u32</code>, CRC32 <code>u32</code></td>
+<td><code>DfuTransportPrn.cs:192–206</code></td>
+</tr>
+<tr>
+<td><code>04</code></td>
+<td>Execute object</td>
+<td>Empty</td>
+<td><code>DfuTransportPrn.cs:209–214</code></td>
+</tr>
+<tr>
+<td><code>06</code></td>
+<td>Select object: type byte</td>
+<td>Maximum object size <code>u32</code>, current offset <code>u32</code>, CRC32 <code>u32</code></td>
+<td><code>DfuTransportPrn.cs:217–226</code></td>
+</tr>
+<tr>
+<td><code>07</code></td>
+<td>Get serial MTU</td>
+<td>Wire MTU <code>u16</code></td>
+<td><code>DfuTransportSerial.cs:157–163</code></td>
+</tr>
+<tr>
+<td><code>08</code></td>
+<td>Write object bytes</td>
+<td>Receipt/CRC according to interval</td>
+<td><code>DfuTransportSerial.cs:57–62</code>; <code>DfuTransportPrn.cs:165–189</code></td>
+</tr>
+<tr>
+<td><code>0A</code></td>
+<td>Hardware version</td>
+<td>Part, variant, ROM size, RAM size, ROM page size: five <code>i32</code> values</td>
+<td><code>DfuTransportSerial.cs:178–194</code></td>
+</tr>
+<tr>
+<td><code>0B</code></td>
+<td>Firmware version: image index byte</td>
+<td>Type byte, version <code>u32</code>, address <code>u32</code>, length <code>u32</code></td>
+<td><code>DfuTransportSerial.cs:197–227</code></td>
+</tr>
+<tr>
+<td><code>0C</code></td>
+<td>Abort object</td>
+<td>No explicit response wait here</td>
+<td><code>DfuTransportPrn.cs:229–232</code></td>
+</tr>
+</tbody>
+</table>
+<p>The ordinary update call chain uses setup, select/create/write/CRC/execute operations; the presence of version-query methods does not establish that the application calls them or that the controller supports them. No ping opcode was found in these classes.</p>
+<p><code>DfuTransportSerial.Ready</code> first sets PRN=16, then obtains MTU. The maximum unencoded data length is calculated as integer <code>wireMTU / 2 - 2</code>, rounded down to a multiple of four. It is negotiated, not hardcoded as one universal packet size.</p>
+<p><code>Nordic/Nordic.nRF.DFU/DfuOperation.cs:36–54</code> sends each update's init packet before the firmware image. <code>DfuAbstractTransport.cs:29–39</code> uses object type 1 for init and type 2 for firmware; <code>:42–149</code> implements object selection, resume using reported offset/CRC, object-sized chunking, create/write/check/execute, and bounded retry after CRC failure. CRC polynomial is reflected <code>0xEDB88320</code> with initial/final inversion (<code>Nordic/Nordic.nRF.DFU.Util/CRC32.cs:8–29</code>).</p>
+<p>The ZIP reader selects <code>manifest.json</code>, resolves <code>.dat</code> init and <code>.bin</code> image entries, and supports application, bootloader, SoftDevice, or combined SoftDevice/bootloader members (<code>Nordic/Nordic.nRF.DFU/DfuUpdates.cs:35–95</code>). Supporting those members in generic code is not evidence all are present in this firmware package.</p>
+<h2 id="stm32audio-firmware-protocol">STM32/audio firmware protocol</h2>
+<p><code>STMUpdateHandler</code> chooses the manifest <code>Stm32</code> part and calls <code>VoiceFirmwareUpdater.Update</code> with the selected STM port (<code>App/Orqa.TAC.Configurator.Services.Update/STMUpdateHandler.cs:34–45</code>). UI labels it AUDIO FIRMWARE; it is not the Nordic main-system updater.</p>
+<p><code>Core/Orqa.TAC.Configurator.Core/VoiceFirmwareUpdater.cs:27–62</code> opens <code>new SerialPort(portName, 115200)</code>. Other settings are not explicitly overridden in this class. The observed code sequence is:</p>
+<ol>
+<li>ASCII <code>#$ERASE_MEM</code>, then response check and 100 ms delay.</li>
+<li>ASCII <code>#$FLASH_START</code>, then response check and 100 ms delay.</li>
+<li>Repeated <strong>raw 16-byte firmware blocks</strong>, waiting for a response containing the case-sensitive text <code>OK</code> after each block.</li>
+<li>100 ms delay, ASCII <code>#$FLASH_FINISH</code>, response check, another 100 ms delay.</li>
+<li>ASCII <code>#$BOOT_UP</code>, response check; percentage becomes 100.</li>
+</ol>
+<p>Commands are written without CR/LF or length prefixes (<code>:65–78</code>). A command response is considered successful if the first currently available bytes do <strong>not</strong> contain <code>ERROR</code> case-insensitively; there is no specific affirmative token requirement for these command responses. The code polls every 10 ms until some bytes arrive; no bounded timeout is implemented in these polling loops. Data block responses require <code>OK</code> (<code>:81–102</code>).</p>
+<p>No block sequence number, address field, host-side checksum, or host-side CRC is added by this class. That does not exclude validation within the device bootloader. The loop sends <code>floor(fileLength / 16)</code> blocks, so a non-multiple-of-16 tail would be omitted by this implementation. No port close/dispose appears in the class. These are implementation limitations, not tested device faults.</p>
+<h2 id="voice-files-mounted-volume-path">Voice files / mounted volume path</h2>
+<p>This path operates through filesystem APIs rather than COM-port protocol. Windows accepts ready removable drives; Linux accepts ready mount roots under <code>/media/</code> or <code>/mnt/</code>. A drive is considered TAC if its volume label is exactly <code>TAC</code> or it contains a root <code>eng</code> directory (<code>VoicePackUpdateManager.cs:243–285</code>). It does not inspect USB VID/PID or serial identity.</p>
+<p>The connection screen starts monitoring immediately; the manager enables a watcher and polls every five seconds. On a matching drive it reports detection and immediately invokes <code>ProcessTacDevice</code>, before the Next-button handler (<code>App/Orqa.TAC.Configurator.ViewModels.TAC.Connection/ConnectAudioViewModel.cs:77–108</code>; <code>Updates/Orqa.TAC.Configurator.Encryption/VoicePackUpdateManager.cs:77–90,219–225</code>). This is a material reason not to launch this updater merely to inspect devices.</p>
+<p>It looks for <code>tacupdate</code> in the system temporary directory or a child of it, then enumerates its <code>voice</code> language directories (<code>VoicePackUpdateManager.cs:298–319,412–431</code>). For each language it deletes the corresponding target folder recursively if present, recreates it, and recursively copies files; the nominal protected-language name is empty (<code>:29,339–368,435–465</code>). It creates, flushes, and deletes a temporary marker file afterward (<code>:478–499</code>). <code>AudioUpdateHandler.RunAsync</code> only waits for the manager to report completion/error; it is not the operation that starts copying (<code>App/Orqa.TAC.Configurator.Services.Update/AudioUpdateHandler.cs:37–53</code>).</p>
+<p>This supports a controller mode exposing writable voice storage. It does not prove the exact USB class/descriptors, storage chip, file format, sound codec, or how storage connects to STM32.</p>
+<h2 id="inferences-and-unresolved-interfaces">Inferences and unresolved interfaces</h2>
+<ul>
+<li>Strong code-supported inference: TAC has a Nordic-compatible main system firmware/update domain and a separately updated STM32-associated audio domain, plus writable voice-file storage.</li>
+<li>Not established: exact MCU model/revision, which MCU owns the normal HID/CDC composite device, physical USB mux/hub wiring, Nordic-to-STM communication bus, audio DAC/amplifier wiring, or memory-device model.</li>
+<li>No evidence in these updater classes establishes IP networking, Ethernet PHY, PoE, RJ45 pinout, MATRIX signaling levels, QS RF control protocol, or RF receiver access.</li>
+<li>These update transports are distinct from the previously captured normal-mode MAVLink-like heartbeat stream. No code evidence here turns the update commands into a normal operating-mode API.</li>
+</ul>
+<h2 id="provenance-and-limits">Provenance and limits</h2>
+<p>The parent investigation extracted these assemblies from the user-supplied Configurator installer. Refer to <code>bundle/bundle-manifest.json</code> for container offsets and <code>decompiler-toolchain.json</code> for the pinned decompiler/runtime provenance. The following SHA-256 values anchor this trace:</p>
+<table>
+<thead>
+<tr>
+<th>Assembly</th>
+<th style="text-align: right;">Bytes</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Orqa.TAC.Configurator.dll</code></td>
+<td style="text-align: right;">3,404,800</td>
+<td><code>1920f5088d09bf1d33901fd851a85a399abbf025675aa9423b9f08db3086902a</code></td>
+</tr>
+<tr>
+<td><code>Orqa.TAC.Configurator.Core.dll</code></td>
+<td style="text-align: right;">22,528</td>
+<td><code>76b98296641e54c058064cf95305a7f829c1373079640312f51fe889d534980a</code></td>
+</tr>
+<tr>
+<td><code>Orqa.TAC.Configurator.Updates.dll</code></td>
+<td style="text-align: right;">39,424</td>
+<td><code>c858f62378974f1f859abb0337ebf249952ac702935911359a9071f9cd78723a</code></td>
+</tr>
+<tr>
+<td><code>Nordic.nRF.DFU.dll</code></td>
+<td style="text-align: right;">60,416</td>
+<td><code>9219c3bd7a08d0e33b5949cfc9c3bf7fd88c20bf17e186bcd9f973643a831eb6</code></td>
+</tr>
+</tbody>
+</table>
+<p>Decompiler reconstruction may alter source layout/names and is not the original vendor source. Findings are static observations/derived call flow, not executed behavior. Firmware payload content is being analyzed separately; this report neither authenticates the package nor establishes the firmware currently installed in the controller.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

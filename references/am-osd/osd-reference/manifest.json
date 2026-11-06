@@ -1,0 +1,5383 @@
+{
+  "schema": 4,
+  "date": "2026-11-04",
+  "source_pr": "https://github.com/RMUS-Canada/AirMetal_OSD/pull/2",
+  "scope": "Retained profile-1 positions shared by F405/H7; AM_OSD bitmap font and source defaults; synthetic H7-like sensor values. No live OSD settings or video capture. AUTO/onboard versus external DisplayPort route and onboard font are not established by these renders. Proposed states preview the documented Fixed Medium 9x15 candidate; firmware font unchanged.",
+  "video": {
+    "standard": "PAL",
+    "aspect": "4:3",
+    "image_size": [
+      960,
+      720
+    ],
+    "columns": 30,
+    "rows": 16,
+    "glyph_size": [
+      12,
+      18
+    ],
+    "active_width_native": 401.8181818181818
+  },
+  "inputs": {
+    "tools/render_osd_reference.py": "2d0357ae1e4d11acf5b94e3bdb0069e3357624ca43fa67e0cb9ddf082afa0059",
+    "tools/osd_flat_prototype.js": "e572380dd15733fd146c8a607ec3fa5222406e304ec764aaea7a5ed826cf0caf",
+    "tools/osd_sa_prototype.js": "28758463674ab925720e6e5b2717af43953debdf2fc438b8030a4de9f72100d6",
+    "tools/osd_sa_reference.py": "6cba5ef2da095bdda1cf0875939995f23dcde44c976bda39533bb426593f6927",
+    "tools/osd_navigation.py": "da2dc74718844f685f58e62971c810a9c219e003fd92b6d55e3ad4177ea05589",
+    "tools/osd_font_candidate.py": "eb1e709d29a8f89f363ccd0426123a09ae72a0b8915d6495c8614df721c17550",
+    "tools/fontgen/gen_osd_font.py": "11c4071625cf41850f701cda22254d522470a337ea244cc5bd672a0f2c40d260",
+    "docs/osd-reference/font-candidate/9x15-ascii.bdf": "8f492bb08509a320e8b342c9fe7d4903183db14a964f5da369069aeb9d4642aa",
+    "docs/osd-reference/font-candidate/7x13-ascii.bdf": "e4dce38035e3025baf20b54c8c9f338c5e7f72df0897f5ea6e6fba8de1c9e63f",
+    "docs/osd-reference/font-candidate/sources.json": "891930a638a2f66db083d18f915e312d522f6aa25065a57721ea53e693a02d41",
+    "docs/osd-reference/tak-sa-fixture.json": "2f5260e85d340a2ac1a48cb7dca47a2da039322c819cc9886e686ef7da63402f",
+    "docs/osd-reference/mgrs-fixture.json": "6ab60e70cb2405f2a889b731dc50064a32a75e9f8852ee06d391fabfe0d32a9c",
+    "docs/osd-reference/flight-layout.json": "2ae9409719fed668f2a9366d83e59009e328e29e31b209995938b51f2a8230c7",
+    "tools/osd_flat_model.py": "8717921ea1ca7e4a8d43ffcdcf5a96674402ee974a7f8feef7aea0a2a7fbc30a",
+    "docs/osd-reference/flat-model.json": "98961d46aba6d90f1ad1041750d852204cc45eb6c6226b64bb151b63dbd03943",
+    "firmware/src/osd/font_osd.c": "971498b26d020c0c44db38525c3bf6e72c501876962cfb13f0fda4453bf3b13a",
+    "firmware/src/osd/camera_model.c": "bd44fd1771e25f7c6983bd031b94ca1ae75751d04c3684e0060ab7b624f074d1",
+    "firmware/src/osd/payload.c": "b47cad87aa8a32a30039eb271d9292d0e92f2708b74fff2e2969d539ba0fa2b9",
+    "firmware/src/settings.c": "d2e5af97b7e9ca2c0497e6e74bd575bca14eecaa6cd33480be2618b9facef953",
+    "firmware/src/video/overlay.c": "f38bf7a581453422c247544fa13354be8877690cf2312b2be17b2d13ab1d2193",
+    "docs/osd-reference/source-layout.json": "2020c1bc875785917c3775045c0cff2131b96310741bd6dd73c323941cdce6e4"
+  },
+  "font_candidate": {
+    "selected": "Fixed Medium 9x15",
+    "cell": [
+      12,
+      18
+    ],
+    "glyph_bytes": 54,
+    "table_bytes": 13824,
+    "binary_sha256": "845dede679c95b0505f59a88f0c2c046e6036350749bb341a991faecbbd488db",
+    "changed_codes": [
+      24,
+      25,
+      26,
+      27,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+    ],
+    "firmware_installed": false,
+    "sources": {
+      "sources": [
+        {
+          "name": "9x15",
+          "source_url": "https://raw.githubusercontent.com/olikraus/u8g2/master/tools/font/bdf/9x15.bdf",
+          "retrieved": "2026-11-03",
+          "full_source_sha256": "27ea2628f5c7a526dc601e8606eda1f5d2329be714cd4a00102fd85744de203b",
+          "ascii_subset": "9x15-ascii.bdf",
+          "subset_sha256": "8f492bb08509a320e8b342c9fe7d4903183db14a964f5da369069aeb9d4642aa",
+          "license": "Public domain font. Share and enjoy.",
+          "subset_encodings": [
+            32,
+            95
+          ]
+        },
+        {
+          "name": "7x13",
+          "source_url": "https://raw.githubusercontent.com/olikraus/u8g2/master/tools/font/bdf/7x13.bdf",
+          "retrieved": "2026-11-03",
+          "full_source_sha256": "2483b5071440587ea60254acdeeea08ff96c453eeb68bc1550e2669b7cfcafce",
+          "ascii_subset": "7x13-ascii.bdf",
+          "subset_sha256": "e4dce38035e3025baf20b54c8c9f338c5e7f72df0897f5ea6e6fba8de1c9e63f",
+          "license": "Public domain font. Share and enjoy.",
+          "subset_encodings": [
+            32,
+            95
+          ]
+        }
+      ]
+    }
+  },
+  "proposed_flight_layout": {
+    "schema": 1,
+    "scope": "Proposed flight HUD reference only; not saved FC/PCB configuration. SA pages keep their separate voltage-only policy.",
+    "grid": [
+      30,
+      16
+    ],
+    "altitude_source": "GPS altitude minus same-datum flat-ground reference; barometric height ignored",
+    "rx_band_channel": null,
+    "nearest_tak_count": 2,
+    "nearest_tak_policy": "Fresh bounded markers, sorted by horizontal distance then ID, independent of display sector/range. Arrows are relative to aircraft azimuth.",
+    "home_fixture": {
+      "north_m": 166.2983158520316,
+      "east_m": -68.88301782571617
+    },
+    "diamond_half_size_native": 10,
+    "fields": [
+      {
+        "element": "own_mgrs_zone_square",
+        "column": 1,
+        "row": 0,
+        "category": "proposed"
+      },
+      {
+        "element": "own_mgrs_digits",
+        "column": 1,
+        "row": 1,
+        "category": "proposed"
+      },
+      {
+        "element": "osd_gps_sats_pos",
+        "column": 1,
+        "row": 7
+      },
+      {
+        "element": "osd_altitude_pos",
+        "column": 24,
+        "right_edge": 29,
+        "row": 7
+      },
+      {
+        "element": "osd_vtx_channel_pos",
+        "column": 22,
+        "row": 0
+      },
+      {
+        "element": "rx_band_channel",
+        "column": 21,
+        "row": 1,
+        "category": "proposed"
+      },
+      {
+        "element": "osd_link_quality_pos",
+        "column": 24,
+        "row": 2
+      },
+      {
+        "element": "osd_avg_cell_voltage_pos",
+        "column": 1,
+        "row": 14
+      },
+      {
+        "element": "osd_mah_drawn_pos",
+        "column": 1,
+        "row": 15
+      },
+      {
+        "element": "osd_home_dir_pos",
+        "column": 12,
+        "row": 15
+      },
+      {
+        "element": "osd_home_dist_pos",
+        "column": 13,
+        "row": 15
+      },
+      {
+        "element": "nearest_tak_1",
+        "column": 19,
+        "right_edge": 29,
+        "row": 14,
+        "category": "proposed"
+      },
+      {
+        "element": "nearest_tak_2",
+        "column": 19,
+        "right_edge": 29,
+        "row": 15,
+        "category": "proposed"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "current-forward-default",
+      "reference_id": "C01",
+      "state": "current",
+      "view": "forward",
+      "elements": [
+        {
+          "element": "osd_vbat_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            55,
+            46,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 23,
+          "row": 2,
+          "glyph_codes": [
+            123,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_rssi_dbm_pos",
+          "column": 23,
+          "row": 3,
+          "glyph_codes": [
+            1,
+            45,
+            54,
+            55
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_throttle_pos",
+          "column": 25,
+          "row": 15,
+          "glyph_codes": [
+            4,
+            32,
+            52,
+            50
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            58,
+            49,
+            58,
+            56,
+            48,
+            48
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_crosshairs_pos",
+          "column": 13,
+          "row": 7,
+          "glyph_codes": [
+            114,
+            115,
+            116
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_current_pos",
+          "column": 0,
+          "row": 15,
+          "glyph_codes": [
+            32,
+            54,
+            48,
+            46,
+            48,
+            48,
+            154
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 12,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_speed_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            112,
+            32,
+            51,
+            54,
+            158
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lon_pos",
+          "column": 1,
+          "row": 3,
+          "glyph_codes": [
+            152,
+            45,
+            56,
+            48,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lat_pos",
+          "column": 1,
+          "row": 2,
+          "glyph_codes": [
+            137,
+            52,
+            57,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 6,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 14,
+          "row": 14,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 25,
+          "row": 13,
+          "glyph_codes": [
+            17,
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_flight_dist_pos",
+          "column": 25,
+          "row": 14,
+          "glyph_codes": [
+            113,
+            54,
+            52,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 23,
+          "row": 1,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            46,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_warnings_pos",
+          "column": 9,
+          "row": 12,
+          "glyph_codes": [],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 25,
+          "row": 12,
+          "glyph_codes": [
+            69,
+            122,
+            32,
+            53,
+            52,
+            14
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_efficiency_pos",
+          "column": 0,
+          "row": 11,
+          "glyph_codes": [
+            49,
+            54,
+            54,
+            55,
+            7,
+            47,
+            125
+          ],
+          "category": "retained"
+        }
+      ],
+      "clipped_cells": [
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 30,
+          "glyph": 14
+        }
+      ],
+      "markers_native_grid": {
+        "current_nadir": [
+          216,
+          100
+        ]
+      },
+      "flat_model": null,
+      "font_profile": "current",
+      "navigation": null
+    },
+    {
+      "id": "current-downward-default",
+      "reference_id": "C02",
+      "state": "current",
+      "view": "downward",
+      "elements": [
+        {
+          "element": "osd_vbat_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            55,
+            46,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 23,
+          "row": 2,
+          "glyph_codes": [
+            123,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_rssi_dbm_pos",
+          "column": 23,
+          "row": 3,
+          "glyph_codes": [
+            1,
+            45,
+            54,
+            55
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_throttle_pos",
+          "column": 25,
+          "row": 15,
+          "glyph_codes": [
+            4,
+            32,
+            52,
+            50
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            58,
+            49,
+            58,
+            56,
+            48,
+            48
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_crosshairs_pos",
+          "column": 13,
+          "row": 7,
+          "glyph_codes": [
+            114,
+            115,
+            116
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_current_pos",
+          "column": 0,
+          "row": 15,
+          "glyph_codes": [
+            32,
+            54,
+            48,
+            46,
+            48,
+            48,
+            154
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 12,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_speed_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            112,
+            32,
+            51,
+            54,
+            158
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lon_pos",
+          "column": 1,
+          "row": 3,
+          "glyph_codes": [
+            152,
+            45,
+            56,
+            48,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lat_pos",
+          "column": 1,
+          "row": 2,
+          "glyph_codes": [
+            137,
+            52,
+            57,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 6,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 14,
+          "row": 14,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 25,
+          "row": 13,
+          "glyph_codes": [
+            17,
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_flight_dist_pos",
+          "column": 25,
+          "row": 14,
+          "glyph_codes": [
+            113,
+            54,
+            52,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 23,
+          "row": 1,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            46,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_warnings_pos",
+          "column": 9,
+          "row": 12,
+          "glyph_codes": [],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 25,
+          "row": 12,
+          "glyph_codes": [
+            69,
+            122,
+            32,
+            53,
+            52,
+            14
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_efficiency_pos",
+          "column": 0,
+          "row": 11,
+          "glyph_codes": [
+            49,
+            54,
+            54,
+            55,
+            7,
+            47,
+            125
+          ],
+          "category": "retained"
+        }
+      ],
+      "clipped_cells": [
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 30,
+          "glyph": 14
+        }
+      ],
+      "markers_native_grid": {
+        "current_nadir": [
+          216,
+          100
+        ]
+      },
+      "flat_model": null,
+      "font_profile": "current",
+      "navigation": null
+    },
+    {
+      "id": "current-downward-payload",
+      "reference_id": "C03",
+      "state": "current-option",
+      "view": "downward",
+      "elements": [
+        {
+          "element": "osd_vbat_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            55,
+            46,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 23,
+          "row": 2,
+          "glyph_codes": [
+            123,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_rssi_dbm_pos",
+          "column": 23,
+          "row": 3,
+          "glyph_codes": [
+            1,
+            45,
+            54,
+            55
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_throttle_pos",
+          "column": 25,
+          "row": 15,
+          "glyph_codes": [
+            4,
+            32,
+            52,
+            50
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            58,
+            49,
+            58,
+            56,
+            48,
+            48
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_crosshairs_pos",
+          "column": 13,
+          "row": 7,
+          "glyph_codes": [
+            114,
+            115,
+            116
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_current_pos",
+          "column": 0,
+          "row": 15,
+          "glyph_codes": [
+            32,
+            54,
+            48,
+            46,
+            48,
+            48,
+            154
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 12,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_speed_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            112,
+            32,
+            51,
+            54,
+            158
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lon_pos",
+          "column": 1,
+          "row": 3,
+          "glyph_codes": [
+            152,
+            45,
+            56,
+            48,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_lat_pos",
+          "column": 1,
+          "row": 2,
+          "glyph_codes": [
+            137,
+            52,
+            57,
+            46,
+            49,
+            50,
+            51,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 6,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 14,
+          "row": 14,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 25,
+          "row": 13,
+          "glyph_codes": [
+            17,
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_flight_dist_pos",
+          "column": 25,
+          "row": 14,
+          "glyph_codes": [
+            113,
+            54,
+            52,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 23,
+          "row": 1,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            46,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_warnings_pos",
+          "column": 9,
+          "row": 12,
+          "glyph_codes": [],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 25,
+          "row": 12,
+          "glyph_codes": [
+            69,
+            122,
+            32,
+            53,
+            52,
+            14
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_efficiency_pos",
+          "column": 0,
+          "row": 11,
+          "glyph_codes": [
+            49,
+            54,
+            54,
+            55,
+            7,
+            47,
+            125
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "payload_model",
+          "column": 12,
+          "row": 3,
+          "glyph_codes": [
+            65,
+            82,
+            77,
+            69,
+            68
+          ],
+          "category": "existing-option"
+        },
+        {
+          "element": "payload_model",
+          "column": 4,
+          "row": 4,
+          "glyph_codes": [
+            91,
+            76,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "existing-option"
+        },
+        {
+          "element": "payload_model",
+          "column": 18,
+          "row": 4,
+          "glyph_codes": [
+            91,
+            82,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "existing-option"
+        }
+      ],
+      "clipped_cells": [
+        {
+          "element": "osd_esc_tmp_pos",
+          "column": 30,
+          "glyph": 14
+        }
+      ],
+      "markers_native_grid": {
+        "current_nadir": [
+          216,
+          100
+        ]
+      },
+      "flat_model": null,
+      "font_profile": "current",
+      "navigation": null
+    },
+    {
+      "id": "proposed-forward-velocity",
+      "reference_id": "P01",
+      "state": "proposed",
+      "view": "forward",
+      "elements": [
+        {
+          "element": "own_mgrs_zone_square",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            71,
+            82,
+            83,
+            32,
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "own_mgrs_digits",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            54,
+            51,
+            57,
+            53,
+            55,
+            32,
+            52,
+            49,
+            53,
+            52,
+            51
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 25,
+          "row": 7,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            86,
+            84,
+            88,
+            32,
+            82,
+            58,
+            49
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "rx_band_channel",
+          "column": 21,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            88,
+            32,
+            45,
+            45,
+            47,
+            45,
+            45
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 24,
+          "row": 2,
+          "glyph_codes": [
+            76,
+            81,
+            32,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 12,
+          "row": 15,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 13,
+          "row": 15,
+          "glyph_codes": [
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "nearest_tak_1",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "nearest_tak_2",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ],
+          "category": "proposed"
+        }
+      ],
+      "clipped_cells": [],
+      "markers_native_grid": {
+        "ground_velocity": [
+          214,
+          126
+        ]
+      },
+      "flat_model": null,
+      "font_profile": "fixed-medium-9x15",
+      "navigation": {
+        "nearest_tak": [
+          {
+            "id": "C1",
+            "distance_m": 305.28675044947494,
+            "relative_bearing_deg": -103.3924977537511,
+            "direction_glyph": 109
+          },
+          {
+            "id": "W1",
+            "distance_m": 434.6262762420146,
+            "relative_bearing_deg": 111.97450799147197,
+            "direction_glyph": 99
+          }
+        ],
+        "home": {
+          "distance_m": 180.0,
+          "relative_bearing_deg": -67.5,
+          "direction_glyph": 107
+        },
+        "heading_deg": 45
+      }
+    },
+    {
+      "id": "proposed-forward-low-speed",
+      "reference_id": "P02",
+      "state": "proposed",
+      "view": "forward",
+      "elements": [
+        {
+          "element": "own_mgrs_zone_square",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            71,
+            82,
+            83,
+            32,
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "own_mgrs_digits",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            54,
+            51,
+            57,
+            53,
+            55,
+            32,
+            52,
+            49,
+            53,
+            52,
+            51
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 25,
+          "row": 7,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            86,
+            84,
+            88,
+            32,
+            82,
+            58,
+            49
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "rx_band_channel",
+          "column": 21,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            88,
+            32,
+            45,
+            45,
+            47,
+            45,
+            45
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 24,
+          "row": 2,
+          "glyph_codes": [
+            76,
+            81,
+            32,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 12,
+          "row": 15,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 13,
+          "row": 15,
+          "glyph_codes": [
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "nearest_tak_1",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "nearest_tak_2",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ],
+          "category": "proposed"
+        }
+      ],
+      "clipped_cells": [],
+      "markers_native_grid": {},
+      "flat_model": null,
+      "font_profile": "fixed-medium-9x15",
+      "navigation": {
+        "nearest_tak": [
+          {
+            "id": "C1",
+            "distance_m": 305.28675044947494,
+            "relative_bearing_deg": -103.3924977537511,
+            "direction_glyph": 109
+          },
+          {
+            "id": "W1",
+            "distance_m": 434.6262762420146,
+            "relative_bearing_deg": 111.97450799147197,
+            "direction_glyph": 99
+          }
+        ],
+        "home": {
+          "distance_m": 180.0,
+          "relative_bearing_deg": -67.5,
+          "direction_glyph": 107
+        },
+        "heading_deg": 45
+      }
+    },
+    {
+      "id": "proposed-downward-ccip",
+      "reference_id": "P03",
+      "state": "proposed",
+      "view": "downward",
+      "elements": [
+        {
+          "element": "own_mgrs_zone_square",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            71,
+            82,
+            83,
+            32,
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "own_mgrs_digits",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            54,
+            51,
+            57,
+            53,
+            55,
+            32,
+            52,
+            49,
+            53,
+            52,
+            51
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 25,
+          "row": 7,
+          "glyph_codes": [
+            127,
+            51,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            86,
+            84,
+            88,
+            32,
+            82,
+            58,
+            49
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "rx_band_channel",
+          "column": 21,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            88,
+            32,
+            45,
+            45,
+            47,
+            45,
+            45
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 24,
+          "row": 2,
+          "glyph_codes": [
+            76,
+            81,
+            32,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 12,
+          "row": 15,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 13,
+          "row": 15,
+          "glyph_codes": [
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "nearest_tak_1",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "nearest_tak_2",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "selected_station_profile",
+          "column": 11,
+          "row": 13,
+          "glyph_codes": [
+            76,
+            32,
+            66,
+            65,
+            71,
+            45,
+            65
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "left_station",
+          "column": 4,
+          "row": 12,
+          "glyph_codes": [
+            91,
+            76,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "right_station",
+          "column": 18,
+          "row": 12,
+          "glyph_codes": [
+            91,
+            82,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "terrain_assumption",
+          "column": 1,
+          "row": 3,
+          "glyph_codes": [
+            70,
+            76,
+            65,
+            84
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "uncertainty_label",
+          "column": 23,
+          "row": 9,
+          "glyph_codes": [
+            68,
+            52,
+            46,
+            54,
+            77
+          ],
+          "category": "proposed"
+        }
+      ],
+      "clipped_cells": [],
+      "markers_native_grid": {
+        "world_down": [
+          166,
+          203
+        ]
+      },
+      "flat_model": {
+        "valid": true,
+        "height_m": 30.0,
+        "gps_altitude_m": 330.0,
+        "ground_gps_altitude_m": 300.0,
+        "gps_height_error_m": 3,
+        "fall_time_s": 2.473519209116349,
+        "allowance_time_s": 2.5942488326400626,
+        "release_assumption": "stationary",
+        "radius_m": 2.297124416320031,
+        "diameter_m": 4.594248832640062,
+        "components_m": {
+          "base_m": 1.0,
+          "drift_m": 1.2971244163200313
+        },
+        "reference_ned_unit": [
+          0,
+          0,
+          1
+        ],
+        "native_world_down": [
+          166,
+          203
+        ],
+        "reference_kind": "world-down",
+        "roll_deg": -4.0,
+        "pitch_up_deg": 15.0,
+        "surface_label": "FLAT",
+        "display_mode": "world-down-circle",
+        "circle_visible": true,
+        "screen_radius_px": 46,
+        "screen_diameter_px": 92
+      },
+      "font_profile": "fixed-medium-9x15",
+      "navigation": {
+        "nearest_tak": [
+          {
+            "id": "C1",
+            "distance_m": 305.28675044947494,
+            "relative_bearing_deg": -103.3924977537511,
+            "direction_glyph": 109
+          },
+          {
+            "id": "W1",
+            "distance_m": 434.6262762420146,
+            "relative_bearing_deg": 111.97450799147197,
+            "direction_glyph": 99
+          }
+        ],
+        "home": {
+          "distance_m": 180.0,
+          "relative_bearing_deg": -67.5,
+          "direction_glyph": 107
+        },
+        "heading_deg": 45
+      }
+    },
+    {
+      "id": "proposed-downward-diamond-only",
+      "reference_id": "P04",
+      "state": "proposed",
+      "view": "downward",
+      "elements": [
+        {
+          "element": "own_mgrs_zone_square",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            71,
+            82,
+            83,
+            32,
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "own_mgrs_digits",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            54,
+            51,
+            57,
+            53,
+            55,
+            32,
+            52,
+            49,
+            53,
+            52,
+            51
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_gps_sats_pos",
+          "column": 1,
+          "row": 7,
+          "glyph_codes": [
+            30,
+            31,
+            49,
+            52
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_altitude_pos",
+          "column": 26,
+          "row": 7,
+          "glyph_codes": [
+            127,
+            45,
+            45
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_vtx_channel_pos",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            86,
+            84,
+            88,
+            32,
+            82,
+            58,
+            49
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "rx_band_channel",
+          "column": 21,
+          "row": 1,
+          "glyph_codes": [
+            82,
+            88,
+            32,
+            45,
+            45,
+            47,
+            45,
+            45
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "osd_link_quality_pos",
+          "column": 24,
+          "row": 2,
+          "glyph_codes": [
+            76,
+            81,
+            32,
+            57,
+            57
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "column": 1,
+          "row": 14,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_mah_drawn_pos",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            52,
+            54,
+            48,
+            7
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dir_pos",
+          "column": 12,
+          "row": 15,
+          "glyph_codes": [
+            107
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "osd_home_dist_pos",
+          "column": 13,
+          "row": 15,
+          "glyph_codes": [
+            49,
+            56,
+            48,
+            12
+          ],
+          "category": "retained"
+        },
+        {
+          "element": "nearest_tak_1",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "nearest_tak_2",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "selected_station_profile",
+          "column": 11,
+          "row": 13,
+          "glyph_codes": [
+            76,
+            32,
+            66,
+            65,
+            71,
+            45,
+            65
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "left_station",
+          "column": 4,
+          "row": 12,
+          "glyph_codes": [
+            91,
+            76,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "right_station",
+          "column": 18,
+          "row": 12,
+          "glyph_codes": [
+            91,
+            82,
+            32,
+            32,
+            82,
+            68,
+            89,
+            93
+          ],
+          "category": "proposed"
+        },
+        {
+          "element": "terrain_assumption",
+          "column": 1,
+          "row": 3,
+          "glyph_codes": [
+            70,
+            76,
+            65,
+            84
+          ],
+          "category": "proposed"
+        }
+      ],
+      "clipped_cells": [],
+      "markers_native_grid": {
+        "world_down": [
+          166,
+          203
+        ]
+      },
+      "flat_model": {
+        "valid": false,
+        "reason": "NO GPS H",
+        "native_world_down": [
+          166,
+          203
+        ],
+        "reference_kind": "world-down",
+        "roll_deg": -4.0,
+        "pitch_up_deg": 15.0,
+        "surface_label": "FLAT",
+        "display_mode": "diamond-only",
+        "circle_visible": false
+      },
+      "font_profile": "fixed-medium-9x15",
+      "navigation": {
+        "nearest_tak": [
+          {
+            "id": "C1",
+            "distance_m": 305.28675044947494,
+            "relative_bearing_deg": -103.3924977537511,
+            "direction_glyph": 109
+          },
+          {
+            "id": "W1",
+            "distance_m": 434.6262762420146,
+            "relative_bearing_deg": 111.97450799147197,
+            "direction_glyph": 99
+          }
+        ],
+        "home": {
+          "distance_m": 180.0,
+          "relative_bearing_deg": -67.5,
+          "direction_glyph": 107
+        },
+        "heading_deg": 45
+      }
+    }
+  ],
+  "altitude_cases": [
+    {
+      "valid": true,
+      "height_m": 10.0,
+      "gps_altitude_m": 310.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 1.4280869812290344,
+      "allowance_time_s": 1.628269680901359,
+      "release_assumption": "stationary",
+      "radius_m": 1.8141348404506794,
+      "diameter_m": 3.628269680901359,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 0.8141348404506795
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 102,
+      "screen_diameter_px": 204
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 60.0,
+      "gps_altitude_m": 360.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 3.498084412322713,
+      "allowance_time_s": 3.5844698748241557,
+      "release_assumption": "stationary",
+      "radius_m": 2.792234937412078,
+      "diameter_m": 5.584469874824156,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.7922349374120778
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 29,
+      "screen_diameter_px": 58
+    }
+  ],
+  "browser_reference_cases": [
+    {
+      "valid": true,
+      "height_m": 10.0,
+      "gps_altitude_m": 310.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 0,
+      "fall_time_s": 1.4280869812290344,
+      "allowance_time_s": 1.4280869812290344,
+      "release_assumption": "stationary",
+      "radius_m": 1.7140434906145172,
+      "diameter_m": 3.4280869812290344,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 0.7140434906145172
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 96,
+      "screen_diameter_px": 192
+    },
+    {
+      "valid": true,
+      "height_m": 10.0,
+      "gps_altitude_m": 310.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 1.4280869812290344,
+      "allowance_time_s": 1.628269680901359,
+      "release_assumption": "stationary",
+      "radius_m": 1.8141348404506794,
+      "diameter_m": 3.628269680901359,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 0.8141348404506795
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 102,
+      "screen_diameter_px": 204
+    },
+    {
+      "valid": true,
+      "height_m": 10.0,
+      "gps_altitude_m": 310.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 5,
+      "fall_time_s": 1.4280869812290344,
+      "allowance_time_s": 1.7490422061613564,
+      "release_assumption": "stationary",
+      "radius_m": 1.8745211030806783,
+      "diameter_m": 3.7490422061613566,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 0.8745211030806782
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 105,
+      "screen_diameter_px": 210
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 0,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.473519209116349,
+      "release_assumption": "stationary",
+      "radius_m": 2.2367596045581744,
+      "diameter_m": 4.473519209116349,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2367596045581746
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 45,
+      "screen_diameter_px": 90
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 5,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.671706101135658,
+      "release_assumption": "stationary",
+      "radius_m": 2.335853050567829,
+      "diameter_m": 4.671706101135658,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.335853050567829
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 60.0,
+      "gps_altitude_m": 360.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 0,
+      "fall_time_s": 3.498084412322713,
+      "allowance_time_s": 3.498084412322713,
+      "release_assumption": "stationary",
+      "radius_m": 2.7490422061613566,
+      "diameter_m": 5.498084412322713,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.7490422061613564
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 29,
+      "screen_diameter_px": 58
+    },
+    {
+      "valid": true,
+      "height_m": 60.0,
+      "gps_altitude_m": 360.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 3.498084412322713,
+      "allowance_time_s": 3.5844698748241557,
+      "release_assumption": "stationary",
+      "radius_m": 2.792234937412078,
+      "diameter_m": 5.584469874824156,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.7922349374120778
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 29,
+      "screen_diameter_px": 58
+    },
+    {
+      "valid": true,
+      "height_m": 60.0,
+      "gps_altitude_m": 360.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 5,
+      "fall_time_s": 3.498084412322713,
+      "allowance_time_s": 3.6409216921973298,
+      "release_assumption": "stationary",
+      "radius_m": 2.8204608460986647,
+      "diameter_m": 5.640921692197329,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.8204608460986649
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 30,
+      "screen_diameter_px": 60
+    },
+    {
+      "valid": true,
+      "height_m": 120.0,
+      "gps_altitude_m": 420.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 0,
+      "fall_time_s": 4.947038418232698,
+      "allowance_time_s": 4.947038418232698,
+      "release_assumption": "stationary",
+      "radius_m": 3.473519209116349,
+      "diameter_m": 6.947038418232698,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 2.473519209116349
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 20,
+      "screen_diameter_px": 40
+    },
+    {
+      "valid": true,
+      "height_m": 120.0,
+      "gps_altitude_m": 420.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 4.947038418232698,
+      "allowance_time_s": 5.008494667987282,
+      "release_assumption": "stationary",
+      "radius_m": 3.504247333993641,
+      "diameter_m": 7.008494667987282,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 2.504247333993641
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 20,
+      "screen_diameter_px": 40
+    },
+    {
+      "valid": true,
+      "height_m": 120.0,
+      "gps_altitude_m": 420.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 5,
+      "fall_time_s": 4.947038418232698,
+      "allowance_time_s": 5.049049942756381,
+      "release_assumption": "stationary",
+      "radius_m": 3.5245249713781903,
+      "diameter_m": 7.049049942756381,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 2.5245249713781903
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4.0,
+      "pitch_up_deg": 15.0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 20,
+      "screen_diameter_px": 40
+    }
+  ],
+  "attitude_reference_cases": [
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        181,
+        146
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": 0,
+      "pitch_up_deg": 0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        123,
+        146
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -15,
+      "pitch_up_deg": 0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 47,
+      "screen_diameter_px": 94
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        238,
+        146
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": 15,
+      "pitch_up_deg": 0,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        181,
+        89
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": 0,
+      "pitch_up_deg": -15,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        181,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": 0,
+      "pitch_up_deg": 15,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    },
+    {
+      "valid": true,
+      "height_m": 30.0,
+      "gps_altitude_m": 330.0,
+      "ground_gps_altitude_m": 300.0,
+      "gps_height_error_m": 3,
+      "fall_time_s": 2.473519209116349,
+      "allowance_time_s": 2.5942488326400626,
+      "release_assumption": "stationary",
+      "radius_m": 2.297124416320031,
+      "diameter_m": 4.594248832640062,
+      "components_m": {
+        "base_m": 1.0,
+        "drift_m": 1.2971244163200313
+      },
+      "reference_ned_unit": [
+        0,
+        0,
+        1
+      ],
+      "native_world_down": [
+        166,
+        203
+      ],
+      "reference_kind": "world-down",
+      "roll_deg": -4,
+      "pitch_up_deg": 15,
+      "surface_label": "FLAT",
+      "display_mode": "world-down-circle",
+      "circle_visible": true,
+      "screen_radius_px": 46,
+      "screen_diameter_px": 92
+    }
+  ],
+  "situational_awareness": [
+    {
+      "mode": "god-eye",
+      "heading_deg": 45,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -18.434948822922003,
+          "native_xy": [
+            161.52971310165745,
+            91.05184422475132
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "native_xy": [
+            147.67699792790052,
+            151.35391052434008
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.62627624201457,
+          "relative_bearing_deg": 111.97450799147198,
+          "native_xy": [
+            223.86693138356358,
+            160.91399420598222
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 40.030259271889705,
+          "native_xy": [
+            228.48450310814923,
+            88.8456710674493
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -28.53998518795996,
+          "native_xy": [
+            130.08060923076334,
+            56.29216718609382
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "direction_glyph": 109
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 111.97450799147197,
+          "direction_glyph": 99
+        }
+      ],
+      "elements": [
+        {
+          "element": "sa_mode",
+          "category": "sa",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            84,
+            65,
+            75,
+            32,
+            69,
+            89,
+            69
+          ]
+        },
+        {
+          "element": "azimuth",
+          "category": "sa",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            72,
+            68,
+            71,
+            48,
+            52,
+            53
+          ]
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "category": "retained",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ]
+        },
+        {
+          "element": "range_step",
+          "category": "sa",
+          "column": 9,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            53,
+            48,
+            77,
+            47,
+            68,
+            73,
+            86
+          ]
+        },
+        {
+          "element": "max_range",
+          "category": "sa",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            82,
+            49,
+            75,
+            77
+          ]
+        },
+        {
+          "element": "scene_identity",
+          "category": "sa",
+          "column": 12,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            79,
+            67,
+            75
+          ]
+        },
+        {
+          "element": "nearest_tak_1",
+          "category": "sa",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ]
+        },
+        {
+          "element": "nearest_tak_2",
+          "category": "sa",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ]
+        },
+        {
+          "element": "marker_F1",
+          "category": "sa",
+          "column": 15,
+          "row": 5,
+          "glyph_codes": [
+            70,
+            49
+          ]
+        },
+        {
+          "element": "marker_C1",
+          "category": "sa",
+          "column": 9,
+          "row": 8,
+          "glyph_codes": [
+            67,
+            49
+          ]
+        },
+        {
+          "element": "marker_W1",
+          "category": "sa",
+          "column": 20,
+          "row": 8,
+          "glyph_codes": [
+            87,
+            49
+          ]
+        },
+        {
+          "element": "marker_S1",
+          "category": "sa",
+          "column": 20,
+          "row": 4,
+          "glyph_codes": [
+            83,
+            49
+          ]
+        },
+        {
+          "element": "marker_F2",
+          "category": "sa",
+          "column": 12,
+          "row": 3,
+          "glyph_codes": [
+            70,
+            50,
+            43
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "id": "F1",
+          "column": 15,
+          "row": 5,
+          "text": "F1"
+        },
+        {
+          "id": "C1",
+          "column": 9,
+          "row": 8,
+          "text": "C1"
+        },
+        {
+          "id": "W1",
+          "column": 20,
+          "row": 8,
+          "text": "W1"
+        },
+        {
+          "id": "S1",
+          "column": 20,
+          "row": 4,
+          "text": "S1"
+        },
+        {
+          "id": "F2",
+          "column": 12,
+          "row": 3,
+          "text": "F2+"
+        }
+      ],
+      "view": "illustrative-landscape",
+      "camera_angle_independent": true,
+      "georegistered": false,
+      "background_opacity": 1,
+      "markers_native_grid": {
+        "ownship": [
+          180.0,
+          144.0
+        ]
+      },
+      "id": "proposed-tak-gods-eye",
+      "reference_id": "P06",
+      "state": "proposed",
+      "background_view": "forward",
+      "font_profile": "fixed-medium-9x15"
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 45,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -18.434948822922003,
+          "native_xy": [
+            168.16007250106247,
+            218.05887450304573
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 40.030259271889705,
+          "native_xy": [
+            211.07980968471105,
+            216.64466094067262
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -28.53998518795996,
+          "native_xy": [
+            103.53380156936174,
+            117.64971157455597
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "direction_glyph": 109
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 111.97450799147197,
+          "direction_glyph": 99
+        }
+      ],
+      "elements": [
+        {
+          "element": "sa_mode",
+          "category": "sa",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            84,
+            65,
+            75,
+            32,
+            82,
+            68,
+            82
+          ]
+        },
+        {
+          "element": "azimuth",
+          "category": "sa",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            72,
+            68,
+            71,
+            48,
+            52,
+            53
+          ]
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "category": "retained",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ]
+        },
+        {
+          "element": "range_step",
+          "category": "sa",
+          "column": 9,
+          "row": 15,
+          "glyph_codes": [
+            55,
+            53,
+            48,
+            77,
+            47,
+            68,
+            73,
+            86
+          ]
+        },
+        {
+          "element": "max_range",
+          "category": "sa",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            82,
+            51,
+            75,
+            77
+          ]
+        },
+        {
+          "element": "scene_identity",
+          "category": "sa",
+          "column": 12,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            79,
+            67,
+            75
+          ]
+        },
+        {
+          "element": "visible_count",
+          "category": "sa",
+          "column": 1,
+          "row": 1,
+          "glyph_codes": [
+            51,
+            47,
+            53
+          ]
+        },
+        {
+          "element": "nearest_tak_1",
+          "category": "sa",
+          "column": 20,
+          "row": 14,
+          "glyph_codes": [
+            67,
+            49,
+            32,
+            109,
+            32,
+            51,
+            48,
+            53,
+            77
+          ]
+        },
+        {
+          "element": "nearest_tak_2",
+          "category": "sa",
+          "column": 20,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            49,
+            32,
+            99,
+            32,
+            52,
+            51,
+            53,
+            77
+          ]
+        },
+        {
+          "element": "marker_F1",
+          "category": "sa",
+          "column": 11,
+          "row": 12,
+          "glyph_codes": [
+            70,
+            49
+          ]
+        },
+        {
+          "element": "marker_S1",
+          "category": "sa",
+          "column": 19,
+          "row": 12,
+          "glyph_codes": [
+            83,
+            49
+          ]
+        },
+        {
+          "element": "marker_F2",
+          "category": "sa",
+          "column": 10,
+          "row": 6,
+          "glyph_codes": [
+            70,
+            50
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "id": "F1",
+          "column": 11,
+          "row": 12,
+          "text": "F1"
+        },
+        {
+          "id": "S1",
+          "column": 19,
+          "row": 12,
+          "text": "S1"
+        },
+        {
+          "id": "F2",
+          "column": 10,
+          "row": 6,
+          "text": "F2"
+        }
+      ],
+      "view": "illustrative-landscape",
+      "camera_angle_independent": true,
+      "georegistered": false,
+      "background_opacity": 0.42,
+      "markers_native_grid": {
+        "ownship": [
+          180.0,
+          252.0
+        ]
+      },
+      "id": "proposed-tak-forward-radar",
+      "reference_id": "P07",
+      "state": "proposed",
+      "background_view": "forward",
+      "font_profile": "fixed-medium-9x15"
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 45,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": false,
+      "contacts": [],
+      "hidden": [
+        {
+          "id": "F1",
+          "reason": "stale"
+        },
+        {
+          "id": "C1",
+          "reason": "stale"
+        },
+        {
+          "id": "W1",
+          "reason": "stale"
+        },
+        {
+          "id": "S1",
+          "reason": "stale"
+        },
+        {
+          "id": "F2",
+          "reason": "stale"
+        }
+      ],
+      "nearest_tak": [],
+      "elements": [
+        {
+          "element": "sa_mode",
+          "category": "sa",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            84,
+            65,
+            75,
+            32,
+            69,
+            89,
+            69
+          ]
+        },
+        {
+          "element": "azimuth",
+          "category": "sa",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            72,
+            68,
+            71,
+            48,
+            52,
+            53
+          ]
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "category": "retained",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ]
+        },
+        {
+          "element": "range_step",
+          "category": "sa",
+          "column": 9,
+          "row": 15,
+          "glyph_codes": [
+            50,
+            53,
+            48,
+            77,
+            47,
+            68,
+            73,
+            86
+          ]
+        },
+        {
+          "element": "max_range",
+          "category": "sa",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            82,
+            49,
+            75,
+            77
+          ]
+        },
+        {
+          "element": "scene_identity",
+          "category": "sa",
+          "column": 12,
+          "row": 0,
+          "glyph_codes": [
+            77,
+            79,
+            67,
+            75
+          ]
+        },
+        {
+          "element": "feed_status",
+          "category": "sa",
+          "column": 10,
+          "row": 2,
+          "glyph_codes": [
+            84,
+            65,
+            75,
+            32,
+            83,
+            84,
+            65,
+            76,
+            69
+          ]
+        },
+        {
+          "element": "nearest_tak_1",
+          "category": "sa",
+          "column": 27,
+          "row": 14,
+          "glyph_codes": [
+            45,
+            45
+          ]
+        },
+        {
+          "element": "nearest_tak_2",
+          "category": "sa",
+          "column": 27,
+          "row": 15,
+          "glyph_codes": [
+            45,
+            45
+          ]
+        }
+      ],
+      "labels": [],
+      "view": "illustrative-landscape",
+      "camera_angle_independent": true,
+      "georegistered": false,
+      "background_opacity": 1,
+      "markers_native_grid": {
+        "ownship": [
+          180.0,
+          144.0
+        ]
+      },
+      "id": "proposed-tak-stale",
+      "reference_id": "P08",
+      "state": "proposed",
+      "background_view": "forward",
+      "font_profile": "fixed-medium-9x15"
+    },
+    {
+      "mode": "mgrs",
+      "heading_deg": 45,
+      "feed_usable": true,
+      "elements": [
+        {
+          "element": "sa_mode",
+          "category": "sa",
+          "column": 1,
+          "row": 0,
+          "glyph_codes": [
+            84,
+            65,
+            75,
+            32,
+            77,
+            71,
+            82,
+            83
+          ]
+        },
+        {
+          "element": "azimuth",
+          "category": "sa",
+          "column": 22,
+          "row": 0,
+          "glyph_codes": [
+            72,
+            68,
+            71,
+            48,
+            52,
+            53
+          ]
+        },
+        {
+          "element": "own_label",
+          "category": "sa",
+          "column": 3,
+          "row": 2,
+          "glyph_codes": [
+            79,
+            87,
+            78,
+            32,
+            80,
+            79,
+            83,
+            73,
+            84,
+            73,
+            79,
+            78
+          ]
+        },
+        {
+          "element": "own_mgrs_zone_square",
+          "category": "sa",
+          "column": 3,
+          "row": 3,
+          "glyph_codes": [
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ]
+        },
+        {
+          "element": "own_mgrs_digits",
+          "category": "sa",
+          "column": 3,
+          "row": 4,
+          "glyph_codes": [
+            54,
+            51,
+            57,
+            53,
+            55,
+            32,
+            52,
+            49,
+            53,
+            52,
+            51
+          ]
+        },
+        {
+          "element": "selected_label",
+          "category": "sa",
+          "column": 3,
+          "row": 7,
+          "glyph_codes": [
+            70,
+            50,
+            32,
+            70,
+            73,
+            82,
+            69
+          ]
+        },
+        {
+          "element": "selected_mgrs_zone_square",
+          "category": "sa",
+          "column": 3,
+          "row": 8,
+          "glyph_codes": [
+            49,
+            55,
+            85,
+            32,
+            78,
+            81
+          ]
+        },
+        {
+          "element": "selected_mgrs_digits",
+          "category": "sa",
+          "column": 3,
+          "row": 9,
+          "glyph_codes": [
+            54,
+            52,
+            53,
+            56,
+            50,
+            32,
+            52,
+            51,
+            55,
+            53,
+            48
+          ]
+        },
+        {
+          "element": "selected_distance",
+          "category": "sa",
+          "column": 3,
+          "row": 11,
+          "glyph_codes": [
+            70,
+            50,
+            32,
+            50,
+            46,
+            50,
+            57,
+            75,
+            77
+          ]
+        },
+        {
+          "element": "osd_avg_cell_voltage_pos",
+          "category": "retained",
+          "column": 1,
+          "row": 13,
+          "glyph_codes": [
+            147,
+            51,
+            46,
+            55,
+            56,
+            6
+          ]
+        },
+        {
+          "element": "coordinate_datum",
+          "category": "sa",
+          "column": 1,
+          "row": 15,
+          "glyph_codes": [
+            87,
+            71,
+            83,
+            56,
+            52
+          ]
+        },
+        {
+          "element": "coordinate_resolution",
+          "category": "sa",
+          "column": 19,
+          "row": 15,
+          "glyph_codes": [
+            71,
+            82,
+            73,
+            68,
+            32,
+            49,
+            77
+          ]
+        }
+      ],
+      "view": "illustrative-landscape",
+      "georegistered": false,
+      "mgrs": {
+        "schema": 1,
+        "synthetic": true,
+        "datum": "WGS84",
+        "grid_resolution_m": 1,
+        "precision_digits_per_axis": 5,
+        "conversion": {
+          "library": "mgrs",
+          "version": "1.5.0",
+          "method": "toMGRS(lat, lon, MGRSPrecision=5); truncated grid cell",
+          "geodesic_library": "pyproj",
+          "geodesic_version": "3.6.1",
+          "selected_marker_method": "WGS84 geodesic from ownship; bearing atan2(east, north); distance hypot(north, east)",
+          "inverse_check": "toLatLon; independent pyproj UTM shows source inside returned 1 m cell",
+          "sources": [
+            "https://github.com/hobuinc/mgrs",
+            "https://geographiclib.sourceforge.io/html/GeoConvert.1.html"
+          ]
+        },
+        "ownship": {
+          "id": "OWN",
+          "label": "OWN POSITION",
+          "latitude_deg": 49.1234,
+          "longitude_deg": -80.1234,
+          "mgrs": "17UNQ6395741543",
+          "zone_band": "17U",
+          "square_100km": "NQ",
+          "easting": "63957",
+          "northing": "41543",
+          "formatted": "17U NQ 63957 41543",
+          "inverse_latitude_deg": 49.12339400171729,
+          "inverse_longitude_deg": -80.12341157490705,
+          "utm_cell_offset_m": [
+            0.8367960816249251,
+            0.6765741119161248
+          ]
+        },
+        "selected_marker": {
+          "id": "F2",
+          "label": "F2 FIRE",
+          "latitude_deg": 49.14318163744476,
+          "longitude_deg": -80.11449123118119,
+          "mgrs": "17UNQ6458243750",
+          "zone_band": "17U",
+          "square_100km": "NQ",
+          "easting": "64582",
+          "northing": "43750",
+          "formatted": "17U NQ 64582 43750",
+          "inverse_latitude_deg": 49.1431791408237,
+          "inverse_longitude_deg": -80.11449293158957,
+          "utm_cell_offset_m": [
+            0.12076862994581461,
+            0.2789894472807646
+          ],
+          "north_m": 2200,
+          "east_m": 650,
+          "distance_m": 2294.0139493908923
+        }
+      },
+      "selected_coordinate_visible": true,
+      "markers_native_grid": {},
+      "id": "proposed-tak-mgrs",
+      "reference_id": "P09",
+      "state": "proposed",
+      "background_view": "forward",
+      "camera_angle_independent": true,
+      "font_profile": "fixed-medium-9x15"
+    }
+  ],
+  "sa_browser_reference_cases": [
+    {
+      "mode": "god-eye",
+      "heading_deg": 0,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": 26.56505117707799,
+          "native_xy": [
+            206.12093023255815,
+            94.08
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -58.3924977537511,
+          "native_xy": [
+            151.70232558139534,
+            127.36
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 156.97450799147197,
+          "native_xy": [
+            198.50232558139535,
+            185.6
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 85.0302592718897,
+          "native_xy": [
+            255.09767441860464,
+            137.76
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": 16.460014812040036,
+          "native_xy": [
+            209.60505912472058,
+            48.25167202739938
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -58.3924977537511,
+          "direction_glyph": 107
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 156.97450799147197,
+          "direction_glyph": 97
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 0,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": 26.56505117707799,
+          "native_xy": [
+            196.74418604651163,
+            220.0
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": 16.460014812040036,
+          "native_xy": [
+            225.34883720930233,
+            105.33333333333334
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "S1",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -58.3924977537511,
+          "direction_glyph": 107
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 156.97450799147197,
+          "direction_glyph": 97
+        }
+      ]
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 45,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -18.434948822922003,
+          "native_xy": [
+            161.52971310165745,
+            91.05184422475132
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "native_xy": [
+            147.67699792790052,
+            151.35391052434008
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.62627624201457,
+          "relative_bearing_deg": 111.97450799147198,
+          "native_xy": [
+            223.86693138356358,
+            160.91399420598222
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 40.030259271889705,
+          "native_xy": [
+            228.48450310814923,
+            88.8456710674493
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -28.53998518795996,
+          "native_xy": [
+            130.08060923076334,
+            56.29216718609382
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "direction_glyph": 109
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 111.97450799147197,
+          "direction_glyph": 99
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 45,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -18.434948822922003,
+          "native_xy": [
+            168.16007250106247,
+            218.05887450304573
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 40.030259271889705,
+          "native_xy": [
+            211.07980968471105,
+            216.64466094067262
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -28.53998518795996,
+          "native_xy": [
+            103.53380156936174,
+            117.64971157455597
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -103.3924977537511,
+          "direction_glyph": 109
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 111.97450799147197,
+          "direction_glyph": 99
+        }
+      ]
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 90,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -63.43494882292201,
+          "native_xy": [
+            127.75813953488372,
+            119.03999999999999
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.286750449475,
+          "relative_bearing_deg": -148.3924977537511,
+          "native_xy": [
+            162.5860465116279,
+            171.04
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 66.97450799147198,
+          "native_xy": [
+            223.53488372093022,
+            126.32
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": -4.9697407281103,
+          "native_xy": [
+            173.46976744186048,
+            72.24000000000001
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -73.53998518795997,
+          "native_xy": [
+            79.7982614240226,
+            115.71072128082253
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -148.39249775375112,
+          "direction_glyph": 111
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 66.97450799147197,
+          "direction_glyph": 101
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 90,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": -4.9697407281103,
+          "native_xy": [
+            175.8139534883721,
+            206.0
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "F1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "F2",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -148.39249775375112,
+          "direction_glyph": 111
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 66.97450799147197,
+          "direction_glyph": 101
+        }
+      ]
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 135,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": -108.43494882292201,
+          "native_xy": [
+            124.58913930497232,
+            161.64938525841623
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 166.6075022462489,
+          "native_xy": [
+            187.6959528743094,
+            174.8864242022284
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.62627624201457,
+          "relative_bearing_deg": 21.974507991471967,
+          "native_xy": [
+            197.70069161091163,
+            102.08271001126147
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": -49.9697407281103,
+          "native_xy": [
+            122.2803534426795,
+            97.6703636966574
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.0139493908923,
+          "relative_bearing_deg": -118.53998518795997,
+          "native_xy": [
+            88.21273310172609,
+            191.7007511794928
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 166.60750224624888,
+          "direction_glyph": 97
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 21.974507991471967,
+          "direction_glyph": 103
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 135,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.62627624201457,
+          "relative_bearing_deg": 21.974507991471967,
+          "native_xy": [
+            191.3465971864818,
+            225.1299423149112
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": -49.9697407281103,
+          "native_xy": [
+            143.00022656582018,
+            222.301515190165
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "F1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "F2",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 166.60750224624888,
+          "direction_glyph": 97
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 21.974507991471967,
+          "direction_glyph": 103
+        }
+      ]
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 270,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": 116.56505117707799,
+          "native_xy": [
+            232.24186046511628,
+            168.96
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 31.60750224624892,
+          "native_xy": [
+            197.4139534883721,
+            116.96000000000001
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": -113.02549200852802,
+          "native_xy": [
+            136.46511627906978,
+            161.67999999999998
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 175.0302592718897,
+          "native_xy": [
+            186.53023255813952,
+            215.76
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.013949390893,
+          "relative_bearing_deg": 106.46001481204004,
+          "native_xy": [
+            280.2017385759774,
+            172.28927871917747
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 31.607502246248885,
+          "direction_glyph": 103
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": -113.02549200852803,
+          "direction_glyph": 109
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 270,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 31.60750224624892,
+          "native_xy": [
+            191.1627906976744,
+            234.66666666666669
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "F1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "S1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "F2",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": 31.607502246248885,
+          "direction_glyph": 103
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": -113.02549200852803,
+          "direction_glyph": 109
+        }
+      ]
+    },
+    {
+      "mode": "god-eye",
+      "heading_deg": 359,
+      "range_m": 1000,
+      "range_step_m": 250.0,
+      "ownship_native": [
+        180.0,
+        144.0
+      ],
+      "radius_screen_px": 260.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": 27.565051177077994,
+          "native_xy": [
+            207.02869807024123,
+            94.52321512246755
+          ],
+          "offscale": false
+        },
+        {
+          "id": "C1",
+          "label": "Crew 1",
+          "shape": "circle",
+          "north_m": 160,
+          "east_m": -260,
+          "age_s": 3,
+          "stale_after_s": 30,
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -57.3924977537511,
+          "native_xy": [
+            152.0105508482312,
+            126.8906212825335
+          ],
+          "offscale": false
+        },
+        {
+          "id": "W1",
+          "label": "Water point 1",
+          "shape": "triangle",
+          "north_m": -400,
+          "east_m": 170,
+          "age_s": 12,
+          "stale_after_s": 120,
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 157.97450799147197,
+          "native_xy": [
+            197.73971910269373,
+            185.90222266431704
+          ],
+          "offscale": false
+        },
+        {
+          "id": "S1",
+          "label": "Staging point 1",
+          "shape": "box-cross",
+          "north_m": 60,
+          "east_m": 690,
+          "age_s": 10,
+          "stale_after_s": 120,
+          "distance_m": 692.6037828369117,
+          "relative_bearing_deg": 86.0302592718897,
+          "native_xy": [
+            255.2002049517816,
+            139.0133350681636
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.013949390893,
+          "relative_bearing_deg": 17.460014812040036,
+          "native_xy": [
+            211.34931159817097,
+            48.759970951541746
+          ],
+          "offscale": true
+        }
+      ],
+      "hidden": [],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -57.392497753751115,
+          "direction_glyph": 107
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 157.97450799147197,
+          "direction_glyph": 97
+        }
+      ]
+    },
+    {
+      "mode": "radar",
+      "heading_deg": 359,
+      "range_m": 3000,
+      "range_step_m": 750.0,
+      "ownship_native": [
+        180.0,
+        252.0
+      ],
+      "radius_screen_px": 500.0,
+      "feed_usable": true,
+      "contacts": [
+        {
+          "id": "F1",
+          "label": "Fire location 1",
+          "shape": "square",
+          "north_m": 480,
+          "east_m": 240,
+          "age_s": 8,
+          "stale_after_s": 60,
+          "distance_m": 536.6563145999495,
+          "relative_bearing_deg": 27.565051177077994,
+          "native_xy": [
+            197.32608850656487,
+            220.284112257992
+          ],
+          "offscale": false
+        },
+        {
+          "id": "F2",
+          "label": "Distant fire location 2",
+          "shape": "square",
+          "north_m": 2200,
+          "east_m": 650,
+          "age_s": 5,
+          "stale_after_s": 60,
+          "distance_m": 2294.013949390893,
+          "relative_bearing_deg": 17.460014812040036,
+          "native_xy": [
+            228.02067181490776,
+            106.1119423226782
+          ],
+          "offscale": false
+        }
+      ],
+      "hidden": [
+        {
+          "id": "C1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "W1",
+          "reason": "outside_sector"
+        },
+        {
+          "id": "S1",
+          "reason": "outside_sector"
+        }
+      ],
+      "nearest_tak": [
+        {
+          "id": "C1",
+          "distance_m": 305.28675044947494,
+          "relative_bearing_deg": -57.392497753751115,
+          "direction_glyph": 107
+        },
+        {
+          "id": "W1",
+          "distance_m": 434.6262762420146,
+          "relative_bearing_deg": 157.97450799147197,
+          "direction_glyph": 97
+        }
+      ]
+    }
+  ],
+  "images": {
+    "altitude-comparison.png": {
+      "sha256": "24f62d03bd0e0580440cbbc7f85683662a90e273618dcd24cd2a14951805584e",
+      "size": [
+        2040,
+        660
+      ]
+    },
+    "contact-sheet.png": {
+      "sha256": "b7ab809632db2b557b84d2d998bbcdee569ff2d95ef40c4730b953ebcaaa57fc",
+      "size": [
+        1560,
+        2600
+      ]
+    },
+    "current-downward-default-overlay.png": {
+      "sha256": "85dac400a3a3aead67ee3ec24500f9543b45ec5f007261713869d42f950e2d93",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "current-downward-default-reference.png": {
+      "sha256": "3e731f6c61c1dc17f60ab8cbb855f183b6924d77b5c135df355c01fc97db6041",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "current-downward-default.png": {
+      "sha256": "52ef39d654b4b78142c7b57a1013f59a369e83a4e2f4d2de015abdc02d7f2b6a",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "current-downward-payload-overlay.png": {
+      "sha256": "111e4446e394d44274f4382fba5e09d3481ab27d9af0f239fb0fb472c3583f7a",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "current-downward-payload-reference.png": {
+      "sha256": "017eb78bc3536f60359f57cc4986c2146369e2b6f592bc9647dd83a36fc80a76",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "current-downward-payload.png": {
+      "sha256": "868684c58b5e0441bf6358b87c74b1e704d6ee2a4da9cb7ed7422f0cbc0392e2",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "current-forward-default-overlay.png": {
+      "sha256": "85dac400a3a3aead67ee3ec24500f9543b45ec5f007261713869d42f950e2d93",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "current-forward-default-reference.png": {
+      "sha256": "691ec810d63bcb4879f45986004cb3c42049c5e83a339773146a4b92145ff191",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "current-forward-default.png": {
+      "sha256": "af81d12ca380de34aa9f955b72d6683433fe27847a72460775ddfa73ef2fd353",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "flat-height-10m.png": {
+      "sha256": "961b3efc78095c287f4fd0009fb51e05b1e09122f02d93f7f3dc8add27165eec",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "flat-height-30m.png": {
+      "sha256": "85e2ef76fe73964b5acd3239468f094a1822a3312cde8c657fde9c859e23ff78",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "flat-height-60m.png": {
+      "sha256": "b2920b92630cde3582289cb0375b3d5167de272a01604ce03aecf031630e047f",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "flat-prototype-base.png": {
+      "sha256": "85a5ceefdf53a53679d8395c9b2b9198285c3f606cfd1ccac170f556094f40e4",
+      "size": [
+        360,
+        288
+      ]
+    },
+    "font-atlas-compact.png": {
+      "sha256": "894cf296f60e92528b0b0b2b5511d453bf73f6a85e927787bc5e1589ac041d38",
+      "size": [
+        192,
+        288
+      ]
+    },
+    "font-atlas-current.png": {
+      "sha256": "97e16d1e74c2168dadc63d777c1b64ac864afec52bc8ecfbdda22c35bd31a080",
+      "size": [
+        192,
+        288
+      ]
+    },
+    "font-atlas.png": {
+      "sha256": "ac9bff4bb363d02d0f00f90c85554890739b97c047d131eb62b7845e152bc404",
+      "size": [
+        192,
+        288
+      ]
+    },
+    "font-comparison.png": {
+      "sha256": "2fa5dc9ead4d05d35cb31b94f39c43b245d4030ea84a59b769eec05816361348",
+      "size": [
+        2040,
+        690
+      ]
+    },
+    "proposed-downward-ccip-overlay.png": {
+      "sha256": "9bc84c00939c7f6c895029ef25997de952b38743f388d23bb9e35c8c9caebf6a",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-downward-ccip-reference.png": {
+      "sha256": "7085838c8fc621bf4b05cd60a0e5c00ee4e47854de13b021011c39ee4c7ea5c4",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-downward-ccip.png": {
+      "sha256": "85e2ef76fe73964b5acd3239468f094a1822a3312cde8c657fde9c859e23ff78",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-downward-diamond-only-overlay.png": {
+      "sha256": "4526be01a56eb749a8081eecbf3c55186203f2831d90895e09e5755bd3a64ea7",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-downward-diamond-only-reference.png": {
+      "sha256": "54723127f54a3c8a61f5daa9c6bb02f65802db77daf187346306a7ede1298154",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-downward-diamond-only.png": {
+      "sha256": "3dcbe725e2a7c432463c803847cb6568014a89236dc13ee92b3ee7ae49468d4e",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-forward-low-speed-overlay.png": {
+      "sha256": "225166fbb0ebc9804a478f726b69a49a3012a8724901bc2104a52e1841cea7fc",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-forward-low-speed-reference.png": {
+      "sha256": "25413bbd1f3d851a21f17fa7cf24e459b277566e168711711e39460efeed2427",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-forward-low-speed.png": {
+      "sha256": "ae89f05a4658c6b398e20cb33cd1750d463e648a8e475b898e909fec1e4eaf03",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-forward-velocity-overlay.png": {
+      "sha256": "00b18ad38a06d1799532d9628b592928fb5787b98a94be295ddf65a29627f13f",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-forward-velocity-reference.png": {
+      "sha256": "76d37583abeb37cc6092491c5d809594e4840f1cbbc3a130500efa874c486334",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-forward-velocity.png": {
+      "sha256": "8379f8529a95eeb97aaffec9bb7e0c559ab3ae41e893bf7ab1120b35128ceb96",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-forward-radar-overlay.png": {
+      "sha256": "41de52b9561132452aa52e9f0d44d6d32f1ba94a7f26fe9be4c9f1a68c1fd8d0",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-forward-radar-reference.png": {
+      "sha256": "182f0f6ec113bfe36216ff8b9901330356b9a04934e6e470463a3092fb9348f6",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-tak-forward-radar.png": {
+      "sha256": "d0f9780dd22b01f3af6d8e89eef55bc8d3d0d8b4520523019d84d0df1b5bc23a",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-gods-eye-overlay.png": {
+      "sha256": "2b8386a83f27b9d79de8de89d219b49ea66b018d9e84a6e916264e763e6936bb",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-gods-eye-reference.png": {
+      "sha256": "a04b102c56e63185f94f24461aedff920a922954901039389965af029300a8f7",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-tak-gods-eye.png": {
+      "sha256": "e8cade92a37b5e01ce00de8c8f7767f72a682288eb8aec17e031b5b159caac47",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-mgrs-overlay.png": {
+      "sha256": "fd5216e351090e659949971d6526e8a431f35eae1cbd835bbe6ed30a6bde4555",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-mgrs-reference.png": {
+      "sha256": "505b58c37a6a2deb448f6abb55dd096a548169c4d3763764722b46f71ab74b74",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-tak-mgrs.png": {
+      "sha256": "b84595046bcb587b303e36edbaae772f20f46018eebc91df831d06bc9bab1680",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-stale-overlay.png": {
+      "sha256": "36888ee2df9de8b7fa4b27d2bb4b84187f0385f40f77a7d5812840b70ffc5807",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "proposed-tak-stale-reference.png": {
+      "sha256": "90b1b12aabe3ee9e6a57b600321da3b5610931c4ade2d4dfeb146594d2d29806",
+      "size": [
+        1560,
+        1000
+      ]
+    },
+    "proposed-tak-stale.png": {
+      "sha256": "080a10d934aa5b99f000fdafeddaba17e46558b95846a20a69b029b2cc94a3eb",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "scene-downward.png": {
+      "sha256": "af69254f7ad41682274e8b315197969e7c6723d3f08a93e368c7df5e8b6c1714",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "scene-forward.png": {
+      "sha256": "4a84ae04491d355c17ec2320d8227f2e8c0e1e277f5e3b0baf6742914cbf5b03",
+      "size": [
+        960,
+        720
+      ]
+    },
+    "tak-sa-comparison.png": {
+      "sha256": "754a059f7b6b224fd728d63df059c8e7ff76953f8ac047e0f7310d154302b48d",
+      "size": [
+        2040,
+        660
+      ]
+    }
+  }
+}

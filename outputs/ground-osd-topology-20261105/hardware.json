@@ -1,0 +1,79 @@
+[
+  {
+    "id": "P1",
+    "name": "Raspberry Pi 4B + microSD + cooling",
+    "purpose": "Ground gateway: TAK ingest, Ghost decode, MGRS, validity and display updates.",
+    "endpoints": "Wi-Fi/Ethernet \u2194 TAK; USB-A \u2190 U2; GPIO 8/10 \u2194 AM_osd J3.4/3.",
+    "status": "Suitable by architecture; no live benchmark or unit reservation."
+  },
+  {
+    "id": "O1",
+    "name": "AM_osd inline rev 0.3 family",
+    "purpose": "Maintain PAL/NTSC sync and composite the HUD into video.",
+    "endpoints": "J1.3 \u2190 V1; J2.3 \u2192 V2; J3.1/2 power/G0; J3.3/4 UART.",
+    "status": "Repository baseline; installed board/image and video acceptance remain checks."
+  },
+  {
+    "id": "B1",
+    "name": "2 \u00d7 bare 8P8C/RJ45 breakout + short CAT6 lead",
+    "purpose": "Expose the numbered MATRIX contacts while retaining pair geometry.",
+    "endpoints": "J_RADIO toward GU QS; J_TAC toward TAC. 1\u20136 straight-through; 7/8 via K1.",
+    "status": "No Ethernet magnetics, PoE splitter or breakout with hidden circuitry. 50 V-rated assembly/insulation."
+  },
+  {
+    "id": "U1",
+    "name": "TI THVD1450D receiver circuit / breakout",
+    "purpose": "Candidate high-impedance differential-UART \u2192 3.3 V receive-only conversion.",
+    "endpoints": "A6 \u2190 MATRIX 6; B7 \u2190 MATRIX 3; R1 \u2192 U2 RXD; VCC8 \u2190 Pi 3V3; DE3 tied low.",
+    "status": "Conditional on common-mode/polarity/loading measurement. No onboard termination/bias left across operating link."
+  },
+  {
+    "id": "U2",
+    "name": "USB-to-3.3 V UART adapter",
+    "purpose": "Give the Pi a second serial input without sharing its AM_osd UART.",
+    "endpoints": "RXD \u2190 U1 R1; GND \u2192 G0; USB \u2192 Pi USB-A. TXD and power lead insulated.",
+    "status": "Select a documented 3.3 V logic adapter (e.g. FTDI class). Connector pin order depends on product."
+  },
+  {
+    "id": "V1",
+    "name": "AD8130-based differential CVBS receiver / evaluation circuit",
+    "purpose": "Candidate conversion from MATRIX video pair to single-ended CVBS; matched gain/equalization.",
+    "endpoints": "IN\u2212 \u2190 radio-side MATRIX 7; IN+ \u2190 8 through K1A; CVBS OUT \u2192 OSD J1.3; return \u2192 G0.",
+    "status": "Functional ports shown. No resistor values, supply rails or IC package wiring released until levels are measured."
+  },
+  {
+    "id": "V2",
+    "name": "AD8132-based differential CVBS driver / evaluation circuit",
+    "purpose": "Candidate reconstruction of the original differential video for TAC.",
+    "endpoints": "CVBS IN \u2190 OSD J2.3; OUT\u2212 / OUT+ \u2192 TAC 7 / 8 through K1B; return \u2192 G0.",
+    "status": "Output swing, common mode, source impedance and equalization must match the original link."
+  },
+  {
+    "id": "K1",
+    "name": "4-pole video transfer: two DPDT signal relays or one 4PDT switch",
+    "purpose": "Restore the original 7/8 pair and disconnect both adapter ends during bypass.",
+    "endpoints": "Input poles COM=radio 7/8; NO=V1 N/P. Output poles COM=TAC 7/8; NO=V2 N/P. Corresponding NCs joined.",
+    "status": "Choose/test for CVBS bandwidth/contact parasitics. Relay coils default off; future hardware watchdog, not Pi software alone."
+  },
+  {
+    "id": "PW",
+    "name": "Independent Pi USB-C PSU + regulated OSD supply + analog bench rails",
+    "purpose": "Keep local prototype power independent of MATRIX 50 V.",
+    "endpoints": "Pi USB-C: 5 V/3 A; OSD J3.1: regulated +5 V; analog rails per evaluated V1/V2 circuit; returns join G0.",
+    "status": "Do not power OSD from a 3V3 pin. Check grounding/backfeed; MATRIX 4 remains pass-through only."
+  },
+  {
+    "id": "T1",
+    "name": "Differential oscilloscope measurement + PAL source/monitor",
+    "purpose": "Establish video/data common mode, polarity, sync, loading, termination and overlay latency.",
+    "endpoints": "MATRIX 3/6 and 7/8, OSD J1.3/J2.3 and G0; start isolated from MATRIX.",
+    "status": "Required validation equipment; ownership/availability not established in relevant inventory."
+  },
+  {
+    "id": "U3",
+    "name": "Optional second U1/U2 receiver channel for C2",
+    "purpose": "Later decode RC page-selector state without transmitting or breaking control continuity.",
+    "endpoints": "MATRIX 2 \u2192 A6; MATRIX 1 \u2192 B7; R1 \u2192 separate USB UART RXD.",
+    "status": "Deferred; local Pi UI selects pages first. No new AUX assigned."
+  }
+]

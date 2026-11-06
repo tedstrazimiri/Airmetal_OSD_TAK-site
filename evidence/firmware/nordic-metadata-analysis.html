@@ -1,0 +1,217 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nordic DFU metadata and controller identity · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/firmware/nordic-metadata-analysis.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="nordic-dfu-metadata-and-controller-identity">Nordic DFU metadata and controller identity</h1>
+<p>This offline inspection reads the nested <code>nordic/TacCtrl_1_3_6.zip</code> from the decoded Tac.Ctrl update. It does not execute firmware or access hardware. Machine-readable findings and all field offsets are in <code>nordic-metadata-analysis.json</code>; reproduce with <code>scripts/analyze_nordic_metadata.py</code> using <code>/usr/bin/python3.12</code>.</p>
+<h2 id="verified-package-contents">Verified package contents</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th style="text-align: right;">Bytes</th>
+<th>ZIP CRC32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>manifest.json</code></td>
+<td style="text-align: right;">148</td>
+<td><code>40ed3dd0</code></td>
+</tr>
+<tr>
+<td><code>Tac_Ctrl.bin</code></td>
+<td style="text-align: right;">291,756</td>
+<td><code>5717398a</code></td>
+</tr>
+<tr>
+<td><code>Tac_Ctrl.dat</code></td>
+<td style="text-align: right;">141</td>
+<td><code>7edb0074</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>Tac_Ctrl.bin</code> SHA-256: <code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>.</p>
+<p>The manifest declares an <strong>application</strong> update. The init packet also declares application type, zero SoftDevice bytes, and zero bootloader bytes. This is controller application firmware; it is not an image recovered from the external IRONghost QS transmitter or RF video receiver.</p>
+<h2 id="init-packet">Init packet</h2>
+<p>Fields interpreted using the <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/dfu/dfu-cc.proto">Nordic protobuf schema</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+<th style="text-align: right;">DAT value byte offset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation</td>
+<td>INIT</td>
+<td style="text-align: right;"><code>0x06</code></td>
+</tr>
+<tr>
+<td>DFU firmware integer</td>
+<td>1</td>
+<td style="text-align: right;"><code>0x0a</code></td>
+</tr>
+<tr>
+<td>Hardware compatibility integer</td>
+<td>52</td>
+<td style="text-align: right;"><code>0x0c</code></td>
+</tr>
+<tr>
+<td>Required SoftDevice</td>
+<td><code>0x100</code></td>
+<td style="text-align: right;"><code>0x0f</code></td>
+</tr>
+<tr>
+<td>Firmware type</td>
+<td>APPLICATION</td>
+<td style="text-align: right;"><code>0x12</code></td>
+</tr>
+<tr>
+<td>Application size</td>
+<td>291,756</td>
+<td style="text-align: right;"><code>0x18</code></td>
+</tr>
+<tr>
+<td>Hash type</td>
+<td>SHA-256</td>
+<td style="text-align: right;"><code>0x1e</code></td>
+</tr>
+<tr>
+<td>Hash bytes</td>
+<td>32 bytes, little-endian serialization</td>
+<td style="text-align: right;"><code>0x21</code></td>
+</tr>
+<tr>
+<td>Debug flag</td>
+<td>false</td>
+<td style="text-align: right;"><code>0x42</code></td>
+</tr>
+<tr>
+<td>Boot validation</td>
+<td>Generated CRC, empty bytes field</td>
+<td style="text-align: right;"><code>0x46</code></td>
+</tr>
+<tr>
+<td>Signature type</td>
+<td>ECDSA P-256 / SHA-256</td>
+<td style="text-align: right;"><code>0x4a</code></td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>64 bytes, little-endian r followed by s</td>
+<td style="text-align: right;"><code>0x4d</code></td>
+</tr>
+</tbody>
+</table>
+<p>The declared size equals the extracted BIN size. Reversing the stored hash bytes gives the computed BIN SHA-256 exactly, following <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/dfu/package.py">Nordic’s hash serialization</a>. The DFU integer 1 is distinct from the application’s <code>1.3.6</code> string. Hardware integer 52 is not an exact chip identity. The <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/__main__.py">official Nordic CLI</a> maps SoftDevice ID <code>0x100</code> to S140 7.2.0.</p>
+<p>The signature has the expected length and both scalar values lie within the P-256 group order. <strong>Signer authentication remains unverified:</strong> this application-only ZIP supplies no trusted Orqa public key. A hash match proves internal consistency, not origin. According to <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/dfu/init_packet_pb.py">Nordic’s init-packet implementation</a>, the signed message is the serialized InitCommand at DAT bytes <code>[9,73)</code>, whose SHA-256 is <code>f54a9dc30bfc9c0452fd09ccac0b3a6683533cab0386eebc7d1b2ee3183ca56e</code>. Signature encoding follows <a href="https://github.com/NordicSemiconductor/pc-nrfutil/blob/master/nordicsemi/dfu/signing.py">Nordic signing.py</a>.</p>
+<h2 id="architecture-and-load-base">Architecture and load base</h2>
+<p>At BIN offset <code>0x00</code>, the initial stack word is <code>0x20040000</code>. At <code>0x04</code>, the reset vector is <code>0x00027375</code>, indicating Thumb entry at <code>0x27374</code>. Loading at <strong><code>0x27000</code></strong> maps this to file offset <code>0x374</code>. Many literal pointers then resolve exactly to the embedded source-path strings listed below. These mutually consistent observations strongly support a Nordic Cortex-M/Thumb application loaded at <code>0x27000</code>, ending at <code>0x6e3ac</code> exclusive.</p>
+<p>No exact nRF model is claimed from stack layout or DFU hardware integer alone.</p>
+<h2 id="exact-correlation-with-measured-usb-descriptors">Exact correlation with measured USB descriptors</h2>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>BIN offset</th>
+<th>Address at inferred base</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB device descriptor</td>
+<td><code>0x40488</code></td>
+<td><code>0x67488</code></td>
+<td>All 18 bytes match the earlier laptop capture</td>
+</tr>
+<tr>
+<td>HID report descriptor</td>
+<td><code>0x46654</code></td>
+<td><code>0x6d654</code></td>
+<td>All 56 bytes match the earlier laptop capture</td>
+</tr>
+</tbody>
+</table>
+<p>The USB descriptor encodes VID/PID <code>35b6:0004</code>. The HID descriptor retains 16 one-bit buttons plus eight 16-bit axes, including the duplicate Slider usage, and hash <code>1e12645e986407d42f6938acf1316cab3bea3c59ea4e368793e60419043c62ca</code>. This ties the recovered firmware implementation to the observed controller USB interface. It does <strong>not</strong> establish that the physical controller currently runs version 1.3.6.</p>
+<p>Whole contiguous configuration/interface/endpoint records from the capture were not found in the BIN. Their construction remains a code-tracing question. Source comparison: <code>evidence/usb/rea-usb-snapshot.json</code>.</p>
+<h2 id="application-entry-points-for-code-tracing">Application entry points for code tracing</h2>
+<p>All locations below are BIN file offsets; add <code>0x27000</code> for the inferred address. Pointers are raw exact little-endian matches, not proven executed cross-references.</p>
+<table>
+<thead>
+<tr>
+<th>Source-path suffix</th>
+<th>String offset</th>
+<th>Pointer storage offsets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bluetooth.c</code></td>
+<td><code>0x437e0</code></td>
+<td><code>0x23ea8</code>, <code>0x23f18</code>, <code>0x23f64</code>, <code>0x23fec</code>, <code>0x24150</code>, <code>0x24170</code>, <code>0x24280</code>, <code>0x242b4</code>, <code>0x242d4</code>, <code>0x24318</code>, <code>0x243a0</code>, <code>0x24408</code>, <code>0x24534</code>, <code>0x2456c</code>, <code>0x245d8</code>, <code>0x24798</code>, <code>0x24810</code>, <code>0x24a3c</code>, <code>0x24ae4</code>, <code>0x24b1c</code>, <code>0x24c1c</code>, <code>0x24cdc</code></td>
+</tr>
+<tr>
+<td><code>ghost.c</code></td>
+<td><code>0x439d4</code></td>
+<td><code>0x25120</code>, <code>0x2683c</code></td>
+</tr>
+<tr>
+<td><code>mGimbal.c</code></td>
+<td><code>0x43b04</code></td>
+<td><code>0x26b48</code>, <code>0x26e60</code>, <code>0x26f48</code>, <code>0x2a774</code></td>
+</tr>
+<tr>
+<td><code>ble_custom.c</code></td>
+<td><code>0x43b5c</code></td>
+<td><code>0x2aaf4</code></td>
+</tr>
+<tr>
+<td><code>settigns.c</code></td>
+<td><code>0x43bc0</code></td>
+<td><code>0x2ae20</code>, <code>0x2affc</code></td>
+</tr>
+<tr>
+<td><code>stm32g.c</code></td>
+<td><code>0x43ca4</code></td>
+<td><code>0x2c8f0</code></td>
+</tr>
+<tr>
+<td><code>usb.c</code></td>
+<td><code>0x43d40</code></td>
+<td><code>0x2cdf0</code></td>
+</tr>
+<tr>
+<td><code>communicaton.c</code></td>
+<td><code>0x43fd8</code></td>
+<td><code>0x2faa8</code>, <code>0x2faec</code>, <code>0x2fb28</code>, <code>0x2fdb4</code></td>
+</tr>
+<tr>
+<td><code>main.c</code></td>
+<td><code>0x44ff8</code></td>
+<td><code>0x34e74</code>, <code>0x34ea0</code></td>
+</tr>
+<tr>
+<td><code>SSD1322_interface.c</code></td>
+<td><code>0x4508c</code></td>
+<td><code>0x353b8</code>, <code>0x35418</code>, <code>0x35468</code>, <code>0x354bc</code></td>
+</tr>
+<tr>
+<td><code>menus.c</code></td>
+<td><code>0x4612c</code></td>
+<td><code>0x36020</code>, <code>0x36060</code></td>
+</tr>
+<tr>
+<td><code>usbCdc.c</code></td>
+<td><code>0x46610</code></td>
+<td><code>0x3c3e8</code></td>
+</tr>
+<tr>
+<td><code>usbGamepad.c</code></td>
+<td><code>0x466e0</code></td>
+<td><code>0x3c4c8</code>, <code>0x3c524</code></td>
+</tr>
+</tbody>
+</table>
+<p>Additional useful strings include <code>Received heartbeat</code> at <code>0x4423c</code>, <code>IRONGhost menu</code> at <code>0x46284</code>, <code>Ghost not connected!</code> at <code>0x46294</code>, and <code>IRONGhost telemetry</code> at <code>0x464c0</code>. The JSON records selected parameter names, BLE identity text, menu text, and versions.</p>
+<p>Compiled strings are leads, not proof of active protocol behavior. The <code>MAC changed</code> string does not establish Ethernet, because BLE also uses device addresses. This inspection provides no MATRIX electrical pinout or direct laptop Ethernet compatibility claim.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

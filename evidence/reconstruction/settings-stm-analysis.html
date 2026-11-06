@@ -1,0 +1,374 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAC 1.3.6 offline reconstruction: settings, calibration, input filtering, and STM link · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../index.html">Start</a><a href="../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../../references/am-osd/osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../documents.html">All documents</a><a href="../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/evidence/reconstruction/settings-stm-analysis.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="tac-136-offline-reconstruction-settings-calibration-input-filtering-and-stm-link">TAC 1.3.6 offline reconstruction: settings, calibration, input filtering, and STM link</h1>
+<p>Date: 2026-10-11. Implementations: <code>tac_reconstruction/settings.py</code>, <code>tac_reconstruction/stm.py</code>, <code>tac_reconstruction/input_filter.py</code>. Validation: <code>tests/test_tac_settings_stm.py</code> (35 tests) and <code>tests/test_tac_input_filter.py</code> (11 tests), all 46 passing. This is an offline behavioral model; no firmware execution, hardware/device/network I/O, flashing, or changes to the Ghidra database occurred.</p>
+<p>Input: <code>evidence/firmware/nordic/Tac_Ctrl.bin</code>, base <code>0x27000</code>, 291756 bytes, SHA-256 <code>4c79b25623f07bfc62e8f223e8fbda30b0aba643277d9e13f1fadb6bd15931dd</code>. Code references refer to existing <code>evidence/firmware/ghidra-export/&lt;address&gt;.c</code>. Critical record field widths and startup counter increments were also checked using GNU ARM objdump in Thumb mode. Binary constants were independently compared against implemented menu labels, profile bytes, and calibration words.</p>
+<h2 id="implemented-surface">Implemented surface</h2>
+<ul>
+<li>Nine-row settings menu, exact order/IDs/labels, bounded previous/next movement, six visible rows, confirmation counters, voice-pack transfer-mode entry/cancel, volume/language/display/radio/cable mutations, and persistence effects.</li>
+<li>Logical settings records, version-4 migration, zero cable setting repair, boot counter, six opaque channel-profile records, and the traced factory-reset subset.</li>
+<li>Full and center-only calibration sample capture, default fallback bounds, timer-step sequencing, display target coordinates, downstream center order, and two 56-byte persisted calibration records.</li>
+<li>Four quadratic boundary coefficient triples per gimbal, quadrant-dependent nonlinear sample correction, output scaling/clamps, and explicit finite arithmetic domain.</li>
+<li>Four 100-sample moving averages, conditional replacement when the average is within 7 counts of the new output, accepted-call counters, and bounded center drift.</li>
+<li>Stateful STM command and audio framing, CRC, shared-buffer retention, complete-frame RX status handling, signature handshake, first-boot request, queue order/capacities/overflow modes, muted-audio consumption, and mapped voice token names.</li>
+</ul>
+<p>Unimplemented algorithms are explicit boundaries below. Methods return inert Python data/bytes; names such as <code>persist</code>, <code>stm_command</code>, and audio token strings do not perform corresponding real-world actions.</p>
+<h2 id="settings-menu-and-record-evidence">Settings menu and record evidence</h2>
+<p>Reset entry <code>0x27378</code> copies flash <code>0x6daa8</code> to RAM <code>0x20003074..0x20003978</code>. Flash <code>0x6e01c</code> therefore initializes the menu at RAM <code>0x200035e8</code>. Nine 33-byte records each contain 30 bytes of label, item ID, current value byte, and UI confirmation byte. Labels and IDs were read directly from the binary.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Index</th>
+<th style="text-align: right;">Item ID</th>
+<th>Label</th>
+<th>Recovered transition at <code>0x5ee1c</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>Gimbal recalibration</td>
+<td>Second press starts <code>0x516d8(0)</code> and clears confirmation</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Gimbal center recalibration</td>
+<td>Second press starts <code>0x516d8(1)</code> and clears confirmation</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Change voice pack</td>
+<td>Second press queues STM command 3, value 1; navigation queues value 0</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+<td>Cable length</td>
+<td>Raw value below 160 increments by 10; otherwise becomes 10; displayed as raw times 10 metres</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td>Audio volume</td>
+<td>Values below 5 increment; otherwise zero</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td>Audio Language</td>
+<td>Zero becomes 1; any nonzero becomes zero; labels ENG/UKR</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td>Display</td>
+<td>Zero becomes 1; any nonzero becomes zero; changes display timer and persists</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td>Radio</td>
+<td>Zero becomes 1; any nonzero becomes zero; persists</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7</td>
+<td>Factory reset</td>
+<td>Second press calls the traced reset helpers, then clears confirmation</td>
+</tr>
+</tbody>
+</table>
+<p>Events 3/4 move one row up/down with bounds 0..8. Six-row scroll origin is adjusted only at the visible boundary. Navigation resets the global press counter and the destination row's confirmation byte. Event 5 increments that global counter and writes its low byte to the selected row. Other events only render. A model <code>press(item_id)</code> convenience method selects through these navigation events, then sends event 5; it is not a recovered hardware API.</p>
+<p><code>0x5edb8</code> initializes current menu values from the runtime records. <code>0x5d068</code> performs this during UI setup. Display and Radio labels are kept as firmware UI labels; the model does not equate these bytes with directly toggling a power rail or an RF transmitter.</p>
+<table>
+<thead>
+<tr>
+<th>File ID / key</th>
+<th style="text-align: right;">Logical bytes</th>
+<th>Meaning established</th>
+<th>Runtime/default source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5000/4009</code></td>
+<td style="text-align: right;">6</td>
+<td>u16 LE version at +0; cable raw byte at +2; +3..5 opaque</td>
+<td>RAM <code>2000fe54</code>; <code>0x52038</code>, <code>0x5ee1c</code></td>
+</tr>
+<tr>
+<td><code>5004/400a</code></td>
+<td style="text-align: right;">5</td>
+<td>volume +0, Display setting +1; +2..4 opaque</td>
+<td>RAM <code>200035b8</code>; flash <code>6dfec</code> initializer <code>00 01 00 00 00</code>; helpers <code>0x58860/7c/98</code></td>
+</tr>
+<tr>
+<td><code>5007/400d</code></td>
+<td style="text-align: right;">4</td>
+<td>language byte +0; +1..3 opaque</td>
+<td>RAM <code>20014cfc</code>; <code>0x57070/8c/a8</code></td>
+</tr>
+<tr>
+<td><code>5005/400b</code></td>
+<td style="text-align: right;">1</td>
+<td>Radio setting</td>
+<td>RAM <code>20016534</code>; <code>0x586a0/fc</code>, <code>0x58718</code></td>
+</tr>
+<tr>
+<td><code>5006/400c</code></td>
+<td style="text-align: right;">8</td>
+<td>boot counter u32 LE +0; +4..7 opaque</td>
+<td>RAM <code>20016584</code>; <code>0x58ab4/adc</code></td>
+</tr>
+<tr>
+<td><code>5002/4003..4008</code></td>
+<td style="text-align: right;">74 each</td>
+<td>six channel-profile records, preserved as bytes</td>
+<td><code>0x5273c</code>, <code>0x52898</code>; RAM <code>200033d8</code>, <code>20003424</code>, <code>20003470</code>, <code>200034bc</code>, <code>20003508</code>, <code>20003554</code></td>
+</tr>
+<tr>
+<td><code>5003/4000</code></td>
+<td style="text-align: right;">56</td>
+<td>calibration words 14..27, u32 LE</td>
+<td>RAM <code>20003320</code>; <code>0x4da84</code>, <code>0x51694</code></td>
+</tr>
+<tr>
+<td><code>5003/4001</code></td>
+<td style="text-align: right;">56</td>
+<td>calibration words 0..13, u32 LE</td>
+<td>RAM <code>200032e8</code>; same functions</td>
+</tr>
+</tbody>
+</table>
+<p><code>0x51e8c</code> loads exactly the requested logical byte count, creating a record from runtime defaults if absent. <code>0x51f34</code> updates a record. Both give FDS <code>(logical_length+3)&gt;&gt;2</code> words. Thus 5/6 logical bytes occupy 8-byte FDS data spans and 74 bytes occupy 76. The physical FDS record header, CRC, flash page state, asynchronous errors, and padding bytes copied from adjacent MCU RAM are not modeled. Caller-supplied extra bytes are retained in <code>supplied_storage_tails</code> as forensic input only; the API does not fabricate MCU padding.</p>
+<p>Startup <code>0x52038</code> reads version with <code>ldrh</code> and cable with <code>ldrb +2</code>, verified from raw instructions. A version other than 4 calls <code>0x52000</code>, which deletes file IDs <code>0x4000..0x6000</code>, except <code>0x5000</code>; it then writes version 4. Zero cable raw becomes 10. Other nonzero cable bytes are not validated: raw 159 becomes 169 for one press, then 10 on the next. The model preserves this literal behavior rather than normalizing malformed records. <code>0x58ab4</code> increments only the first 32-bit word of its eight-byte record, wrapping at 32 bits. <code>startup_effects</code> records high-level modeled work, not every asynchronous FDS call/event.</p>
+<p>The profile template is the 74-byte initializer at flash <code>0x6ddc0</code>, RAM <code>0x2000338c</code>. Profile 0 has the same initialized bytes; profiles 1..5 initially contain only their index followed by zeros. Their channel route semantics are provided by the separate controls model. Factory-reset routine <code>0x527cc</code> copies its mutable template into profile 0, then changes the template header for profiles 1..5. <strong>Literal routine nuance:</strong> the RAM template is left with ID 5 and enabled byte 0. If this exact routine is called again without reboot or another mutation, profile 0 receives that header on the second call. The model keeps the mutable template and tests this recurrence. This is a static reconstruction, not a claim of a reproduced user-visible controller defect.</p>
+<p>The rest of the factory-reset menu path calls <code>0x570a8</code>, <code>0x58898</code>, <code>0x5d02c</code>, <code>0x58718</code>. It resets language byte 0, the full five-byte audio/display default block, display timer state, and the radio byte. It does not reset cable length, calibration records, or boot count. Unknown language bytes remain untouched. The default audio/display block is copied from RAM <code>0x200035c0</code>, initialized at flash <code>0x6dff4</code>.</p>
+<h2 id="calibration-capture-reconstruction">Calibration capture reconstruction</h2>
+<p><code>0x516d8(0)</code> starts the callback timer with <code>0xc000</code> ticks, sets current state 0 and final state 9. <code>0x516d8(1)</code> uses final state 0. <code>0x517b0</code> captures the current state through <code>0x4e5a0</code>, advances it if below the final state, or persists via <code>0x51694</code> and requests coefficient recomputation otherwise. Full mode therefore has nine useful capture steps (0..8) and a final state-9 no-op capture before completion. The model advances only when its explicit <code>tick</code>/<code>advance_calibration</code> method is called; it does not infer wall-clock timing.</p>
+<p>The four raw samples are read at MCU RAM addresses <code>(0x2000fd0e, 0x2000fd10, 0x2000fd0a, 0x2000fd0c)</code> in that order. No physical stick naming is assigned.</p>
+<p>State 0 writes center words <code>(12,13,26,27)</code>. Each sample must satisfy <strong>30000 &lt; sample &lt; 35000</strong>. Otherwise the function uses the corresponding original compiled calibration default copied to RAM <code>0x2000fc78</code> during <code>0x4da84</code>, not the previous saved calibration value. Defaults are 28 u32 words at flash <code>0x6dd1c</code>; all were verified against the binary.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">State</th>
+<th>Calibration word &lt;- sample index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>5&lt;-0, 9&lt;-1, 19&lt;-2, 23&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>2&lt;-1, 16&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>4&lt;-0, 8&lt;-1, 18&lt;-2, 22&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>1&lt;-0, 15&lt;-2</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>6&lt;-0, 10&lt;-1, 20&lt;-2, 24&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>3&lt;-1, 17&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>7&lt;-0, 11&lt;-1, 21&lt;-2, 25&lt;-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>0&lt;-0, 14&lt;-2</td>
+</tr>
+</tbody>
+</table>
+<p><code>0x5fe38</code> gives the nine display target coordinates copied into <code>CalibrationModel.DISPLAY_POINTS</code>. <code>0x53b2c</code> copies calibrated centers to downstream state in word order <code>(26,27,12,13)</code>; <code>centers_for_downstream()</code> reproduces that order. <code>0x51694</code> stores words 14..27 under key 4000 and words 0..13 under key 4001, then stops the timer.</p>
+<h2 id="calibration-coefficients-and-nonlinear-transform">Calibration coefficients and nonlinear transform</h2>
+<p><code>0x4e7b8</code> constructs four triples per 14-word gimbal block through <code>0x4df8a</code> (Y from X) and <code>0x4e294</code> (X from Y). Raw Thumb instructions resolve Ghidra's misleading hard-float ABI: input double registers d0..d5 contain three coordinate pairs and returned d0..d2 contain coefficients. The zero-valued literal pools used for center-axis points were independently decoded from the binary. <code>fit_quadratic()</code> implements the recovered closed-form solve in source operation order.</p>
+<p>There is a consequential sign convention: stored <code>b</code> is the <strong>negative</strong> conventional linear coefficient, confirmed by the sign-bit inversion at <code>0x4e142</code>. Thus the interpolation curve is <code>a*t*t - b*t + c</code>. The subsequent transform initially evaluates <code>a*t*t + b*t + c</code>, then subtracts the linear term in its normalization denominators. The model preserves both operations literally. Tests use an asymmetric linear boundary to detect accidental correction of this convention.</p>
+<p>For each bank, write its words as <code>w[0..13]</code> and centers as <code>(cx,cy)=(w12,w13)</code>. The recovered three-point fits are:</p>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Point 1</th>
+<th>Point 2</th>
+<th>Point 3</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positive Y</td>
+<td><code>(cx-w4,w8-cy)</code></td>
+<td><code>(0,w2-cy)</code></td>
+<td><code>(cx-w5,w9-cy)</code></td>
+<td>Y from X</td>
+</tr>
+<tr>
+<td>Positive X</td>
+<td><code>(cx-w5,w9-cy)</code></td>
+<td><code>(cx-w0,0)</code></td>
+<td><code>(cx-w7,w11-cy)</code></td>
+<td>X from Y</td>
+</tr>
+<tr>
+<td>Negative Y</td>
+<td><code>(cx-w6,w10-cy)</code></td>
+<td><code>(0,w3-cy)</code></td>
+<td><code>(cx-w7,w11-cy)</code></td>
+<td>Y from X</td>
+</tr>
+<tr>
+<td>Negative X</td>
+<td><code>(cx-w4,w8-cy)</code></td>
+<td><code>(cx-w1,0)</code></td>
+<td><code>(cx-w6,w10-cy)</code></td>
+<td>X from Y</td>
+</tr>
+</tbody>
+</table>
+<p>The numeric portion of <code>0x4f190</code> is implemented by <code>transform_calibrated_pair()</code>. It uses relative coordinates <code>x=cx-raw_x</code>, <code>y=raw_y-cy</code>, chooses the appropriate X/Y boundaries for the quadrant, evaluates their polynomials, and applies their rational correction. A 400-count endpoint margin precedes integer remapping (<code>0x4df5c</code>) to minimum 345, center 1984, maximum 3622. The returned trace includes quadrant, relative coordinates, corrected coordinates, and final u16 outputs. Explicit float32 rounding is applied where the ARM instructions convert to single precision; the remaining operations use host double precision.</p>
+<p>The arithmetic contract is finite IEEE-754 nearest-even input with uint16 samples and uint16-scale calibration words. Degenerate fits, zero normalization denominators, and nonfinite values are rejected. Exceptional MCU floating-point modes, NaN propagation, overflow, denormals, and corrupted records outside that domain are not claimed. The solver and transform were statically recovered; no original firmware was executed for numerical comparison.</p>
+<p><code>CalibrationModel.transform_samples(samples)</code> accepts the same sample order as capture and returns <code>0x4f190</code> argument-output order: bank1 X/Y, then bank0 X/Y. Caller <code>0x56038</code> passes output pointers <code>(0x200145e8,0x200145ea,0x200145e4,0x200145e6)</code>, so reorder the result <code>[2,3,0,1]</code> to obtain the MCU stick array beginning at <code>0x200145e4</code>. Those values then pass through the filtering stage below before report production. The numeric transform alone is not the complete sampled-input chain.</p>
+<h2 id="downstream-averaging-conditional-replacement-and-center-drift">Downstream averaging, conditional replacement, and center drift</h2>
+<p>The separate <code>input_filter.py</code> models these operations without reading sensors or scheduling callbacks:</p>
+<table>
+<thead>
+<tr>
+<th>Routine</th>
+<th style="text-align: right;">Exported function size</th>
+<th>Recovered role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x566b8</code></td>
+<td style="text-align: right;">62 bytes</td>
+<td>Signed32 running sum: subtract overwritten ring sample, add new sample, store new sample, signed division by window length</td>
+</tr>
+<tr>
+<td><code>0x566f8</code></td>
+<td style="text-align: right;">180 bytes</td>
+<td>Four calls to the helper using a shared u16 index, followed by index increment/wrap</td>
+</tr>
+<tr>
+<td><code>0x53b58</code></td>
+<td style="text-align: right;">284 bytes</td>
+<td>A one-count center adjustment within a narrow output-center window</td>
+</tr>
+<tr>
+<td><code>0x56038</code> prefix</td>
+<td style="text-align: right;">Part of a 1556-byte routine</td>
+<td>Acquires transformed outputs, updates averages, conditionally replaces output and advances drift counters before HID work</td>
+</tr>
+</tbody>
+</table>
+<p>Window length is initialized to <strong>100</strong>, from flash <code>0x6dfe4</code> to RAM <code>0x200035b0</code>. Four 400-byte int32 rings begin at <code>0x20014610</code>, <code>0x200147a0</code>, <code>0x20014930</code>, and <code>0x20014ac0</code>. Four sums are at <code>0x20014600..0x2001460c</code>; averages are at <code>0x200145f0..0x200145fc</code>; the shared u16 index is at <code>0x20014c54</code>. Reset <code>0x27378</code> calls <code>0x272cc</code> to zero RAM <code>0x20003978..0x200210ec</code>, covering all this state. Startup therefore divides by 100 even before 100 real samples arrive. The independent helper models signed32 wrapping and division toward zero. A smaller explicit window is a synthetic testing/replay option, not a recovered user setting.</p>
+<p><code>0x56038</code> supplies the moving-average arguments in bank1 X/Y, bank0 X/Y order. For each MCU output slot, it then compares the newly calculated average with the current unfiltered value. Only if their absolute difference is <strong>less than 8</strong> does it replace the current output with that average and increment the corresponding byte counter at <code>0x20014c50..53</code>. Other samples pass through unchanged and do <strong>not</strong> reset that counter. If the counter is already 30, it calls the drift helper, resets the counter, and then increments it. From zero, the first drift call therefore occurs on accepted sample 31, then every 30 accepted samples. Counts are explicit API observations; no wall-clock period is inferred.</p>
+<p><code>0x53b58(output,current_center,reference_center,orientation)</code> returns the current center unless output differs from 1984 and lies strictly between 1939 and 2029. Within that window, if the signed difference <code>reference-current</code> lies outside -199..199, the current center moves one count toward the reference. Otherwise, X orientation moves center +1 below 1984 or -1 above it; Y orientation reverses this direction. The valid callers use orientations 0 and 1. The bounded API rejects other orientations rather than exposing the source's unsupported zero-return branch as a usable feature. No flash write occurs in this helper.</p>
+<p><code>InputFilterModel.step()</code> takes <code>stick_raw</code>, <code>calibration_centers</code>, and <code>reference_centers</code>, each in MCU order: bank0 X/Y, bank1 X/Y (center words 12,13,26,27). Its output includes filtered values, new centers, acceptance booleans, counters, per-step drift-call booleans, and cumulative call counts. Since <code>centers_for_downstream()</code> returns the opposite bank order, reorder its result <code>[2,3,0,1]</code> for this API. Centers remain caller-supplied on each step; the filter never mutates <code>CalibrationModel</code>, recomputes coefficients, or persists records implicitly. The complete sensor transport, scheduler cadence, and coefficient-refresh lifecycle remain integration boundaries.</p>
+<h2 id="stm-framing-and-queue-evidence">STM framing and queue evidence</h2>
+<p><code>0x583ac</code> writes a shared 16-byte buffer at RAM <code>0x20014cdc</code>:</p>
+<pre><code class="language-text">CC 0E command value [11 retained bytes] CRC
+                  offsets4..14       offset15
+CRC input = offsets2..14; polynomial D5, initial0, MSB first.
+</code></pre>
+<p>It does <strong>not</strong> clear bytes 4..14. Audio generated just before a cable-length command remains in this tail, with a new CRC. <code>StmFramer</code> preserves this behavior and accepts a caller-specified initial buffer when reset-zero state is not appropriate. CRC routine <code>0x5840c</code> gives <code>0xbc</code> for <code>123456789</code>; independent cable vector from zeroed state is <code>cc0e040a0000000000000000000000f4</code>.</p>
+<p><code>0x58370</code> queues command 4 + cable raw. <code>0x58334</code> queues command 3 + transfer-mode value. <code>0x57124</code> builds command 2 with language at byte 3, zero byte 4, volume byte 5, and nine bytes of audio token at 6..14. It populates this shared buffer even when the audio is subsequently suppressed because volume is zero or enable flag <code>0x20014cd9</code> is not 1. It consumes the queued audio in either case.</p>
+<p><code>0x57568</code> maps 26 event IDs to fixed voice token strings. <code>0x57124</code> checks the copied token length, including NUL, satisfies <code>1 &lt; length &lt; 10</code>. ID 20 (<code>PreDisarm</code>, length 10 with NUL) fails this gate. The offline model retains the first nine token bytes in the shared buffer and returns no frame, while refusing to reproduce any out-of-buffer local copy. Unknown event IDs are treated as unsupported; no meaning is invented for the source's potentially uninitialized length in that case. Token strings are metadata, not actuation.</p>
+<p>Five descriptors at <code>0x66288..0x662d8</code> resolve to the queues below. <code>0x31a4c</code> returns error 4 on a full queue when descriptor word 4 is nonzero; otherwise it overwrites the oldest entry. <code>0x31990</code> and <code>0x31a04</code> establish the ring capacity interpretation.</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Role</th>
+<th style="text-align: right;">Capacity</th>
+<th style="text-align: right;">Element bytes</th>
+<th>Full behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>66288</td>
+<td>RX frames</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">16</td>
+<td>Reject new</td>
+</tr>
+<tr>
+<td>6629c</td>
+<td>command records</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">13</td>
+<td>Reject new</td>
+</tr>
+<tr>
+<td>662c4</td>
+<td>first audio-string queue</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td>Reject new</td>
+</tr>
+<tr>
+<td>662d8</td>
+<td>second audio-string queue</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td>Reject new</td>
+</tr>
+<tr>
+<td>662b0</td>
+<td>input-to-event lookup queue</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Overwrite oldest</td>
+</tr>
+</tbody>
+</table>
+<p>The model's event queue accepts already-resolved event IDs: full lookup <code>0x57978/0x57dd8</code> is not implemented here, and its two-byte firmware element is therefore not falsely exposed as an equivalent model wire record. Its recovered capacity/overwrite and scheduling behavior are retained.</p>
+<p>One polling call to <code>0x57124</code> consumes at most one RX frame, then considers transmission. It checks CRC and recognizes statuses 1,3,4,5. The shown function does not test byte 0. The bounded model accepts a complete 16-byte frame with length byte 14, records whether byte 0 equals CC, and does not impose an extra firmware prefix filter. Other lengths, arbitrary stream fragmentation, or malformed lengths causing out-of-buffer reads are outside the model.</p>
+<ul>
+<li>Status 1 sets readiness to 1 when payload begins <code>01 01 02 04</code>. When readiness is 1 and the suppression flag is false, each poll emits command 1, value 0. Initial readiness is <code>0xff</code> from the initialized RAM image.</li>
+<li>Status 3 clears the handshake-suppression flag. If not busy (<code>0x57114</code>), dequeue priority is: command, first audio string, second audio string, resolved event audio. At most one item is consumed. Incoming status 3 can queue a one-time first-boot command 3, value 1 through <code>0x58af8</code>.</li>
+<li>Statuses 4/5 are retained but have no outgoing branch in this function. Bad CRC and unknown types leave previous status unchanged.</li>
+<li>An RX status 3 also tests two UI state bytes for <code>(1,2)</code> and may exit a transfer page. The model exposes this as an unmet external condition event; it does not guess whole-page state.</li>
+</ul>
+<h2 id="public-api-and-examples">Public API and examples</h2>
+<pre><code class="language-python">from tac_reconstruction.settings import SettingsModel
+from tac_reconstruction.stm import StmModel, StmFramer
+
+settings = SettingsModel()  # modeled post-record-initialization state
+stm = StmModel(language=settings.language, volume=settings.volume)
+for effect in settings.press(8):  # select Cable length and activate
+    if effect[&quot;kind&quot;] == &quot;stm_command&quot;:
+        stm.queue_command(effect[&quot;command&quot;], effect[&quot;value&quot;])
+
+# Synthetic ACK supplied to the offline model, not sent to any device.
+stm.feed_rx(StmFramer().command(3, 0))
+frames = stm.tick()  # list[bytes], first queued cable command
+state = settings.snapshot()  # JSON-compatible observation
+records = settings.persistence_records()  # {(file_id,key): logical bytes}
+
+settings.press(1)
+settings.press(1)  # center capture confirmation
+settings.advance_calibration([32000, 32001, 32002, 32003])
+</code></pre>
+<p><code>SettingsModel.menu_event(3|4|5)</code>, <code>press(item_id)</code>, <code>snapshot()</code>, <code>persistence_records()</code>, <code>advance_calibration(samples)</code>, <code>factory_reset()</code> are stable entry points. <code>CalibrationModel</code> is independently usable with <code>start(0|1)</code>, <code>tick(samples)</code>, <code>persistence_records()</code>, <code>centers_for_downstream()</code>, <code>coefficients(bank)</code>, <code>transform_pair(bank,raw_x,raw_y)</code>, <code>transform_samples(samples)</code>, and <code>snapshot()</code>. Pure numeric helpers are <code>fit_quadratic</code>, <code>calibration_coefficients</code>, and <code>transform_calibrated_pair</code>.</p>
+<p><code>input_filter.py</code> provides <code>moving_average_update(history,running_sum,index,sample)</code>, <code>MovingAverage4(...).step(samples)</code>, <code>center_drift(output,current_center,reference_center,orientation)</code>, <code>hold_and_drift(samples,averages,counters,calibration_centers,reference_centers)</code>, and <code>InputFilterModel(...).step(stick_raw,calibration_centers,reference_centers)</code>. Both models offer <code>snapshot()</code>.</p>
+<p><code>StmFramer.command(command,value)</code>, <code>cable_length(raw)</code>, <code>voice_pack_mode(bool)</code>, <code>audio(token,language=...,volume=...)</code>, <code>event_audio(id,...)</code>, <code>crc8(data)</code>, and <code>parse_frame(bytes)</code> expose framing. <code>StmModel</code> adds <code>queue_command</code>, <code>queue_cable_length</code>, <code>queue_voice_pack_mode</code>, <code>queue_audio(priority=...)</code>, <code>queue_resolved_event_audio</code>, <code>feed_rx</code>, <code>tick(busy=...)</code>, and <code>snapshot</code>. <code>tick</code> returns byte frames; metadata is in <code>last_effects</code>.</p>
+<h2 id="validation-and-remaining-boundaries">Validation and remaining boundaries</h2>
+<p>35 settings/STM/calibration tests cover literal defaults, all cable/volume transitions, unknown-field retention, startup version migration, malformed nonzero cable values, FDS lengths, navigation, confirmation, transfer-mode cancellation, factory-reset scope and mutable-template recurrence, boot counter wrapping, full/center calibration vectors and bounds, record round trips, CRC vectors, shared-tail retention, partial invalid-audio buffer changes, ACK and readiness gates, muted audio, queue order/capacities/overflow, first-boot handling, and rejected/unknown RX behavior. Seven of these specifically exercise the nonlinear math: a known polynomial with its stored sign convention, swapped-axis fitting, independently calculated symmetric quadrants/clamps, a curved-boundary exact-rational oracle, asymmetric linear behavior, default-center output/order, and explicit invalid-domain rejection.</p>
+<p>11 additional filter tests cover zero-filled startup/full-window division, a separate moving-window slice oracle, signed division/wrap, seeded ring state, strict drift/hold bounds, axis orientation/reference limits, first-call and repeated-call cadence, counter retention across rejected holds, MCU channel ordering, and invalid-input rejection. Reproduce with <code>python3 -m unittest tests.test_tac_settings_stm tests.test_tac_input_filter -v</code>.</p>
+<p>The modules use only Python's standard library and have no device/network/filesystem operations. The supplied original binary remains immutable. Tests establish consistency with the recovered routine subset and independent byte fixtures; they are not differential execution against a physical TAC or the original ARM image.</p>
+<p>Remaining: full startup options screen and global page-navigation graph; sensor transport and coefficient-refresh lifecycle; exceptional floating-point cases; per-channel event-to-voice lookup; physical audio playback/STM firmware; actual cable equalizer effect; FDS physical flash format/errors/timing; complete malformed STM input behavior; interrupt/task scheduling and timing; full OLED drawing; electrical interfaces. State effects are exposed to the enclosing behavioral model for composition rather than silently performing those missing operations.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>

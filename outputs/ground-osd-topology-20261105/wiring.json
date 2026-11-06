@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-05",
+  "matrix": [
+    {
+      "pin": 1,
+      "function": "C2_N",
+      "note": "C2 uplink negative; differential, 3.3 V peak-to-peak"
+    },
+    {
+      "pin": 2,
+      "function": "C2_P",
+      "note": "C2 uplink positive; differential, 3.3 V peak-to-peak"
+    },
+    {
+      "pin": 3,
+      "function": "TEL_N",
+      "note": "Telemetry downlink negative; differential, 3.3 V peak-to-peak"
+    },
+    {
+      "pin": 4,
+      "function": "+50V DC",
+      "note": "Enabled/disabled by radio on/off control at TAC startup"
+    },
+    {
+      "pin": 5,
+      "function": "GND",
+      "note": "Ground"
+    },
+    {
+      "pin": 6,
+      "function": "TEL_P",
+      "note": "Telemetry downlink positive; differential, 3.3 V peak-to-peak"
+    },
+    {
+      "pin": 7,
+      "function": "VIDEO_N",
+      "note": "CVBS video negative"
+    },
+    {
+      "pin": 8,
+      "function": "VIDEO_P",
+      "note": "CVBS video positive"
+    }
+  ],
+  "nets": [
+    {
+      "from": "Pi physical 8 / GPIO14 TXD",
+      "to": "AM_osd J3.4 / FC_TX / PA10 RX",
+      "type": "3.3V UART"
+    },
+    {
+      "from": "AM_osd J3.3 / FC_RX / PA9 TX",
+      "to": "Pi physical 10 / GPIO15 RXD",
+      "type": "3.3V UART"
+    },
+    {
+      "from": "Pi physical 6 GND",
+      "to": "AM_osd J3.2 GND / MATRIX5 / G0",
+      "type": "return"
+    },
+    {
+      "from": "Pi physical 1 3V3",
+      "to": "THVD1450 VCC8",
+      "type": "3.3V power"
+    },
+    {
+      "from": "MATRIX6 TEL_P",
+      "to": "THVD1450 A6",
+      "type": "conditional differential input"
+    },
+    {
+      "from": "MATRIX3 TEL_N",
+      "to": "THVD1450 B7",
+      "type": "conditional differential input"
+    },
+    {
+      "from": "THVD1450 R1",
+      "to": "USB UART RXD",
+      "type": "3.3V UART"
+    },
+    {
+      "from": "G0",
+      "to": "THVD1450 GND5 / RE2 / DE3 / D4",
+      "type": "receiver enable / driver disable"
+    }
+  ],
+  "continuousMatrixPins": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "videoTransferPins": [
+    7,
+    8
+  ],
+  "matrix50VLocalTap": false,
+  "hardwareReservation": false,
+  "diagramStatus": "proposal, no electrical acceptance"
+}

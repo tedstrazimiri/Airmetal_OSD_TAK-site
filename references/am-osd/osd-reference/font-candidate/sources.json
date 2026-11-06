@@ -1,0 +1,30 @@
+{
+  "sources": [
+    {
+      "name": "9x15",
+      "source_url": "https://raw.githubusercontent.com/olikraus/u8g2/master/tools/font/bdf/9x15.bdf",
+      "retrieved": "2026-11-03",
+      "full_source_sha256": "27ea2628f5c7a526dc601e8606eda1f5d2329be714cd4a00102fd85744de203b",
+      "ascii_subset": "9x15-ascii.bdf",
+      "subset_sha256": "8f492bb08509a320e8b342c9fe7d4903183db14a964f5da369069aeb9d4642aa",
+      "license": "Public domain font. Share and enjoy.",
+      "subset_encodings": [
+        32,
+        95
+      ]
+    },
+    {
+      "name": "7x13",
+      "source_url": "https://raw.githubusercontent.com/olikraus/u8g2/master/tools/font/bdf/7x13.bdf",
+      "retrieved": "2026-11-03",
+      "full_source_sha256": "2483b5071440587ea60254acdeeea08ff96c453eeb68bc1550e2669b7cfcafce",
+      "ascii_subset": "7x13-ascii.bdf",
+      "subset_sha256": "e4dce38035e3025baf20b54c8c9f338c5e7f72df0897f5ea6e6fba8de1c9e63f",
+      "license": "Public domain font. Share and enjoy.",
+      "subset_encodings": [
+        32,
+        95
+      ]
+    }
+  ]
+}

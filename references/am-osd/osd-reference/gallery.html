@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AM_OSD canonical display references</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f3ef;color:#182b28;font:16px/1.55 system-ui,sans-serif}
+main{max-width:1480px;margin:auto;padding:40px 24px}h1{font-size:32px;line-height:1.15;margin:8px 0 20px}
+.intro{max-width:940px;color:#52645e}.eyebrow{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:650;color:#52645e}
+nav,.links{display:flex;flex-wrap:wrap;gap:20px}a{color:#175f56;text-underline-offset:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}article{min-width:0;border-top:1px solid #bdc8bf;padding-top:16px}
+h2{font-size:19px;line-height:1.35;margin:8px 0 16px}img{display:block;width:100%;height:auto;border:1px solid #bdc8bf}
+.links{font-size:14px}footer{margin-top:40px;color:#52645e}a:focus-visible{outline:3px solid #a35a19;outline-offset:4px}
+.prototype{margin-top:32px;border-top:2px solid #1b766a;padding-top:16px}.controls{display:flex;flex-wrap:wrap;gap:18px;align-items:end;margin:20px 0}
+.controls label{display:flex;flex-direction:column;gap:6px;min-width:140px}.controls .altitude{flex:2;min-width:240px}
+input[type=number]{max-width:140px;padding:8px;font:inherit}input[type=range]{width:100%;accent-color:#1b766a}
+select{padding:8px;font:inherit;max-width:100%}
+.controls .check{flex-direction:row;align-items:center;padding-bottom:8px}.previews{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.previews figure{margin:0;min-width:0}.previews figcaption{font-weight:650;margin-bottom:8px}.previews img,.previews canvas{display:block;width:100%;height:auto;border:1px solid #bdc8bf}
+.status{color:#175f56;min-height:25px}details{margin:24px 0}summary{cursor:pointer;font-weight:650}output{font-variant-numeric:tabular-nums}
+@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:24px 16px}h1{font-size:27px}}
+@media(max-width:760px){.previews{grid-template-columns:1fr}}
+</style></head><body><div style="padding:12px 20px;background:#172f40;font:14px system-ui"><a style="color:white" href="../../../index.html">← Airmetal OSD TAK documentation</a></div><main><p class="eyebrow">AirMetal · reference edition 2026-11-04 · PAL 4:3</p>
+<h1>OSD display references</h1><p class="intro">Eleven canonical states. Current reconstructions retain the actual AM_OSD font; proposed views preview the thinner Fixed Medium 9x15 bitmap candidate in the board's existing 12x18 cells. Current, optional and proposed behaviour are labelled separately. All scenes, markers and telemetry are synthetic; these are not live captures or measured drop-accuracy results.</p>
+<nav><a href="#tak-title">TAK views</a><a href="flight-layout.html">Flight HUD layout</a><a href="#font-title">Thinner bitmap fonts</a><a href="mgrs.html">MGRS coordinate card</a><a href="tak-sa.html">TAK policy and AUX concept</a><a href="#flat-title">World-down prototype</a><a href="README.html">Source assumptions</a><a href="flat-model.html">Flat-ground model and PCB budget</a><a href="../osd-development-roadmap.html">Development roadmap</a><a href="manifest.json">Source and image manifest</a></nav>
+<section class="prototype" aria-labelledby="font-title"><p class="eyebrow">Board-format font candidates · not installed firmware</p><h2 id="font-title">A thinner bitmap font that fits the existing OSD</h2><p class="intro">Proposed cards and previews use Fixed Medium 9x15; 7x13 is a smaller alternative. Both are public-domain bitmaps, encoded with the existing 12x18 cells and 54-byte glyph format. A replacement table is 13,824 bytes, with no runtime font engine. <a href="font-candidate/README.html">Sources, comparison and candidate C table</a></p><a href="font-comparison.png"><img src="font-comparison.png" width="2040" height="690" alt="Current thick bitmap font compared with Fixed Medium 9x15 and 7x13" loading="lazy"></a></section>
+<section class="prototype" aria-labelledby="tak-title"><p class="eyebrow">TAK situational awareness · synthetic firefighting markers</p>
+<h2 id="tak-title">God's-eye and forward radar-style views</h2>
+<p class="intro">Average cell voltage is the only retained FC telemetry. The God's-eye arrow stays centred and points up while markers rotate with aircraft azimuth; its background is undimmed. The radar fan gives more space to distant markers ahead. Both layouts show the two nearest fresh markers with relative-direction arrows and distances at bottom right, independently of the plotted sector. Both work at any camera angle and default to forward scenery. Plotted markers are not registered to scenery. Select MGRS readout for own-position and selected-marker coordinates. <a href="tak-sa.html">View policy and future AUX integration</a></p>
+<div class="controls"><label class="altitude" for="tak-heading">Aircraft azimuth <output id="tak-heading-value">045°</output><input id="tak-heading" type="range" min="0" max="359" step="1" value="45"></label>
+<label for="tak-mode">Simulated AUX position<select id="tak-mode"><option value="normal">LOW · Normal HUD</option><option value="god-eye" selected>MID · God's eye</option><option value="radar">HIGH · Forward radar</option></select></label>
+<label for="tak-range">Display range<select id="tak-range"><option value="500">500 m</option><option value="1000" selected>1 km</option><option value="3000">3 km</option><option value="5000">5 km</option></select></label>
+<label for="tak-camera">Camera background<select id="tak-camera"><option value="forward" selected>Forward camera</option><option value="downward">Downward camera</option></select></label>
+<label class="check" for="tak-feed"><input id="tak-feed" type="checkbox" checked>Marker feed usable</label>
+<label class="check" for="tak-landscape"><input id="tak-landscape" type="checkbox" checked>Mock landscape</label>
+<label class="check" for="tak-mgrs"><input id="tak-mgrs" type="checkbox">MGRS readout</label></div>
+<canvas id="tak-screen" width="960" height="720" role="img" aria-label="Heading-relative TAK marker view" style="display:block;width:100%;max-width:960px;height:auto;border:1px solid #bdc8bf">TAK marker preview.</canvas>
+<p id="tak-caption" class="status" role="status" aria-live="polite">Loading marker preview…</p>
+<p class="intro">F = fire location, C = crew, W = water, S = staging. A + label and outward chevron mean off-scale bearing only. The radar-style page plots TAK positions; it makes no sensor-detection claim. MGRS uses WGS84 with 1 m grid resolution, not a 1 m accuracy claim. AUX channel is unassigned; the coordinate card is a separate preview option.</p>
+<div class="grid"><article id="proposed-tak-gods-eye"><p class="eyebrow">P06 · Proposed / not implemented</p><h2>TAK / heading-up God's-eye view</h2>
+<a href="proposed-tak-gods-eye-reference.png"><img src="proposed-tak-gods-eye-reference.png" width="1560" height="1000" loading="lazy" alt="TAK / heading-up God's-eye view"></a>
+<p class="links"><a href="proposed-tak-gods-eye.png">Clean frame</a><a href="proposed-tak-gods-eye-overlay.png">Transparent overlay</a><a href="proposed-tak-gods-eye-reference.png">Full reference</a></p></article><article id="proposed-tak-forward-radar"><p class="eyebrow">P07 · Proposed / not implemented</p><h2>TAK / forward radar-style view</h2>
+<a href="proposed-tak-forward-radar-reference.png"><img src="proposed-tak-forward-radar-reference.png" width="1560" height="1000" loading="lazy" alt="TAK / forward radar-style view"></a>
+<p class="links"><a href="proposed-tak-forward-radar.png">Clean frame</a><a href="proposed-tak-forward-radar-overlay.png">Transparent overlay</a><a href="proposed-tak-forward-radar-reference.png">Full reference</a></p></article><article id="proposed-tak-stale"><p class="eyebrow">P08 · Proposed / not implemented</p><h2>TAK / marker feed unavailable</h2>
+<a href="proposed-tak-stale-reference.png"><img src="proposed-tak-stale-reference.png" width="1560" height="1000" loading="lazy" alt="TAK / marker feed unavailable"></a>
+<p class="links"><a href="proposed-tak-stale.png">Clean frame</a><a href="proposed-tak-stale-overlay.png">Transparent overlay</a><a href="proposed-tak-stale-reference.png">Full reference</a></p></article><article id="proposed-tak-mgrs"><p class="eyebrow">P09 · Proposed / not implemented</p><h2>TAK / MGRS coordinate readout</h2>
+<a href="proposed-tak-mgrs-reference.png"><img src="proposed-tak-mgrs-reference.png" width="1560" height="1000" loading="lazy" alt="TAK / MGRS coordinate readout"></a>
+<p class="links"><a href="proposed-tak-mgrs.png">Clean frame</a><a href="proposed-tak-mgrs-overlay.png">Transparent overlay</a><a href="proposed-tak-mgrs-reference.png">Full reference</a></p></article></div></section>
+<section class="prototype" aria-labelledby="flat-title"><p class="eyebrow">Interactive reference · no centre crosshair · offline prototype</p>
+<h2 id="flat-title">Forward velocity / downward world-down reference</h2>
+<p class="intro">The downward diamond always projects world down from roll/pitch. Height changes only the circle diameter, never diamond XY. With no usable GPS height/reference, the same diamond remains without a circle. FLAT identifies the current surface model; TER is reserved for actual height-grid use. There is no CCIP ADVISORY banner and barometric height is ignored. The diamond is an attitude reference, not a moving-package impact prediction. Both views retain the <a href="flight-layout.html">revised flight HUD</a>.</p>
+<div class="controls">
+<label class="altitude" for="flat-gps-altitude">Aircraft GPS altitude <output id="flat-gps-value">330 m</output><input id="flat-gps-altitude" type="range" min="300" max="420" step="1" value="330"></label>
+<label for="flat-ground-reference">Ground reference (m)<input id="flat-ground-reference" type="number" min="-500" max="10000" step="1" value="300"></label>
+<label for="flat-height-error">Assumed height error ±m<input id="flat-height-error" type="number" min="0" max="30" step="0.5" value="3"></label>
+<label for="flat-roll">Roll <output id="flat-roll-value">-4°</output><input id="flat-roll" type="range" min="-15" max="15" step="1" value="-4"></label>
+<label for="flat-pitch">Pitch up <output id="flat-pitch-value">15°</output><input id="flat-pitch" type="range" min="-15" max="15" step="1" value="15"></label>
+<label class="check" for="flat-gps-valid"><input id="flat-gps-valid" type="checkbox" checked>GPS height/reference usable</label>
+</div><div class="previews"><figure><figcaption>Forward · velocity marker only</figcaption><img src="proposed-forward-velocity.png" width="960" height="720" alt="Forward flight view with only the velocity marker and retained telemetry"></figure>
+<figure><figcaption>Downward · attitude-only diamond; height-dependent circle</figcaption><canvas id="flat-screen" width="960" height="720" role="img" aria-label="World-down diamond: roll/pitch changes position; GPS height changes circle diameter">World-down reference prototype.</canvas></figure></div>
+<p id="flat-caption" class="status" role="status" aria-live="polite">Loading reference assets…</p>
+<details><summary>Model assumptions</summary><p>Stationary release over one flat plane. Default assumed GPS-height error ±3 m, residual drift allowance 0.5 m/s and base surface allowance 1 m. The diamond is always world down. The circle is an uncalibrated illustrative envelope, not a probability or demonstrated drop-accuracy result. True CCIP and in-flight trajectory prediction are outside the current scope.</p></details></section>
+<section><h2>Revised proposed states</h2><div class="grid"><article><p class="eyebrow">P01 · Proposed / not implemented</p>
+<h2>Forward / ground-velocity guidance</h2><a href="proposed-forward-velocity-reference.png"><img src="proposed-forward-velocity-reference.png" width="1560" height="1000" alt="Annotated Forward / ground-velocity guidance" loading="lazy"></a>
+<p class="links"><a href="proposed-forward-velocity.png">Clean frame</a><a href="proposed-forward-velocity-overlay.png">Transparent overlay</a><a href="proposed-forward-velocity-reference.png">Full reference</a></p></article>
+<article><p class="eyebrow">P02 · Proposed / not implemented</p>
+<h2>Forward / velocity direction unavailable</h2><a href="proposed-forward-low-speed-reference.png"><img src="proposed-forward-low-speed-reference.png" width="1560" height="1000" alt="Annotated Forward / velocity direction unavailable" loading="lazy"></a>
+<p class="links"><a href="proposed-forward-low-speed.png">Clean frame</a><a href="proposed-forward-low-speed-overlay.png">Transparent overlay</a><a href="proposed-forward-low-speed-reference.png">Full reference</a></p></article>
+<article><p class="eyebrow">P03 · Proposed / not implemented</p>
+<h2>Downward / world-down and height circle</h2><a href="proposed-downward-ccip-reference.png"><img src="proposed-downward-ccip-reference.png" width="1560" height="1000" alt="Annotated Downward / world-down and height circle" loading="lazy"></a>
+<p class="links"><a href="proposed-downward-ccip.png">Clean frame</a><a href="proposed-downward-ccip-overlay.png">Transparent overlay</a><a href="proposed-downward-ccip-reference.png">Full reference</a></p></article>
+<article><p class="eyebrow">P04 · Proposed / not implemented</p>
+<h2>Downward / world-down diamond only</h2><a href="proposed-downward-diamond-only-reference.png"><img src="proposed-downward-diamond-only-reference.png" width="1560" height="1000" alt="Annotated Downward / world-down diamond only" loading="lazy"></a>
+<p class="links"><a href="proposed-downward-diamond-only.png">Clean frame</a><a href="proposed-downward-diamond-only-overlay.png">Transparent overlay</a><a href="proposed-downward-diamond-only-reference.png">Full reference</a></p></article></div></section>
+<details><summary>Current source baseline — original centre cues retained for comparison</summary><div class="grid"><article><p class="eyebrow">C01 · Current source reconstruction</p>
+<h2>Forward video / current source defaults</h2><a href="current-forward-default-reference.png"><img src="current-forward-default-reference.png" width="1560" height="1000" alt="Annotated Forward video / current source defaults" loading="lazy"></a>
+<p class="links"><a href="current-forward-default.png">Clean frame</a><a href="current-forward-default-overlay.png">Transparent overlay</a><a href="current-forward-default-reference.png">Full reference</a></p></article>
+<article><p class="eyebrow">C02 · Current source reconstruction</p>
+<h2>Downward video / current nadir reference</h2><a href="current-downward-default-reference.png"><img src="current-downward-default-reference.png" width="1560" height="1000" alt="Annotated Downward video / current nadir reference" loading="lazy"></a>
+<p class="links"><a href="current-downward-default.png">Clean frame</a><a href="current-downward-default-overlay.png">Transparent overlay</a><a href="current-downward-default-reference.png">Full reference</a></p></article>
+<article><p class="eyebrow">C03 · Existing optional settings</p>
+<h2>Downward video / existing payload option</h2><a href="current-downward-payload-reference.png"><img src="current-downward-payload-reference.png" width="1560" height="1000" alt="Annotated Downward video / existing payload option" loading="lazy"></a>
+<p class="links"><a href="current-downward-payload.png">Clean frame</a><a href="current-downward-payload-overlay.png">Transparent overlay</a><a href="current-downward-payload-reference.png">Full reference</a></p></article></div></details>
+<footer>Current downward references show world down, not a ballistic impact point. True package CCIP remains a separate roadmap item. Physical camera, heading, surface and release validation remain open.</footer>
+</main><script src="flat-prototype.js"></script><script src="tak-sa.js"></script></body></html>

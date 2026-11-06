@@ -1,0 +1,158 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Compact HUD, stationary-drop world-down reference and AUX-selectable TAK views · Airmetal OSD TAK</title><style>
+:root{--ink:#192e40;--muted:#607384;--line:#d8e2e8;--accent:#007f91;--bg:#f3f6f8;--paper:white;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#007487;text-underline-offset:3px}a:hover{color:#004653}.top{background:#172f40;color:white;padding:17px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{color:white;text-decoration:none;font-size:19px;font-weight:750;letter-spacing:.02em}.tag{font-size:12px;color:#c2d4de;text-transform:uppercase;letter-spacing:.1em}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1600px;margin:auto;min-height:85vh}aside{padding:27px 20px;position:sticky;top:0;height:max-content}aside a{display:block;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:7px;font-size:14px}aside a:hover{background:#e4ecef;color:var(--ink)}main{min-width:0;padding:35px 45px 70px;background:var(--paper);border-left:1px solid var(--line)}article{max-width:1050px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(30px,4vw,46px);line-height:1.18;letter-spacing:-.025em;margin:13px 0 22px}h2{font-size:26px;line-height:1.3;margin-top:36px}h3{font-size:20px}p,li{color:#354e60}li{margin:6px 0}pre{overflow:auto;background:#edf2f5;border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13px;line-height:1.5}code{font-family:ui-monospace,monospace;font-size:.9em}p code,li code,td code{background:#edf2f5;padding:2px 4px;border-radius:4px}img{max-width:100%;height:auto;border-radius:10px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:20px 0}th,td{padding:11px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:#e9f0f3}tr:nth-child(even){background:#f7f9fa}.notice{background:#edf6f3;border:1px solid #c8dfd5;border-radius:10px;padding:16px 20px;margin:20px 0}.notice p{margin:4px 0}.source{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:24px 0}.card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f8fafb}.card strong{font-size:21px;color:var(--ink)}.card p{font-size:14px;margin:9px 0 0}.metrics{display:flex;gap:13px;flex-wrap:wrap}.metric{padding:12px 18px;border:1px solid var(--line);border-radius:9px;background:#f6f9fa}.metric strong{font-size:24px;display:block}.metric span{font-size:12px;color:var(--muted)}.badge{font-size:11px;padding:3px 7px;border-radius:5px;background:#e4edf1;color:#3a5969}.doc{display:block;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none}.doc[hidden]{display:none}.doc small{display:block;color:var(--muted)}input{font:inherit;width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px}footer{max-width:1600px;margin:auto;padding:20px 28px;color:var(--muted);font-size:13px}.mermaid{overflow:auto;margin:25px 0}.mermaid svg{max-width:100%}button{font:inherit} :focus-visible{outline:3px solid #40adbb;outline-offset:3px}@media(max-width:850px){.layout{display:block}aside{position:static;padding:12px;display:flex;overflow:auto;border-bottom:1px solid var(--line)}aside a{white-space:nowrap;padding:8px 12px}main{padding:25px 18px 50px;border-left:0}.cards{grid-template-columns:1fr}.top{padding:15px 18px}.tag{display:none}table{min-width:580px}}</style></head><body><header class="top"><a class="brand" href="../../../index.html">Airmetal_OSD_TAK</a><span class="tag">Prototype & GCS research · 06 Nov 2026</span></header><div class="layout"><aside aria-label="Documentation"><a href="../../../index.html">Start</a><a href="../../../outputs/ground-osd-topology-20261105/index.html">Interactive wiring</a><a href="../osd-reference/gallery.html#tak-title">TAK / SA gallery</a><a href="../../../docs/status-and-roadmap.html">Status and roadmap</a><a href="../../../docs/ground-side-am-osd-plan.html">Ground integration plan</a><a href="../../../outputs/ground-osd-topology-20261105/wiring-and-hardware.html">Wiring / hardware</a><a href="../../../documents.html">All documents</a><a href="../../../source-register.html">Evidence register</a></aside><main><article><p class="source">Authored report · <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK/blob/main/references/am-osd/feature-requests/2026-11-04-osd-hud-tak.md">Source / retained evidence in private GitHub repository ↗</a></p><h1 id="compact-hud-stationary-drop-world-down-reference-and-aux-selectable-tak-views">Compact HUD, stationary-drop world-down reference and AUX-selectable TAK views</h1>
+<h2 id="problem-and-intended-use">Problem and intended use</h2>
+<p>Firefighting operators need a less obstructive analog OSD with MGRS readback and nearby
+TAK marker awareness. The current source layout has dense telemetry and separate centre
+cues; it does not implement the proposed flight vector, GPS-height circle or TAK pages.</p>
+<p>Request future consideration of the display contract below, backed by an offline gallery
+and reproducible design fixtures. <strong>Current drop use assumes the vehicle is stationary
+at release. True CCIP, in-flight package-impact prediction and automatic release are
+outside this request's implementation scope.</strong> This is a proposal, not flight acceptance.</p>
+<h2 id="requested-normal-flight-hud">Requested normal flight HUD</h2>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top left</td>
+<td>Own full MGRS zone/band + 100 km square, then grouped easting/northing</td>
+</tr>
+<tr>
+<td>Top right</td>
+<td>VTX channel; RX RF band/channel; link quality</td>
+</tr>
+<tr>
+<td>Middle left</td>
+<td>GPS satellite count</td>
+</tr>
+<tr>
+<td>Middle right</td>
+<td>GPS height above the captured same-datum ground reference; ignore barometric height</td>
+</tr>
+<tr>
+<td>Bottom left</td>
+<td>Average cell voltage above consumed mAh</td>
+</tr>
+<tr>
+<td>Bottom centre</td>
+<td>Heading-relative home arrow followed by home distance</td>
+</tr>
+<tr>
+<td>Bottom right</td>
+<td>Two nearest fresh TAK markers: short ID, relative arrow and horizontal distance, nearest first</td>
+</tr>
+</tbody>
+</table>
+<p>Remove the fixed centre crosshair, old latitude/longitude pair and unrequested base
+readouts. Do not display <code>FWD</code>, <code>GPS VEL</code>, <code>VEL: LOW SPEED</code>, <code>DROP REF</code>, <code>DOWN</code> or
+<code>CCIP ADVISORY</code> notifications. Existing package state/profile information can remain in
+the clear lower area shown in the references; switch/timer state must not be presented
+as proof of physical package presence or detachment.</p>
+<p>The RX field must show an explicit unavailable placeholder until a verified RF source
+exists; an RC AUX channel number is not the receiver's RF channel. MGRS must keep the
+full prefix and leading zeros. Grid resolution must not be confused with position accuracy.</p>
+<h2 id="forward-velocity-cue">Forward velocity cue</h2>
+<ul>
+<li>Show only the distinct projected ground-velocity marker, using valid heading, 3-D
+  velocity and the forward camera's own lens/mount calibration.</li>
+<li>At low speed or with an unusable direction, suppress the vector quietly. No centre
+  fallback and no low-speed warning banner.</li>
+<li>Resolve the actual camera/view and coordinate frames; GPS course alone is not aircraft
+  nose azimuth. Nearly immediate camera changes do not need a transition card.</li>
+</ul>
+<h2 id="stationary-drop-downward-reference">Stationary-drop downward reference</h2>
+<ul>
+<li>Both downward states always project the same NED world-down unit ray <code>[0, 0, 1]</code> through
+  the attitude/camera transform. <strong>Only roll/pitch changes diamond XY.</strong> GPS altitude,
+  reference height, speed and release timing never offset this diamond.</li>
+<li>Use the enlarged outlined diamond and centre dot. With usable GPS height/reference,
+  add a circle centred on it; height changes circle diameter only. Without usable height,
+  hide only the circle/diameter and keep the diamond at the same XY.</li>
+<li>Surface advisory is <code>FLAT</code> for the current plane model. Reserve <code>TER</code> for an implemented
+  backend actually using a valid height grid; having a grid file present is insufficient.
+  Terrain support must preserve the attitude-only diamond.</li>
+<li>GPS height is aircraft GPS altitude minus a captured reference in the same datum.
+  Do not substitute barometric altitude or imply terrain-following AGL from a launch plane.</li>
+<li>The reference circle uses assumed base/residual-drift allowances for a stationary release.
+  It is an illustrative engineering footprint, not a calibrated confidence percentage or
+  measured drop-accuracy claim. Final sizing/validity policy requires separate review.</li>
+</ul>
+<h2 id="tak-situational-awareness-pages">TAK situational-awareness pages</h2>
+<ul>
+<li>Heading-up God's-eye layout: ownship arrow fixed at picture centre, markers rotate
+  with aircraft azimuth, lightweight dashed range rings, bounded marker count and labels.
+  Leave the camera background <strong>undimmed</strong> in this view.</li>
+<li>Forward radar-style layout: ownship near the bottom with more range ahead; the example
+  uses a ±50° fan, 3 km range and four dashed distance intervals. This plots TAK positions,
+  not sensor detections. Off-scale chevrons/<code>+</code> labels convey bearing only.</li>
+<li>Both layouts are independent of camera angle and will commonly overlay forward-camera
+  video. They must not be treated as camera-registered marker projections or terrain maps.</li>
+<li>In SA pages, average cell voltage is the only retained legacy FC field. The two nearest
+  TAK rows remain new SA content at bottom right. The list considers all fresh bounded
+  contacts independently of the current radar sector/map range; sort by horizontal range,
+  then stable short ID for ties. Expired/invalid records clear instead of being held as current.</li>
+<li>Add an MGRS detail card for own position and the selected marker, with full independent
+  prefixes, datum, grid resolution and freshness. Stale selected-marker data clears its grid.</li>
+<li>Eventually support a configurable AUX page selector: Normal HUD / God's eye / Forward
+  radar. No AUX channel is assigned by this proposal. Check camera/tilt/dropper conflicts,
+  switch hysteresis, stale RC and atomic page clearing/restoration. The MGRS detail control
+  is a separate mapping decision, not a fourth position on a three-position switch.</li>
+</ul>
+<h2 id="thinner-font-candidate-and-board-boundaries">Thinner font candidate and board boundaries</h2>
+<p>The gallery previews public-domain Fixed Medium 9x15 text in the existing 12×18, 2-bit,
+256×54-byte font contract. A 7x13 alternative and current-font comparison are included.
+The exported replacement C table compiled for Cortex-M4 against the real font header:
+13,824 bytes <code>.rodata</code>, zero <code>.data</code>/<code>.bss</code>, and extracted bytes equal the exported table.
+Existing non-text symbol codes and the empty logo block are preserved.</p>
+<p>This is a one-table replacement candidate, with no runtime font engine. Keeping both
+tables for runtime selection would add another 13,824 bytes of flash. The binary is font
+data, not a flashable MCU image. Installed PAL/NTSC, analog-link/goggles/DVR readability
+and rendering timing still need acceptance. Mock scenery/dimming and desktop canvases
+are visualization aids, not proof of PCB video-blending capability or MCU RAM use.</p>
+<p>Use a bounded, trusted bridge/FC interface for marker snapshots, identity, source age,
+sequence, position frame and deletion/expiry. Prefer upstream MGRS conversion where
+appropriate. Do not add raw CoT XML/history or a regional map database to the scanline path.
+The current stationary flat-plane reference requires no terrain grid. A later grid backend
+needs its own memory, coverage, datum and update design; linker margins are not free-runtime
+allocation measurements.</p>
+<h2 id="suggested-implementation-sequence-and-acceptance">Suggested implementation sequence and acceptance</h2>
+<ul>
+<li>[ ] Freeze per-camera projection/view identity and telemetry frame/time/validity contracts.</li>
+<li>[ ] Port the reviewed HUD/font with verified original symbol compatibility and state clearing.</li>
+<li>[ ] Verify world-down XY invariance across height/reference changes and height loss; verify
+  roll/pitch motion through the installed camera, not just a desktop renderer.</li>
+<li>[ ] Verify GPS datum/reference capture/reset and circle scaling/invalid-height policy.</li>
+<li>[ ] Add bounded TAK ingest, nearest ordering, heading-relative arrows, ties, expiry,
+  deletes, invalid positions/heading and out-of-order source records.</li>
+<li>[ ] Port SA primitives/page takeover, MGRS detail and configurable AUX selection; test
+  normal-page restoration and camera/AUX independence.</li>
+<li>[ ] Measure scanline timing, telemetry load, stack/RAM margins, PAL/NTSC behavior and
+  installed analog font readability. Run separate controlled stationary-drop acceptance.</li>
+</ul>
+<p>True CCIP, moving-release guidance, package trajectory fitting, automatic release and
+regional height-grid storage remain deferred. Do not overload the world-down diamond
+with a finite trajectory point as part of implementing this request.</p>
+<h2 id="reference-evidence-and-limits">Reference evidence and limits</h2>
+<p>The companion offline gallery contains 11 labelled states, 46 PNGs, static overlays,
+interactive altitude/roll/pitch and TAK controls, source manifests, documentation and
+the font candidate. All scenes, marker locations, telemetry and performance allowances
+are synthetic. C01–C03 are source reconstructions, not live captures of an installed unit.</p>
+<p>Existing reference checks: deterministic regeneration; nine historical PNG hashes;
+six host camera/settings/protocol tests; 117-height world-down invariance/clearance;
+12 height/error plus six attitude browser/C comparisons; 64 SA render combinations;
+360-heading nearest-marker checks; stale/tie/invalid/zero-range cases; desktop/mobile
+browser checks; and the isolated ARM font-table compile. These do not accept firmware
+features, physical drop accuracy, live TAK/AUX transport or a particular airframe.</p>
+<p>Related calibration work: <a href="https://github.com/RMUS-Canada/AirMetal_OSD/pull/2">PR #2</a>.
+The gallery's frozen source baseline is <code>2f1e4f8361589b0ce607198b478bd1a2bb029618</code>, not
+the latest PR head. The proposed reference tools/docs are an uncommitted concept snapshot,
+not features already implemented by that PR. No hardware or saved FC settings were changed.</p>
+<p>Archive entry point: extract the complete companion ZIP, then open <code>index.html</code>.
+Useful paths inside it: <code>docs/osd-reference/gallery.html</code>, <code>docs/osd-reference/flight-layout.html</code>,
+<code>docs/osd-reference/flat-model.html</code>, <code>docs/osd-reference/tak-sa.html</code>, and
+<code>docs/osd-reference/font-candidate/README.html</code>. No Python, server or network is required
+to browse the package. Optional external provenance links require network access.</p></article></main></div><footer>Public documentation export · measured, static, synthetic and proposed results remain distinct. <a href="https://github.com/tedstrazimiri/Airmetal_OSD_TAK">Private source/evidence repository ↗</a></footer><script src="../../../web/vendor/mermaid-10.9.3.min.js"></script><script>document.querySelectorAll('table').forEach(t=>{let w=document.createElement('div');w.className='table-wrap';t.before(w);w.append(t)});document.querySelectorAll('code.language-mermaid').forEach(c=>{let d=document.createElement('div');d.className='mermaid';d.textContent=c.textContent;c.parentElement.replaceWith(d)});if(window.mermaid)mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral',flowchart:{htmlLabels:false}});let q=document.querySelector('#doc-search');if(q)q.addEventListener('input',()=>document.querySelectorAll('.doc').forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(q.value.toLowerCase())));</script></body></html>
